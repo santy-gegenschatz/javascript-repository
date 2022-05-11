@@ -1,10 +1,13 @@
 // Vamos a simular 
 alert("Hola! Bienvenido al simulador de procesos matemáticos");
-let factorial = Number(prompt("Ingrese un número al cual calcularle un factorial"));
-let esPar = Number(prompt("Ingrese un número para saber si es par o no"));
+let factorial_num = Number(prompt("Ingrese un número al cual calcularle un factorial"));
+factorial(factorial_num);
+let esPar_num = Number(prompt("Ingrese un número para saber si es par o no"));
+esPar(esPar_num);
+
 function factorial(param1) {
-    factorial = 1;
-    for (let i = 0; i < 10; i++) {
+    let factorial = 1;
+    for (let i = 1; i <= param1; i++) {
         factorial*=i;
     }
     alert("El factorial de " + param1 +" es " + factorial);
