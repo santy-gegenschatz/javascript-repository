@@ -10,7 +10,7 @@ function factorial(param1) {
     for (let i = 1; i <= param1; i++) {
         factorial*=i;
     }
-    alert("El factorial de " + param1 +" es " + factorial);
+    alert("El factorial de " + param1 + " es " + factorial);
 }
 
 function esPar(param1) {
