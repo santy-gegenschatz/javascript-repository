@@ -21,7 +21,7 @@ class Usuario {
             const pago = new Pago(id_pagos_count + 1, monto);
             pagos.push(pago);
         } else {
-            console.log("Eres pobre y no puedas realizar esta acción");
+            alert("Eres pobre y no puedas realizar esta acción");
         }
     }
 
@@ -63,7 +63,7 @@ function administrar() {
                         2. Ver Usuarios existentes
                         3. Cargar Saldo
                         4. Transferir entre Usuarios
-                        3. Eliminar Usuario`);
+                        5. Eliminar Usuario`);
     switch (orden) {
         case ("1") :
             console.log("Eligió el caso 1");
@@ -79,6 +79,10 @@ function administrar() {
             break;
         case ("4") :
             console.log("Eligió el caso 4");
+            transferencia();
+            break;
+        case ("5") :
+            console.log("Eligió el caso 5");
             transferencia();
             break;
         default:
@@ -116,20 +120,47 @@ function imprimirUsuarios() {
 }
 
 // Cargar Saldo
-function cargarSaldo(dni) {
+function cargarSaldo() {
+    let dni = prompt("Ingrese el dni del usuario a enriquecer")
     if (usuarioExiste(dni)) {
-
+        const usuario = usuarios.find((user) => user.dni = dni);
+        // Obtener la info del monto a acreditar
+        let monto = prompt("Ingrese un monto:")
+        usuario.monto+=monto; 
     } else {
-        
+        alert("El dni ingresado no coincide con un usuario en la base de datos");
     }
+    // Volver al menú
+    administrar();
 }
 
 // Buscar un usuario
 function usuarioExiste(dni) {
-    return 
+    if (typeof(usuarios.find((user) => user.dni = dni)) === 'undefined') {
+        return false
+    } else {
+        return true
+    }
 }
 
 // Hacer un pago
+function transferencia() {
+    let dni_origen = prompt("Ingrese el dni de quien transfiere");
+    if (usuarioExiste(dni_origen)) {
+        let dni_destino = prompt("Ingrese el dni de quien recibe");
+        if (usuarioExiste(dni_destino)) {
+            usuario_origen = usuarios.find((u) => u.dni == dni_origen);
+            usuario_destino = usuarios.find((u) => u.dni == dni_destino);
+            let monto = prompt("Ingrese un monto a transferir");
+            usuario_origen.transferencia(usuario_destino, monto);
+        } else {
+            alert("Ingrese un Dni válido")
+        }
+    } else {
+        alert("Ingrese un Dni válido")
+    }
+    administrar();
+}
 // 
 
 // Arrancar la aplicación
