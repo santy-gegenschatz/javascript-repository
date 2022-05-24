@@ -109,12 +109,17 @@ function eliminarUsuario() {
 
 // Imprimir usuarios existentes
 function imprimirUsuarios() {
-    for (let i = 0; i < usuarios.length; i++) {
-        let user_i = usuarios[i];
-        alert_string = "Usuario" + "\n" + user_i.nombre;
-        alert_string +=  "\n" + user_i.apellido;
-        alert_string +=  "\n" + user_i.dni;
+    if (usuarios.length > 0) {
+        for (let i = 0; i < usuarios.length; i++) {
+            let user_i = usuarios[i];
+            alert_string = "Usuario" + "\n" + user_i.nombre;
+            alert_string +=  "\n" + user_i.apellido;
+            alert_string +=  "\n" + user_i.dni;
+            alert_string += "\n" + "----"
+        }
         alert(alert_string); 
+    }  else {
+        alert("No hay usuarios existentes aún.");
     }
     administrar();
 }
