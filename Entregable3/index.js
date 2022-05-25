@@ -1,3 +1,4 @@
+// Constantes globales
 let usuarios = []
 let pagos = []
 let vendedores = []
@@ -5,6 +6,7 @@ let productos = []
 let id_usuarios_count = 0;
 let id_pagos_count = 0;
 
+// Clases del sistema a simular
 class Usuario {
     constructor(unique_id, nombre, apellido, dni, saldo) {
         this.unique_id = unique_id;
@@ -83,13 +85,14 @@ function administrar() {
             break;
         case ("5") :
             console.log("Eligió el caso 5");
-            transferencia();
+            eliminarUsuario();
             break;
         default:
             console.log("Ninguna de las opciones seleccionas es válida, gil.")
             
     }
 }
+
 // Dar de alta
 function altaUsuario() {
     let nombre = prompt("Ingrese el nombre");
@@ -104,18 +107,29 @@ function altaUsuario() {
 
 // Dar de baja
 function eliminarUsuario() {
+    let dni = prompt("Ingrese el dni del usuario a eliminar");
+    if (usuarioExiste(dni)) {
+        let usuario = usuarios.find((user) => user.dni === dni);
+        usuarios.pop(usuario);
+        alert("Eliminado con éxito.")
+        administrar();
+    } else {
+        alert("El dni ingresado no concuerda con el de ningún usuario en el sistema.")
+        eliminarUsuario();
+    }
 
 }
 
 // Imprimir usuarios existentes
 function imprimirUsuarios() {
     if (usuarios.length > 0) {
+        let alert_string = "Usuario" + "\n";
         for (let i = 0; i < usuarios.length; i++) {
             let user_i = usuarios[i];
-            alert_string = "Usuario" + "\n" + user_i.nombre;
+            alert_string +=  user_i.nombre;
             alert_string +=  "\n" + user_i.apellido;
             alert_string +=  "\n" + user_i.dni;
-            alert_string += "\n" + "----"
+            alert_string += "\n" + "----" + "\n";
         }
         alert(alert_string); 
     }  else {
@@ -141,7 +155,7 @@ function cargarSaldo() {
 
 // Buscar un usuario
 function usuarioExiste(dni) {
-    if (typeof(usuarios.find((user) => user.dni = dni)) === 'undefined') {
+    if (typeof(usuarios.find((user) => user.dni === dni)) === 'undefined') {
         return false
     } else {
         return true
@@ -168,5 +182,14 @@ function transferencia() {
 }
 // 
 
+
+// Agregar dos usuarios para poder hacer testings
+const usuario1 = new Usuario (1, "Santy", "Gegenschatz", "1", "100");
+const usuario2 = new Usuario (2, "John", "Doe", "2", "100");
+usuarios.push(usuario1);
+usuarios.push(usuario2);
+
 // Arrancar la aplicación
+alert(usuarioExiste(5));
 administrar();
+
