@@ -12,3 +12,9 @@ div {
     justify-content: center;
 }
 
+/* ID mods */
+
+#title {
+    display: grid;
+}
+

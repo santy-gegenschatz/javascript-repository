@@ -1,0 +1,20 @@
+* {
+    background-color: #DCDCDC;
+}
+
+h1 {
+    text-align: center;
+}
+
+div {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+/* ID mods */
+
+#title {
+    display: grid;
+}
+
