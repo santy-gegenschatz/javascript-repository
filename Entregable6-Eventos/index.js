@@ -70,7 +70,7 @@ class Usuario {
             const pago = new Pago(id_pagos_count + 1, monto);
             pagos.push(pago);
         } else {
-            alert("Eres pobre y no puedas realizar esta acción");
+            alert("No hay suficiente saldo para realizar la acción");
         }
     }
 
@@ -142,12 +142,21 @@ function administrar() {
 
 // Dar de alta
 function altaUsuario() {
-    let nombre = prompt("Ingrese el nombre");
-    let apellido = prompt("Ingrese el apellido");
-    let dni = prompt("Ingrese el dni");
+    // Hacer que aparezcan tres campos de texto
+    let bloque = document.getElementById('bloque');
+    let campos = ['nombre', 'apellido', 'dni'];
+    campos.forEach((campo) => {
+        let campoDeTexto = document.createElement('input');
+        let label = document.createElement('label');
+        label.innerText = campo;
+        bloque.append(label);
+        bloque.append(campoDeTexto);
+    });
+    // Hacer que aparezca un botón
 
-    let usuario = new Usuario(id_usuarios_count + 1, nombre, apellido, dni, 0);
-    usuarios.push(usuario);
+    // Cuando se presiona el botón buscar los datos de los campos y crear el usuario
+    // let usuario = new Usuario(id_usuarios_count + 1, nombre, apellido, dni, 0);
+    // usuarios.push(usuario);
 }
 
 // Dar de baja
