@@ -147,16 +147,31 @@ function altaUsuario() {
     let campos = ['nombre', 'apellido', 'dni'];
     campos.forEach((campo) => {
         let campoDeTexto = document.createElement('input');
+        campoDeTexto.setAttribute('id', campo);
         let label = document.createElement('label');
         label.innerText = campo;
         bloque.append(label);
         bloque.append(campoDeTexto);
     });
     // Hacer que aparezca un botón
-
+    let boton = document.createElement('button');
+    boton.innerText = 'Crear usuario';
+    boton.classList.add('boton-lindo');
+    boton.addEventListener("click", () => {
+        enviarFormulario();
+    });
+    bloque.append(boton);
     // Cuando se presiona el botón buscar los datos de los campos y crear el usuario
+
     // let usuario = new Usuario(id_usuarios_count + 1, nombre, apellido, dni, 0);
     // usuarios.push(usuario);
+}
+
+function enviarFormulario() {
+    let nombre = document.getElementById('nombre').value;
+    let apellido = document.getElementById('apellido').value;
+    let dni = document.getElementById('dni').value;
+    console.log(nombre, apellido, dni);
 }
 
 // Dar de baja

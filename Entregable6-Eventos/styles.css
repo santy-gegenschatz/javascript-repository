@@ -19,7 +19,13 @@ h1 {
     text-align: center;
 }
 
-
+/* Clases */
+.boton-lindo {
+    background-color: green;
+    border-radius: 25px;
+    text-align: center;
+    padding: 1%;
+}
 
 /* ID mods */
 
@@ -38,4 +44,3 @@ h1 {
     display: flex;
     flex-flow: column nowrap;
 }
-
