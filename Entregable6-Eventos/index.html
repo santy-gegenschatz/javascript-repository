@@ -4,7 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./styles.css">
+    <!-- Linkeo a Bootstrap para tener estilos razonables -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css">
+    <!-- Linkeo a CSS -->
+    <link rel="stylesheet" href="./css/styles.css">
+    <!-- Linkeo a los archivos JS -->
+    <script src="./js/index.js" defer> </script>
+    <script src="./js/classes.js" defer> </script>
+    <script src="./js/methods.js" defer> </script>
+    <script src="./js/dom-manipulation.js" defer> </script>
+
     <title>Entregable 6 Eventos</title>
 </head>
 <body>
@@ -12,7 +21,7 @@
         <div id = "title">
             <h1> Bienvenido al sistema de procesamiento de pagos :)</h1>
         </div>
-        <div id = "menu"></div>
+        <nav id = "navbar" class = "nav navbar-brand"></nav>
     </header>
 
     <main>
@@ -22,6 +31,4 @@
     
     
 </body>
-<!-- La etiqueta script la ponemos acá para poder acceder al body del document en el index.js -->
-<script src="./index.js"> </script>
 </html>
