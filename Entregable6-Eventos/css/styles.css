@@ -34,6 +34,18 @@ h1 {
     margin: 5px;
 }
 
+.tarjeta-blanca {
+    border-radius: 25px;
+    border: 0px;
+    background-color: aquamarine;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    text-align: center;
+}
+
 /* ID mods */
 #bloque {
     background-color: #000000;
@@ -45,6 +57,7 @@ h1 {
     padding: 20px;
     display: flex;
     flex-flow: column nowrap;
+    overflow-y: scroll;
 }
 
 #navbar {

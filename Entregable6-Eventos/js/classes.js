@@ -6,6 +6,7 @@ class Usuario {
         this.apellido = apellido;
         this.dni = dni;
         this.saldo = saldo;
+        incrementarIdCount();
     }
 
     transferir(usuario, monto) {
