@@ -81,11 +81,18 @@ function cargarSaldo() {
     boton.innerText = "Continuar";
     boton.addEventListener("click", () => {
         let dni = input.value;
+        console.log("Cotinuando");
         if (usuarioExiste(dni)) {
-            const usuario = usuarios.find((user) => user.dni == dni);
+            console.log("E");
+            const usuario = usuarios.filter((user) => user.dni == dni);
+            console.log(usuario);
             // Obtener la info del monto a acreditar
-            let monto = prompt("Ingrese un monto:")
-            usuario.monto+=monto; 
+            let monto = prompt("Ingrese un monto:");
+            console.log("Ingresando");
+            console.log(usuario[0].monto);
+            usuario[0].monto+=Number(monto); 
+            console.log(monto);
+            console.log(usuario[0].monto);
             vaciarBloque();
         } else {
             alert("El dni ingresado no coincide con un usuario en la base de datos");
@@ -102,7 +109,7 @@ function cargarSaldo() {
 
 // Buscar un usuario
 function usuarioExiste(dni) {
-    if (typeof(usuarios.find((user) => user.dni === dni)) === 'undefined') {
+    if (typeof(usuarios.filter((user) => user.dni === dni)) === 'undefined') {
         return false
     } else {
         return true
