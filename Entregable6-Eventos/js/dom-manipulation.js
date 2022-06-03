@@ -1,6 +1,6 @@
 //Manipulación del Dom
 // Agragamos botones con las opciones 
-let textosBotones = ['Agregar Usuario', 'Imprimir Usuario', 'Cargar Saldo', 'Transferir entre Usuarios', 'Eliminar Usuario'];
+let textosBotones = ['Agregar Usuario', 'Imprimir Usuarios', 'Cargar Saldo', 'Transferir entre Usuarios', 'Eliminar Usuario'];
 for (let index = 0; index < textosBotones.length; index++) {
     const boton = document.createElement("button");
     let textoBoton = textosBotones[index];

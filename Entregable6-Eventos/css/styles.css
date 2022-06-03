@@ -8,6 +8,23 @@ div label {
     text-align: center;
     margin: 10px;
 }
+
+footer {
+    background-color: black;
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
+}
+
+footer p {
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -15,9 +32,6 @@ main {
     align-items: center;
 }
 
-h1 {
-    text-align: center;
-}
 
 /* Clases */
 .boton-lindo {

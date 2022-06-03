@@ -87,15 +87,20 @@ function cargarSaldo() {
             const usuario = usuarios.filter((user) => user.dni == dni);
             console.log(usuario);
             // Obtener la info del monto a acreditar
+            // Cambiar los valores del label, vaciar el input 
             let monto = prompt("Ingrese un monto:");
             console.log("Ingresando");
-            console.log(usuario[0].monto);
-            usuario[0].monto+=Number(monto); 
+            console.log(usuario[0].saldo);
+            monto_numerico = Number(monto);
+            console.log(typeof(usuario[0].saldo));
+            usuario[0].saldo+=Number(monto); 
             console.log(monto);
-            console.log(usuario[0].monto);
+            console.log(usuario[0].saldo);
             vaciarBloque();
         } else {
             alert("El dni ingresado no coincide con un usuario en la base de datos");
+            vaciarBloque();
+            cargarSaldo();
         }
     });
 
