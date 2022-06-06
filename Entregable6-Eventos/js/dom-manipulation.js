@@ -17,8 +17,9 @@ for (let index = 0; index < textosBotones.length; index++) {
             });
             break;
 
-        case('Imprimir Usuario'):
+        case('Imprimir Usuarios'):
             boton.addEventListener("click", function() {
+                console.log(1);
                 imprimirUsuarios();
             });
             break;

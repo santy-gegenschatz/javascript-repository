@@ -39,6 +39,7 @@ function eliminarUsuario() {
 
 // Imprimir usuarios existentes
 function imprimirUsuarios() {
+    console.log("a");
     vaciarBloque();
     if (usuarios.length > 0) {
         usuarios.forEach( (usuario) => {
@@ -83,10 +84,13 @@ function cargarSaldo() {
     boton.innerText = "Continuar";
     boton.addEventListener("click", () => {
         let dni = input.value;
-        if (tomarDatosDni(dni)) {
-            if (tomarDatosMonto() != -1) {
-                console.log("Éxito");
-            }
+        let potencialUsuario = usuarioExiste(dni);
+        if (potencialUsuario != false) {
+            // Porque esto me da undefined. No está siguiendo los pasos que le indico la compu.
+            let monto = tomarDatosMonto2();
+            console.log(monto);   
+            tomarDatosMonto(potencialUsuario);
+
         }
     });
 
@@ -100,15 +104,24 @@ function cargarSaldo() {
 
 // Buscar un usuario
 function usuarioExiste(dni) {
-    if (typeof(usuarios.filter((user) => user.dni === dni)) === 'undefined') {
+    let potencialUsuario = usuarios.find((user) => user.dni === dni);
+    if (typeof(potencialUsuario) === 'undefined') {
         return false
     } else {
-        return true
+        return potencialUsuario
     }
 }
 
 // Hacer un pago
 function transferencia() {
+    vaciarBloque();
+    // Cargar los campos para ingresar el primer dni
+    
+    // Validar que existe
+    // Cargar los campos para ingresar el segundo dni
+    // Validar que existe
+    // Transferir
+    // Hay por lo menos cinco casos de falla en el proceso. Cómo los puedo estandarizar?
     let dni_origen = prompt("Ingrese el dni de quien transfiere");
     if (usuarioExiste(dni_origen)) {
         let dni_destino = prompt("Ingrese el dni de quien recibe");
@@ -171,14 +184,13 @@ function tomarDatosDni(dni) {
     }
 }
 
-function tomarDatosMonto() { 
+function tomarDatosMonto(usuario) { 
     vaciarBloque();
-    const usuario = usuarios.filter((user) => user.dni == dni);
     // Cargar un label y un campo donde se pueda ingresar el dni del usuario a enriquecer
     let label = document.createElement('label');
     label.innerText = 'Ingrese el monto que desea añadir'
-    let input = document.createElement('input');
-    input.classList.add('centered-text');
+    let input2 = document.createElement('input');
+    input2.classList.add('centered-text');
 
     // Cargar un botón que al oprimirse ejecute la lógica
     let boton = document.createElement('button');
@@ -187,10 +199,10 @@ function tomarDatosMonto() {
     boton.classList.add('margin-button');
     boton.innerText = "Cargar";
     boton.addEventListener("click", () => {
-        let monto = Number(input.value);
+        let monto = Number(input2.value);
         if (monto >=0) {
-            usuario.saldo += monto;
             vaciarBloque();
+            usuario.saldo+=monto;
         } else {
             alert("Ingrese un monto positivo");
             vaciarBloque();
@@ -201,6 +213,38 @@ function tomarDatosMonto() {
     // Añadir todos los elementos creados como nodos hijos del bloque
     let bloque = document.getElementById('bloque');
     bloque.appendChild(label);
-    bloque.appendChild(input);
+    bloque.appendChild(input2);
+    bloque.appendChild(boton);
+}
+
+function tomarDatosMonto2() { 
+    vaciarBloque();
+    // Cargar un label y un campo donde se pueda ingresar el dni del usuario a enriquecer
+    let label = document.createElement('label');
+    label.innerText = 'Ingrese el monto que desea añadir'
+    let input2 = document.createElement('input');
+    input2.classList.add('centered-text');
+
+    // Cargar un botón que al oprimirse ejecute la lógica
+    let boton = document.createElement('button');
+    boton.classList.add('btn');
+    boton.classList.add('btn-success');
+    boton.classList.add('margin-button');
+    boton.innerText = "Cargar";
+    boton.addEventListener("click", () => {
+        let monto = Number(input2.value);
+        if (monto >=0) {
+            vaciarBloque();
+            return monto;
+        } else {
+            alert("Ingrese un monto positivo");
+            vaciarBloque();
+        }
+    });
+
+    // Añadir todos los elementos creados como nodos hijos del bloque
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(label);
+    bloque.appendChild(input2);
     bloque.appendChild(boton);
 }
