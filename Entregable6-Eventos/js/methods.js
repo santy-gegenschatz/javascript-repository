@@ -12,6 +12,7 @@ function altaUsuario() {
         label.innerText = campo;
         bloque.appendChild(label);
         bloque.appendChild(campoDeTexto);
+        campoDeTexto.classList.add('centered-text');
     });
     // Hacer que aparezca un botón
     let boton = document.createElement('button');
@@ -72,6 +73,7 @@ function cargarSaldo() {
     let label = document.createElement('label');
     label.innerText = 'Ingrese el DNI de el usuario a quien desea enriquecer'
     let input = document.createElement('input');
+    input.classList.add('centered-text');
 
     // Cargar un botón que al oprimirse ejecute la lógica
     let boton = document.createElement('button');
@@ -81,26 +83,10 @@ function cargarSaldo() {
     boton.innerText = "Continuar";
     boton.addEventListener("click", () => {
         let dni = input.value;
-        console.log("Cotinuando");
-        if (usuarioExiste(dni)) {
-            console.log("E");
-            const usuario = usuarios.filter((user) => user.dni == dni);
-            console.log(usuario);
-            // Obtener la info del monto a acreditar
-            // Cambiar los valores del label, vaciar el input 
-            let monto = prompt("Ingrese un monto:");
-            console.log("Ingresando");
-            console.log(usuario[0].saldo);
-            monto_numerico = Number(monto);
-            console.log(typeof(usuario[0].saldo));
-            usuario[0].saldo+=Number(monto); 
-            console.log(monto);
-            console.log(usuario[0].saldo);
-            vaciarBloque();
-        } else {
-            alert("El dni ingresado no coincide con un usuario en la base de datos");
-            vaciarBloque();
-            cargarSaldo();
+        if (tomarDatosDni(dni)) {
+            if (tomarDatosMonto() != -1) {
+                console.log("Éxito");
+            }
         }
     });
 
@@ -172,4 +158,49 @@ function mostrarDatosUsuario(usuario, element) {
 function mostrarSaldoUsuario(usuario, element) {
     console.log("Intentando");
     element.innerText = "Saldo" + "\n" + usuario.saldo;
+}
+
+function tomarDatosDni(dni) {
+    if (usuarioExiste(dni)) {
+        return true
+    } else {
+        alert("El dni ingresado no coincide con un usuario en la base de datos");
+        vaciarBloque();
+        cargarSaldo();
+        return false
+    }
+}
+
+function tomarDatosMonto() { 
+    vaciarBloque();
+    const usuario = usuarios.filter((user) => user.dni == dni);
+    // Cargar un label y un campo donde se pueda ingresar el dni del usuario a enriquecer
+    let label = document.createElement('label');
+    label.innerText = 'Ingrese el monto que desea añadir'
+    let input = document.createElement('input');
+    input.classList.add('centered-text');
+
+    // Cargar un botón que al oprimirse ejecute la lógica
+    let boton = document.createElement('button');
+    boton.classList.add('btn');
+    boton.classList.add('btn-success');
+    boton.classList.add('margin-button');
+    boton.innerText = "Cargar";
+    boton.addEventListener("click", () => {
+        let monto = Number(input.value);
+        if (monto >=0) {
+            usuario.saldo += monto;
+            vaciarBloque();
+        } else {
+            alert("Ingrese un monto positivo");
+            vaciarBloque();
+            tomarDatosMonto(usuario);
+        }
+    });
+
+    // Añadir todos los elementos creados como nodos hijos del bloque
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(label);
+    bloque.appendChild(input);
+    bloque.appendChild(boton);
 }

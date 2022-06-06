@@ -44,6 +44,10 @@ main {
     border-width: 0px;
 }
 
+.centered-text {
+    text-align: center;
+}
+
 .margin-button {
     margin: 5px;
 }
