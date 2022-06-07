@@ -1,0 +1,89 @@
+body {
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+div label {
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+
+footer {
+    background-color: black;
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
+}
+
+footer p {
+    color: white;
+}
+
+h1 {
+    text-align: center;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Clases */
+.boton-lindo {
+    background-color: green;
+    border-radius: 25px;
+    text-align: center;
+    padding: 1%;
+    margin: 10px;
+    border-color: green;
+    border-width: 0px;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.margin-button {
+    margin: 5px;
+}
+
+.tarjeta-blanca {
+    border-radius: 25px;
+    border: 0px;
+    background-color: aquamarine;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+/* ID mods */
+#bloque {
+    background-color: #000000;
+    border-color: black;
+    border-radius: 25px;
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    overflow-y: scroll;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#title {
+    display: grid;
+}
