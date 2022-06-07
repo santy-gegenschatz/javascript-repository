@@ -12,10 +12,3 @@ const usuario2 = new Usuario (id_usuarios_count, "John", "Doe", "2", 100);
 usuarios.push(usuario1);
 usuarios.push(usuario2);
 
-function buscarData() {
-    
-}
-
-let monto = buscarData();
-console.log("Se busco la data");
-console.log("monto");

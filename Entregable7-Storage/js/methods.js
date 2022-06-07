@@ -90,7 +90,6 @@ function cargarSaldo() {
             let monto = tomarDatosMonto2();
             console.log(monto);   
             tomarDatosMonto(potencialUsuario);
-
         }
     });
 
@@ -116,21 +115,50 @@ function usuarioExiste(dni) {
 
 // Hacer un pago
 function transferencia() {
-    vaciarBloque();
-    // Cargar los campos para ingresar el primer dni
-    // Necesito una función abstracta que carge siempre los mismos elemenots y reciba por parámetro lo que va en el label y lo que va en
-    // en el event listener del botón. aH, y el texto de
-    let datos = []
-    cargaDeDatosSimple("Ingrese el Dni de quien transfiere",
-                       "Continuar",
-                       usuarioExiste, 
-                       cargaDeDatosSimple,
-                       datos);
+    // // Cargar los campos para ingresar el primer dni
+    // // Necesito una función abstracta que carge siempre los mismos elemenots y reciba por parámetro lo que va en el label y lo que va en
+    // // en el event listener del botón. aH, y el texto de
+    // let datos = []
+    // cargaDeDatosSimple("Ingrese el Dni de quien transfiere",
+    //                    "Continuar",
+    //                    usuarioExiste, 
+    //                    cargaDeDatosSimple,
+    //                    datos);
     // Validar que existe
     // Cargar los campos para ingresar el segundo dni
     // Validar que existe
     // Transferir
     // Hay por lo menos cinco casos de falla en el proceso. Cómo los puedo estandarizar?
+    let pantalla = cargarEntradaDeDatos("Ingrese el dni de quien transfiere","Continuar");
+    pantalla.boton.addEventListener("click", () => {
+        let dniEmisor = pantalla.input.value;
+        if (usuarioExiste(dniEmisor)) {
+            let pantalla2 = cargarEntradaDeDatos("Ingrese el dni de quien recibe", "Continuar");
+            pantalla2.boton.addEventListener("click", () => {
+                let dniReceptor = pantalla2.input.value;
+                if (usuarioExiste(dniReceptor)) {
+                    if ()
+                    let pantalla3 = cargarEntradaDeDatos("Ingrese el monto a transferir", "Continuar");
+                    pantalla3.boton.addEventListener("click", () => {
+                        let monto = Number(pantalla3.input.value);
+                        console.log(monto);
+                        if (validarMonto(monto)) {
+                            console.log("Monto ok");
+                            let usuarioEmisor = encontrarUsuario(dniEmisor);
+                            let usuarioReceptor = encontrarUsuario(dniReceptor);
+                            usuarioEmisor.transferir(usuarioReceptor, monto);
+                        }
+                    });
+                    
+                } else {
+                    alertar("El dni ingresado no concuerda con un usuario existente");        
+                }
+            });
+        } else {
+            alertar("El dni ingresado no concuerda con un usuario existente");
+        }
+    });
+
     // let dni_origen = prompt("Ingrese el dni de quien transfiere");
     // if (usuarioExiste(dni_origen)) {
     //     let dni_destino = prompt("Ingrese el dni de quien recibe");
@@ -292,4 +320,57 @@ function generica(value) {
 function recibeFuncion(funcion) {
     let value = prompt("Ingrese algo:");
     funcion(value);
+}
+
+function cargarEntradaDeDatos(labelText,buttonText) {
+    vaciarBloque();
+    // Cargar un label y un campo donde se pueda ingresar info
+    let label = document.createElement('label');
+    label.innerText = labelText;
+    let input = document.createElement('input');
+    input.classList.add('centered-text');
+
+    // Cargar un botón que al oprimirse ejecute la lógica
+    let boton = document.createElement('button');
+    boton.classList.add('btn');
+    boton.classList.add('btn-success');
+    boton.classList.add('margin-button');
+    boton.innerText = buttonText;
+
+    // Añadir todos los elementos creados como nodos hijos del bloque
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(label);
+    bloque.appendChild(input);
+    bloque.appendChild(boton);
+    return new Pantalla(label, input, boton);
+}
+
+function encontrarUsuario(dni) {
+    return usuarios.find((user) => user.dni === dni);
+}
+
+function alertar(error) {
+    vaciarBloque();
+    let label = document.createElement('label');
+    let boton = document.createElement('button');
+    let title = document.createElement('h1');
+    title.classList.add("white");
+    let bloque = document.getElementById('bloque');
+    bloque.setAttribute(style, "background-color: red;");
+    title.innerText = "Oh, No :("
+    label.innerText = error;
+    boton.innerText = "Intentar Nuevamente";
+    bloque.appendChild(title);
+    bloque.appendChild(label);
+    bloque.appendChild(boton);
+}
+
+function validarMonto(monto) {
+    monto > 0 ? console.log("Mayor") : console.log("Menor");
+    if (monto > 0 ) {
+        return true
+    } else {
+        return false
+    }
+    
 }

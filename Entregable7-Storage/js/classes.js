@@ -9,19 +9,19 @@ class Usuario {
         incrementarIdCount();
     }
 
-    transferir(usuario, monto) {
-        if (validarSaldo()) {
+    validarSaldo(monto) {
+        return this.saldo >= monto;
+    }
+
+     transferir(usuario, monto) {
+        if (this.saldo >= monto) { // Cuando pongo validar saldo por acá me dice que no lo puede encontrar
             this.saldo -= monto;
             usuario.saldo += monto;
             const pago = new Pago(id_pagos_count + 1, monto);
             pagos.push(pago);
         } else {
-            alert("No hay suficiente saldo para realizar la acción");
+            throw "No hay suficiente saldo para realizar la acción"
         }
-    }
-
-    validarSaldo(monto) {
-        return this.saldo >= monto;
     }
 }
 
@@ -47,5 +47,13 @@ class Producto {
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+    }
+}
+
+class Pantalla {
+    constructor(label, input, boton) {
+        this.label = label;
+        this.input = input;
+        this.boton = boton;
     }
 }
