@@ -26,6 +26,7 @@ function altaUsuario() {
 
 // Dar de baja
 function eliminarUsuario() {
+    let pantalla = cargaDeDatosSimple()
     let dni = prompt("Ingrese el dni del usuario a eliminar");
     if (usuarioExiste(dni)) {
         let usuario = usuarios.find((user) => user.dni === dni);
@@ -137,42 +138,30 @@ function transferencia() {
             pantalla2.boton.addEventListener("click", () => {
                 let dniReceptor = pantalla2.input.value;
                 if (usuarioExiste(dniReceptor)) {
-                    if ()
-                    let pantalla3 = cargarEntradaDeDatos("Ingrese el monto a transferir", "Continuar");
-                    pantalla3.boton.addEventListener("click", () => {
-                        let monto = Number(pantalla3.input.value);
-                        console.log(monto);
-                        if (validarMonto(monto)) {
-                            console.log("Monto ok");
-                            let usuarioEmisor = encontrarUsuario(dniEmisor);
-                            let usuarioReceptor = encontrarUsuario(dniReceptor);
-                            usuarioEmisor.transferir(usuarioReceptor, monto);
-                        }
-                    });
-                    
+                    if (dniEmisor != dniReceptor) {
+                        let pantalla3 = cargarEntradaDeDatos("Ingrese el monto a transferir", "Continuar");
+                        pantalla3.boton.addEventListener("click", () => {
+                            let monto = Number(pantalla3.input.value);
+                            console.log(monto);
+                            if (validarMonto(monto)) {
+                                let usuarioEmisor = encontrarUsuario(dniEmisor);
+                                let usuarioReceptor = encontrarUsuario(dniReceptor);
+                                usuarioEmisor.transferir(usuarioReceptor, monto);
+                            } else {
+                                alertar("El monto tiene que ser mayor que 0", transferencia);
+                            }
+                        });
+                    } else {
+                        alertar("No se puede transferir a si mismo", transferencia);
+                    }
                 } else {
-                    alertar("El dni ingresado no concuerda con un usuario existente");        
+                    alertar("El dni ingresado no concuerda con un usuario existente", transferencia);        
                 }
             });
         } else {
-            alertar("El dni ingresado no concuerda con un usuario existente");
+            alertar("El dni ingresado no concuerda con un usuario existente", transferencia);
         }
     });
-
-    // let dni_origen = prompt("Ingrese el dni de quien transfiere");
-    // if (usuarioExiste(dni_origen)) {
-    //     let dni_destino = prompt("Ingrese el dni de quien recibe");
-    //     if (usuarioExiste(dni_destino)) {
-    //         usuario_origen = usuarios.find((u) => u.dni == dni_origen);
-    //         usuario_destino = usuarios.find((u) => u.dni == dni_destino);
-    //         let monto = prompt("Ingrese un monto a transferir");
-    //         usuario_origen.transferencia(usuario_destino, monto);
-    //     } else {
-    //         alert("Ingrese un Dni válido")
-    //     }
-    // } else {
-    //     alert("Ingrese un Dni válido")
-    // }
 }
 
 // Funciones secundarias
@@ -286,41 +275,6 @@ function tomarDatosMonto2() {
     bloque.appendChild(boton);
 }
 
-function cargaDeDatosSimple(labelText, buttonText, callback, callback2, datos) {
-    vaciarBloque();
-    // Cargar un label y un campo donde se pueda ingresar el dni del usuario a enriquecer
-    let label = document.createElement('label');
-    label.innerText = labelText;
-    let input2 = document.createElement('input');
-    input2.classList.add('centered-text');
-
-    // Cargar un botón que al oprimirse ejecute la lógica
-    let boton = document.createElement('button');
-    boton.classList.add('btn');
-    boton.classList.add('btn-success');
-    boton.classList.add('margin-button');
-    boton.innerText = buttonText;
-    boton.addEventListener("click", () => {
-        callback(input2.value);
-        datos.push(input2.value);
-        callback2();
-    });
-
-    // Añadir todos los elementos creados como nodos hijos del bloque
-    let bloque = document.getElementById('bloque');
-    bloque.appendChild(label);
-    bloque.appendChild(input2);
-    bloque.appendChild(boton);
-}
-
-function generica(value) {
-    console.log(value);
-}
-
-function recibeFuncion(funcion) {
-    let value = prompt("Ingrese algo:");
-    funcion(value);
-}
 
 function cargarEntradaDeDatos(labelText,buttonText) {
     vaciarBloque();
@@ -349,17 +303,23 @@ function encontrarUsuario(dni) {
     return usuarios.find((user) => user.dni === dni);
 }
 
-function alertar(error) {
+function alertar(error, callback) {
     vaciarBloque();
+    // Crear 
     let label = document.createElement('label');
     let boton = document.createElement('button');
     let title = document.createElement('h1');
     title.classList.add("white");
     let bloque = document.getElementById('bloque');
-    bloque.setAttribute(style, "background-color: red;");
+    bloque.setAttribute("style", "background-color: red;");
     title.innerText = "Oh, No :("
     label.innerText = error;
     boton.innerText = "Intentar Nuevamente";
+    boton.classList.add('btn-warning');
+    boton.addEventListener("click", () => {
+        bloque.setAttribute("style", "background-color: black;");
+        callback();
+    });
     bloque.appendChild(title);
     bloque.appendChild(label);
     bloque.appendChild(boton);
