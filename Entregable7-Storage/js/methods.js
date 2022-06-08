@@ -26,16 +26,19 @@ function altaUsuario() {
 
 // Dar de baja
 function eliminarUsuario() {
-    let pantalla = cargaDeDatosSimple()
-    let dni = prompt("Ingrese el dni del usuario a eliminar");
-    if (usuarioExiste(dni)) {
-        let usuario = usuarios.find((user) => user.dni === dni);
-        usuarios.pop(usuario);
-        alert("Eliminado con éxito.")
-    } else {
-        alert("El dni ingresado no concuerda con el de ningún usuario en el sistema.")
-    }
+    let pantalla = cargarEntradaDeDatos("Ingrese el dni del usuario a eliminar", "Eliminar");
+    pantalla.boton.addEventListener("click", () => {
+        let dni = pantalla.input.value;
+        if (usuarioExiste(dni)) {
+            console.log(usuarios);
+            let usuarioAEliminar = encontrarUsuario(dni);
+            let indice = usuarios.indexOf(usuarioAEliminar);
+            usuarios.splice(indice, 1);
+            console.log(usuarios);
+            guardarUsuariosALocalStorage();
 
+        }
+    });
 }
 
 // Imprimir usuarios existentes
@@ -88,8 +91,7 @@ function cargarSaldo() {
         let potencialUsuario = usuarioExiste(dni);
         if (potencialUsuario != false) {
             // Porque esto me da undefined. No está siguiendo los pasos que le indico la compu.
-            let monto = tomarDatosMonto2();
-            console.log(monto);   
+            let monto = tomarDatosMonto2();   
             tomarDatosMonto(potencialUsuario);
         }
     });
@@ -116,20 +118,6 @@ function usuarioExiste(dni) {
 
 // Hacer un pago
 function transferencia() {
-    // // Cargar los campos para ingresar el primer dni
-    // // Necesito una función abstracta que carge siempre los mismos elemenots y reciba por parámetro lo que va en el label y lo que va en
-    // // en el event listener del botón. aH, y el texto de
-    // let datos = []
-    // cargaDeDatosSimple("Ingrese el Dni de quien transfiere",
-    //                    "Continuar",
-    //                    usuarioExiste, 
-    //                    cargaDeDatosSimple,
-    //                    datos);
-    // Validar que existe
-    // Cargar los campos para ingresar el segundo dni
-    // Validar que existe
-    // Transferir
-    // Hay por lo menos cinco casos de falla en el proceso. Cómo los puedo estandarizar?
     let pantalla = cargarEntradaDeDatos("Ingrese el dni de quien transfiere","Continuar");
     pantalla.boton.addEventListener("click", () => {
         let dniEmisor = pantalla.input.value;
@@ -147,6 +135,7 @@ function transferencia() {
                                 let usuarioEmisor = encontrarUsuario(dniEmisor);
                                 let usuarioReceptor = encontrarUsuario(dniReceptor);
                                 usuarioEmisor.transferir(usuarioReceptor, monto);
+                                guardarUsuariosALocalStorage();
                             } else {
                                 alertar("El monto tiene que ser mayor que 0", transferencia);
                             }
@@ -171,6 +160,8 @@ function enviarFormulario() {
     let dni = document.getElementById('Dni').value;
     let nuevoUsuario = new Usuario(id_usuarios_count,nombre, apellido, dni, 100);
     usuarios.push(nuevoUsuario);
+    usuariosJSON = JSON.stringify(usuarios);
+    localStorage.setItem('usuarios', usuariosJSON);
     vaciarBloque();
 }
 
@@ -195,7 +186,6 @@ function mostrarDatosUsuario(usuario, element) {
 }
 
 function mostrarSaldoUsuario(usuario, element) {
-    console.log("Intentando");
     element.innerText = "Saldo" + "\n" + usuario.saldo;
 }
 
@@ -205,7 +195,8 @@ function tomarDatosDni(dni) {
     } else {
         alert("El dni ingresado no coincide con un usuario en la base de datos");
         vaciarBloque();
-        cargarSaldo();
+        
+        aldo();
         return false
     }
 }
@@ -229,6 +220,7 @@ function tomarDatosMonto(usuario) {
         if (monto >=0) {
             vaciarBloque();
             usuario.saldo+=monto;
+            guardarUsuariosALocalStorage();
         } else {
             alert("Ingrese un monto positivo");
             vaciarBloque();
@@ -326,11 +318,14 @@ function alertar(error, callback) {
 }
 
 function validarMonto(monto) {
-    monto > 0 ? console.log("Mayor") : console.log("Menor");
-    if (monto > 0 ) {
+    if (monto > 0) {
         return true
     } else {
         return false
     }
-    
+}
+
+function guardarUsuariosALocalStorage() {
+    usuariosJSON = JSON.stringify(usuarios);
+    localStorage.setItem('usuarios', usuariosJSON);
 }
