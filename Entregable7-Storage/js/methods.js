@@ -178,12 +178,12 @@ function vaciarElemento(element) {
     element.innerHTML = '';
 }
 
-function mostrarDatosUsuario(usuario, element) {
+function mostrarDatosUsuario(usuario, tarjeta, botonSaldo, botonPagoConTarjeta) {
     info_usuario = "Usuario" + "\n";
     info_usuario +=  usuario.nombre;
     info_usuario +=  "\n" + usuario.apellido;
     info_usuario +=  "\n" + usuario.dni;
-    element.innerText = info_usuario;
+    tarjeta.innerText = info_usuario;
 }
 
 function mostrarSaldoUsuario(usuario, element) {
