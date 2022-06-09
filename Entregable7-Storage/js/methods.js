@@ -30,20 +30,23 @@ function eliminarUsuario() {
     pantalla.boton.addEventListener("click", () => {
         let dni = pantalla.input.value;
         if (usuarioExiste(dni)) {
-            console.log(usuarios);
             let usuarioAEliminar = encontrarUsuario(dni);
             let indice = usuarios.indexOf(usuarioAEliminar);
-            usuarios.splice(indice, 1);
-            console.log(usuarios);
-            guardarUsuariosALocalStorage();
-
+            // Aca quisiera cargar pantalla de confirmación
+            let text = "Esta seguro que desea eliminar el usuario " + usuarioAEliminar.nombre + " " + usuarioAEliminar.apellido + " ?";
+            let pantalla = cargarPantallaDeConfirmacion(text, eliminarUsuario);
+            let boton = pantalla.botonAceptar;
+            boton.addEventListener("click", function() {
+                console.log("Estuve aquí");
+                usuarios.splice(indice, 1);
+                guardarUsuariosALocalStorage();
+            });
         }
     });
 }
 
 // Imprimir usuarios existentes
 function imprimirUsuarios() {
-    console.log("a");
     vaciarBloque();
     if (usuarios.length > 0) {
         usuarios.forEach( (usuario) => {
@@ -110,7 +113,6 @@ function usuarioExiste(dni) {
     if (typeof(potencialUsuario) === 'undefined') {
         return false
     } else {
-        console.log("Pasé por aquí");
         return potencialUsuario
         
     }
@@ -130,7 +132,6 @@ function transferencia() {
                         let pantalla3 = cargarEntradaDeDatos("Ingrese el monto a transferir", "Continuar");
                         pantalla3.boton.addEventListener("click", () => {
                             let monto = Number(pantalla3.input.value);
-                            console.log(monto);
                             if (validarMonto(monto)) {
                                 let usuarioEmisor = encontrarUsuario(dniEmisor);
                                 let usuarioReceptor = encontrarUsuario(dniReceptor);
@@ -328,4 +329,27 @@ function validarMonto(monto) {
 function guardarUsuariosALocalStorage() {
     usuariosJSON = JSON.stringify(usuarios);
     localStorage.setItem('usuarios', usuariosJSON);
+}
+
+function cargarPantallaDeConfirmacion(labelText, callback) {
+    vaciarBloque();
+    let label = document.createElement('label');
+    let botonCancelar = document.createElement('button');
+    let botonAceptar = document.createElement('button');
+    let title = document.createElement('h1');
+    title.classList.add("white");
+    let bloque = document.getElementById('bloque');
+    title.innerText = "Último paso"
+    label.innerText = labelText;
+    botonCancelar.innerText = "Cancelar";
+    botonAceptar.innerText = "Confirmar";
+    botonCancelar.addEventListener("click", () => {
+        vaciarBloque();
+        callback();
+    });
+    bloque.appendChild(title);
+    bloque.appendChild(label);
+    bloque.appendChild(botonAceptar);
+    bloque.appendChild(botonCancelar);
+    return new PantallaDeConfirmacion(title, label, botonCancelar, botonAceptar);
 }

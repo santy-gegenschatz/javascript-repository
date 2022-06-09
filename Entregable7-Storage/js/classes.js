@@ -57,3 +57,12 @@ class Pantalla {
         this.boton = boton;
     }
 }
+
+class PantallaDeConfirmacion {
+    constructor(title, label, botonCancelar, botonAceptar) {
+        this.title = title;
+        this.label = label;
+        this.botonCancelar = botonCancelar;
+        this.botonAceptar = botonAceptar;
+    }
+}
