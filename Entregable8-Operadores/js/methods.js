@@ -163,7 +163,8 @@ function vaciarBloque() {
 }
 
 function incrementarIdCount() {
-    id_usuarios_count +=1;
+    id_usuarios_count 
+    1;
 }
 
 function vaciarElemento(element) {
@@ -172,9 +173,12 @@ function vaciarElemento(element) {
 
 function mostrarDatosUsuario(usuario, tarjeta) {
     info_usuario = "Usuario" + "\n";
-    info_usuario +=  usuario.nombre;
-    info_usuario +=  "\n" + usuario.apellido;
-    info_usuario +=  "\n" + usuario.dni;
+    info_usuario += "\n" + usuario.nombre;
+    info_usuario += "\n" + usuario.apellido;
+    info_usuario += "\n" + usuario.dni;
+    info_usuario += "\n" + saldoMayor(usuario.saldo);
+    info_usuario += "\n" + formatoDniOk(usuario.dni);
+
     tarjeta.innerText = info_usuario;
     // Crear Botones
     let botonSaldo = document.createElement('button');
@@ -184,8 +188,10 @@ function mostrarDatosUsuario(usuario, tarjeta) {
     botonTarjeta.innerText = "Pagar con Tarjeta";
     botonSaldo.classList.add("btn");
     botonSaldo.classList.add("btn-info");
+    botonSaldo.classList.add("margin-button");
     botonTarjeta.classList.add("btn");
     botonTarjeta.classList.add("btn-info");
+    botonTarjeta.classList.add("margin-button");
     
     // Crear un div que contenga los botones
     let divBotones = document.createElement('div');
@@ -245,7 +251,8 @@ function tomarDatosMonto(usuario) {
         let monto = Number(input2.value);
         if (monto >=0) {
             vaciarBloque();
-            usuario.saldo+=monto;
+            usuario.saldo
+            monto;
             guardarUsuariosALocalStorage();
         } else {
             alert("Ingrese un monto positivo");
@@ -415,4 +422,12 @@ function cambiarVisibilidad() {
         document.getElementById('pago-tarjeta').style.visibility == "hidden";
         visibilidadPagoTarjeta = true;
     }
+}
+
+function saldoMayor(saldo) {
+   return saldo > 0 ? "Felicidades, su saldo es mayor a 0" : "Debe ingresar más dinero en su cuenta";
+}
+
+function formatoDniOk(dni) {
+    return dni.length < 8 && "Aviso: El Dni parece tener un formato incorrecto"
 }

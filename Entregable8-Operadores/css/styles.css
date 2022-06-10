@@ -19,6 +19,7 @@ footer {
 
 footer p {
     color: white;
+    margin: 20px;
 }
 
 h1 {
@@ -68,7 +69,7 @@ main {
 }
 
 .margin-button {
-    margin: 5px;
+    margin: 10px;
 }
 
 .simulador-tarjeta {
