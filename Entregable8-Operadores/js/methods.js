@@ -482,24 +482,35 @@ function pagoConTarjetaCampoUno(usuario) {
     }
 
     function pagoConTarjetaCampoDos(usuario, nroTarjeta) {     
-
+        vaciarBloque();
         // Crear un div para la representación de la tarjeta de crédito
         let simuladorTarjeta = document.createElement('div');
         simuladorTarjeta.classList.add('simulador-tarjeta');
+
         // Creamos un Label con los datos del usuario
         let datosDuenoTarjeta = document.createElement('p');
         let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
         let datosCompletos = nombreUpper + "\n" + nroTarjeta
         datosDuenoTarjeta.innerText = datosCompletos;
-        // Creamos un Input para ingresar los datos del usuario
-        let input = document.createElement('input');
-        input.classList.add('cool-input');
+
         // El Input en realidad tienen que ser dos, separados por una coma
+        let inputMes = document.createElement('input');
+        inputMes.classList.add('cool-input');
+        
+        let inputAño = document.createElement('input');
+        inputAño.classList.add('cool-input');
+
+        // Los Inputs tienen que estar ambos centrados, en un div 
+        let divInputs = document.createElement('div');
+        divInputs.classList.add('flex-row');
+        divInputs.appendChild(inputMes);
+        divInputs.appendChild(inputAño);
+        
         // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
         let divCreditCardData = document.createElement('div');
         divCreditCardData.classList.add('credit-card-data');
         divCreditCardData.appendChild(datosDuenoTarjeta);
-        divCreditCardData.appendChild(input);
+        divCreditCardData.appendChild(divInputs);
         // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
         simuladorTarjeta.appendChild(divCreditCardData);
     
@@ -535,5 +546,5 @@ function pagoConTarjetaCampoUno(usuario) {
         bloque.appendChild(divBotones);
     
         //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
-        return new Pantalla("1", input, botonContinuar);
+        return new Pantalla(inputMes, inputAño, botonContinuar);
         }
