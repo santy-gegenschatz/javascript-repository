@@ -388,38 +388,32 @@ function cargarPantallaDeConfirmacion(labelText, callback) {
 
 function pagoConTarjeta(usuario) {
     // Vaciar el body
-    cambiarVisibilidad();
-    // Crear un div para la representación de la tarjeta de crédito
-    let simuladorTarjeta = document.createElement('div');
-    simuladorTarjeta.classList.add('simulador-tarjeta');
-    // Creamos un Label con los datos del usuario
-    let datosDuenoTarjeta = document.createElement('p');
-    let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
-    datosDuenoTarjeta.innerText = nombreUpper;
-    // Creamos un Input para ingresar los datos del usuario
-    let input = document.createElement('input');
-    input.classList.add('cool-input');
-    // Crear otro para los botones de avance
-    let divBotones = document.createElement('div');
-    divBotones.classList.add('flex-row');
-    // Crear un boton de Cancelar y uno de avanzar
-    let botonCancelar = document.createElement('button');
-    let botonContinuar = document.createElement('button');
-    botonCancelar.innerText = "Cancelar";
-    botonContinuar.innerText = "Continuar";
-
-
+    vaciarBloque();
+    let pantalla = pagoConTarjetaCampoUno(usuario);
+    pantalla.boton.addEventListener("click", function() {
+        let nroTarjeta = pantalla.input.value;
+        let pantalla2 = pagoConTarjetaCampoDos(usuario, nroTarjeta);
+        pantalla2.boton.addEventListener("click", function() {
+            let vencimiento = pantalla2.input.value;
+            let pantalla3 = pagoConTarjetaCampoTres();
+            pantalla3.boton.addEventListener("click", function() {
+                let codigoDeSeguridad = pantalla3.input.value;
+                let pantalla4 = "b";
+            });
+        });
+    });
+    
 }
 
 function cambiarVisibilidad() {
     if (visibilidadPagoTarjeta) {
         console.log("Escondiendo");
-        document.getElementById('bloque').style.visibility == "hidden";
-        document.getElementById('pago-tarjeta').style.visibility == "visible";
+        document.getElementById('bloque').style.visibility = "none";
+        document.getElementById('pago-tarjeta').style.visibility = "visible";
         visibilidadPagoTarjeta = false;
     } else {
-        document.getElementById('bloque').style.visibility == "visible";
-        document.getElementById('pago-tarjeta').style.visibility == "hidden";
+        document.getElementById('bloque').style.visibility = "visible";
+        document.getElementById('pago-tarjeta').style.visibility = "none";
         visibilidadPagoTarjeta = true;
     }
 }
@@ -431,3 +425,115 @@ function saldoMayor(saldo) {
 function formatoDniOk(dni) {
     return dni.length < 8 && "Aviso: El Dni parece tener un formato incorrecto"
 }
+
+function pagoConTarjetaCampoUno(usuario) {     
+
+    // Crear un div para la representación de la tarjeta de crédito
+    let simuladorTarjeta = document.createElement('div');
+    simuladorTarjeta.classList.add('simulador-tarjeta');
+    // Creamos un Label con los datos del usuario
+    let datosDuenoTarjeta = document.createElement('p');
+    let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
+    datosDuenoTarjeta.innerText = nombreUpper;
+    // Creamos un Input para ingresar los datos del usuario
+    let input = document.createElement('input');
+    input.classList.add('cool-input');
+    // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
+    let divCreditCardData = document.createElement('div');
+    divCreditCardData.classList.add('credit-card-data');
+    divCreditCardData.appendChild(datosDuenoTarjeta);
+    divCreditCardData.appendChild(input);
+    // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+    simuladorTarjeta.appendChild(divCreditCardData);
+
+
+    // Crear otro div para los botones de avance y retroceso
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Crear un boton de Cancelar y uno de avanzar
+    let botonCancelar = document.createElement('button');
+    let botonContinuar = document.createElement('button');
+    botonCancelar.innerText = "Cancelar";
+    botonContinuar.innerText = "Continuar";
+    botonCancelar.classList.add('btn');
+    botonCancelar.classList.add('btn-warning');
+    botonCancelar.classList.add('margin-button');
+    botonContinuar.classList.add('btn');
+    botonContinuar.classList.add('btn-success');
+    botonCancelar.classList.add('margin-button');
+    // Añadir una acción de Cancelar al botón de Cancelar
+    botonCancelar.addEventListener("click", function() {
+        vaciarBloque();
+    });
+    // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
+    // pq cada acción continuar necesita hacer algo diferente
+
+    // Añadir los elementos al divBotones
+    divBotones.appendChild(botonCancelar);
+    divBotones.appendChild(botonContinuar);
+
+    // Añadimos los dos divs al div de pagos con tarjeta
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(simuladorTarjeta);
+    bloque.appendChild(divBotones);
+
+    //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
+    return new Pantalla("1", input, botonContinuar);
+    }
+
+    function pagoConTarjetaCampoDos(usuario, nroTarjeta) {     
+
+        // Crear un div para la representación de la tarjeta de crédito
+        let simuladorTarjeta = document.createElement('div');
+        simuladorTarjeta.classList.add('simulador-tarjeta');
+        // Creamos un Label con los datos del usuario
+        let datosDuenoTarjeta = document.createElement('p');
+        let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
+        let datosCompletos = nombreUpper + "\n" + nroTarjeta
+        datosDuenoTarjeta.innerText = datosCompletos;
+        // Creamos un Input para ingresar los datos del usuario
+        let input = document.createElement('input');
+        input.classList.add('cool-input');
+        // El Input en realidad tienen que ser dos, separados por una coma
+        // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
+        let divCreditCardData = document.createElement('div');
+        divCreditCardData.classList.add('credit-card-data');
+        divCreditCardData.appendChild(datosDuenoTarjeta);
+        divCreditCardData.appendChild(input);
+        // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+        simuladorTarjeta.appendChild(divCreditCardData);
+    
+    
+        // Crear otro div para los botones de avance y retroceso
+        let divBotones = document.createElement('div');
+        divBotones.classList.add('flex-row');
+        // Crear un boton de Cancelar y uno de avanzar
+        let botonCancelar = document.createElement('button');
+        let botonContinuar = document.createElement('button');
+        botonCancelar.innerText = "Cancelar";
+        botonContinuar.innerText = "Continuar";
+        botonCancelar.classList.add('btn');
+        botonCancelar.classList.add('btn-warning');
+        botonCancelar.classList.add('margin-button');
+        botonContinuar.classList.add('btn');
+        botonContinuar.classList.add('btn-success');
+        botonCancelar.classList.add('margin-button');
+        // Añadir una acción de Cancelar al botón de Cancelar
+        botonCancelar.addEventListener("click", function() {
+            vaciarBloque();
+        });
+        // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
+        // pq cada acción continuar necesita hacer algo diferente
+    
+        // Añadir los elementos al divBotones
+        divBotones.appendChild(botonCancelar);
+        divBotones.appendChild(botonContinuar);
+    
+        // Añadimos los dos divs al div de pagos con tarjeta
+        let bloque = document.getElementById('bloque');
+        bloque.appendChild(simuladorTarjeta);
+        bloque.appendChild(divBotones);
+    
+        //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
+        return new Pantalla("1", input, botonContinuar);
+        }

@@ -51,15 +51,30 @@ main {
 
 .cool-input {
     width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
+    padding: 12px 5px;
+    margin: 0px;
     box-sizing: border-box;
     border: none;
     background-color: #3CBC8D;
     color: white;
     border-radius: 25px;
+    height: 20px;
   }
 
+  .credit-card-data {
+    grid-area: credit-card-data;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .div-interno {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: end;
+    align-items: flex-start;
+}
 
 .flex-row {
     display: flex;
@@ -72,14 +87,31 @@ main {
     margin: 10px;
 }
 
+.processor-image {
+    grid-area: processor-image;
+  }
+
+
 .simulador-tarjeta {
     border-radius: 20px;
     background: rgb(28,28,29);
     background: linear-gradient(162deg, rgba(28,28,29,1) 0%, rgba(97,97,101,1) 35%, rgba(193,193,193,1) 88%);
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: end;
-    align-items: flex-start;
+    /* Aca tengo que mandar un display grid */
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: 
+    ". ."
+    "credit-card-data processor-image";
+    width: 350px;
+    height: 225px;
+    padding: 20px 20px 40px 20px;
+}
+
+.simulador-tarjeta p {
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0px 0px 10px 0px;
 }
 
 .tarjeta-blanca {
@@ -109,7 +141,13 @@ main {
     padding: 20px;
     display: flex;
     flex-flow: column nowrap;
+    justify-content: start;
+    align-items: center;
     overflow-y: scroll;
+}
+
+#pago-tarjeta {
+    background-color: red;
 }
 
 #navbar {
