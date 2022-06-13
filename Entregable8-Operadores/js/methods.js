@@ -400,7 +400,8 @@ function pagoConTarjeta(usuario) {
             let pantalla3 = pagoConTarjetaCampoTres();
             pantalla3.boton.addEventListener("click", function() {
                 let codigoDeSeguridad = pantalla3.input.value;
-                let pantalla4;
+                // let pantalla4 = confirmar y mostrar();
+                // Mostrar algo con Toastify
             });
         });
     });
@@ -483,72 +484,140 @@ function pagoConTarjetaCampoUno(usuario) {
     return new Pantalla("1", input, botonContinuar);
     }
 
-    function pagoConTarjetaCampoDos(usuario, nroTarjeta) {     
+function pagoConTarjetaCampoDos(usuario, nroTarjeta) {     
+    vaciarBloque();
+    // Crear un div para la representación de la tarjeta de crédito
+    let simuladorTarjeta = document.createElement('div');
+    simuladorTarjeta.classList.add('simulador-tarjeta');
+
+    // Creamos un Label con los datos del usuario
+    let datosDuenoTarjeta = document.createElement('p');
+    let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
+    let datosCompletos = nombreUpper + "\n" + nroTarjeta
+    datosDuenoTarjeta.innerText = datosCompletos;
+
+    // El Input en realidad tienen que ser dos, separados por una coma
+    let inputMes = document.createElement('input');
+    inputMes.classList.add('date-input');
+    inputMes.setAttribute("placeholder", "MM");
+    
+    let inputAño = document.createElement('input');
+    inputAño.classList.add('date-input');
+    inputAño.setAttribute("placeholder", "YY");
+
+    // Los Inputs tienen que estar ambos centrados, en un div 
+    let divInputs = document.createElement('div');
+    divInputs.classList.add('flex-row');
+    divInputs.appendChild(inputMes);
+    divInputs.appendChild(inputAño);
+    
+    // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
+    let divCreditCardData = document.createElement('div');
+    divCreditCardData.classList.add('credit-card-data');
+    divCreditCardData.appendChild(datosDuenoTarjeta);
+    divCreditCardData.appendChild(divInputs);
+    // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+    simuladorTarjeta.appendChild(divCreditCardData);
+
+
+    // Crear otro div para los botones de avance y retroceso
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Crear un boton de Cancelar y uno de avanzar
+    let botonCancelar = document.createElement('button');
+    let botonContinuar = document.createElement('button');
+    botonCancelar.innerText = "Cancelar";
+    botonContinuar.innerText = "Continuar";
+    botonCancelar.classList.add('btn');
+    botonCancelar.classList.add('btn-warning');
+    botonCancelar.classList.add('margin-button');
+    botonContinuar.classList.add('btn');
+    botonContinuar.classList.add('btn-success');
+    botonCancelar.classList.add('margin-button');
+    // Añadir una acción de Cancelar al botón de Cancelar
+    botonCancelar.addEventListener("click", function() {
         vaciarBloque();
-        // Crear un div para la representación de la tarjeta de crédito
-        let simuladorTarjeta = document.createElement('div');
-        simuladorTarjeta.classList.add('simulador-tarjeta');
+    });
+    // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
+    // pq cada acción continuar necesita hacer algo diferente
 
-        // Creamos un Label con los datos del usuario
-        let datosDuenoTarjeta = document.createElement('p');
-        let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
-        let datosCompletos = nombreUpper + "\n" + nroTarjeta
-        datosDuenoTarjeta.innerText = datosCompletos;
+    // Añadir los elementos al divBotones
+    divBotones.appendChild(botonCancelar);
+    divBotones.appendChild(botonContinuar);
 
-        // El Input en realidad tienen que ser dos, separados por una coma
-        let inputMes = document.createElement('input');
-        inputMes.classList.add('date-input');
-        inputMes.setAttribute("placeholder", "MM");
-        
-        let inputAño = document.createElement('input');
-        inputAño.classList.add('date-input');
-        inputAño.setAttribute("placeholder", "YY");
+    // Añadimos los dos divs al div de pagos con tarjeta
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(simuladorTarjeta);
+    bloque.appendChild(divBotones);
 
-        // Los Inputs tienen que estar ambos centrados, en un div 
-        let divInputs = document.createElement('div');
-        divInputs.classList.add('flex-row');
-        divInputs.appendChild(inputMes);
-        divInputs.appendChild(inputAño);
-        
-        // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
-        let divCreditCardData = document.createElement('div');
-        divCreditCardData.classList.add('credit-card-data');
-        divCreditCardData.appendChild(datosDuenoTarjeta);
-        divCreditCardData.appendChild(divInputs);
-        // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
-        simuladorTarjeta.appendChild(divCreditCardData);
+    //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
+    return new Pantalla(inputMes, inputAño, botonContinuar);
+}
+
+function pagoConTarjetaCampoTres() {
+    vaciarBloque();
+    // Crear un div para la representación de la tarjeta de crédito
+    let simuladorTarjeta = document.createElement('div');
+    simuladorTarjeta.classList.add('simulador-reverso-tarjeta');
+
+    // Tiene que haber una linea horizontal negra que simule la banda magnética
+    // Esa banda magnética la voy a simular con un div negro con algo de margen
+    let divNegro = document.createElement('div');
+    divNegro.classList.add('simulador-banda-magnetica');
+
+    // Tien que haber un div que tenga el p y el input del texto   
+    let divContenedor = document.createElement('div');
+    divContenedor.classList.add('grid-seguridad');
+
+    // El div hay que añadirlo dentro de simulador tarjeta, junto con el divNegro
+    simuladorTarjeta.appendChild(divNegro);
+    simuladorTarjeta.appendChild(divContenedor);
+
+    // Tiene que haber un p para info sobre el codigo de seguridad
+    let textoSeguridad = document.createElement('p');
+    textoSeguridad.innerText = "Ingrese el código de seguridad de la tarjeta";
+    textoSeguridad.classList.add('info');
+
+    // Tiene que haber un input para poner el texto
+    let inputSeguridad = document.createElement('input');
+    inputSeguridad.classList.add('cool-input');
+    inputSeguridad.classList.add('input');
+    inputSeguridad.setAttribute("placeholder", "123");
+
+    // Agregar el input y el texto en el divContenedor
+    divContenedor.appendChild(textoSeguridad);
+    divContenedor.appendChild(inputSeguridad);
     
-    
-        // Crear otro div para los botones de avance y retroceso
-        let divBotones = document.createElement('div');
-        divBotones.classList.add('flex-row');
-        // Crear un boton de Cancelar y uno de avanzar
-        let botonCancelar = document.createElement('button');
-        let botonContinuar = document.createElement('button');
-        botonCancelar.innerText = "Cancelar";
-        botonContinuar.innerText = "Continuar";
-        botonCancelar.classList.add('btn');
-        botonCancelar.classList.add('btn-warning');
-        botonCancelar.classList.add('margin-button');
-        botonContinuar.classList.add('btn');
-        botonContinuar.classList.add('btn-success');
-        botonCancelar.classList.add('margin-button');
-        // Añadir una acción de Cancelar al botón de Cancelar
-        botonCancelar.addEventListener("click", function() {
-            vaciarBloque();
-        });
-        // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
-        // pq cada acción continuar necesita hacer algo diferente
-    
-        // Añadir los elementos al divBotones
-        divBotones.appendChild(botonCancelar);
-        divBotones.appendChild(botonContinuar);
-    
-        // Añadimos los dos divs al div de pagos con tarjeta
-        let bloque = document.getElementById('bloque');
-        bloque.appendChild(simuladorTarjeta);
-        bloque.appendChild(divBotones);
-    
-        //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
-        return new Pantalla(inputMes, inputAño, botonContinuar);
-        }
+    // Crear otro div para los botones de avance y retroceso
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Crear un boton de Cancelar y uno de avanzar
+    let botonCancelar = document.createElement('button');
+    let botonContinuar = document.createElement('button');
+    botonCancelar.innerText = "Cancelar";
+    botonContinuar.innerText = "Continuar";
+    botonCancelar.classList.add('btn');
+    botonCancelar.classList.add('btn-warning');
+    botonCancelar.classList.add('margin-button');
+    botonContinuar.classList.add('btn');
+    botonContinuar.classList.add('btn-success');
+    botonCancelar.classList.add('margin-button');
+    // Añadir una acción de Cancelar al botón de Cancelar
+    botonCancelar.addEventListener("click", function() {
+        vaciarBloque();
+    });
+    // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
+    // pq cada acción continuar necesita hacer algo diferente
+
+    // Añadir los elementos al divBotones
+    divBotones.appendChild(botonCancelar);
+    divBotones.appendChild(botonContinuar);
+
+    // Añadimos los dos divs al div de pagos con tarjeta
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(simuladorTarjeta);
+    bloque.appendChild(divBotones);
+
+    //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
+    return new Pantalla(textoSeguridad, inputSeguridad, botonContinuar);
+}

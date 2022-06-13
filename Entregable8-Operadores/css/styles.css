@@ -33,6 +33,11 @@ main {
     align-items: center;
 }
 
+/* Pseudo-Elementos */
+::placeholder {
+    color: white;
+}
+
 
 /* Clases */
 .boton-lindo {
@@ -100,6 +105,28 @@ main {
     align-items: center;
 }
 
+.grid-seguridad {
+    display: grid;
+    grid-template-columns: 80% 20%;
+    grid-template-rows: 30px;
+    grid-template-areas: "info input";
+}
+
+.info {
+    grid-area: info;
+    color: white;
+    text-align: center;
+}
+
+.input {
+    grid-area: input;
+    padding: 10px;
+    width: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .margin-button {
     margin: 10px;
 }
@@ -108,6 +135,11 @@ main {
     grid-area: processor-image;
   }
 
+.simulador-banda-magnetica {
+    height: 50px;
+    background-color: black;
+    margin: 10px 0px 15px;
+}
 
 .simulador-tarjeta {
     border-radius: 20px;
@@ -125,11 +157,24 @@ main {
     padding: 20px 20px 40px 20px;
 }
 
+.simulador-reverso-tarjeta {
+    border-radius: 20px;
+    border-color: white;
+    border-width: 2px;
+    background: rgb(28,28,29);
+    background: linear-gradient(162deg, rgba(28,28,29,1) 0%, rgba(97,97,101,1) 35%, rgba(193,193,193,1) 88%);
+    width: 350px;
+    height: 225px;
+    padding: 20px 0px 40px;
+}
+
 .simulador-tarjeta p {
     color: white;
     font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     margin: 0px 0px 10px 0px;
 }
+
+
 
 .tarjeta-blanca {
     border-radius: 25px;
