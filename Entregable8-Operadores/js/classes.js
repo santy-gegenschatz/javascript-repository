@@ -54,8 +54,9 @@ class Producto {
 }
 
 class Pantalla {
-    constructor(label, input, boton) {
-        this.label = label;
+    // ¿ Cómo construyo algo distinto? Un constructor con otras 4 variables por ejemplo
+    constructor(element1, input, boton) {
+        this.element1 = element1;
         this.input = input;
         this.boton = boton;
     }

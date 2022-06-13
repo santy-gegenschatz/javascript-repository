@@ -394,11 +394,13 @@ function pagoConTarjeta(usuario) {
         let nroTarjeta = pantalla.input.value;
         let pantalla2 = pagoConTarjetaCampoDos(usuario, nroTarjeta);
         pantalla2.boton.addEventListener("click", function() {
-            let vencimiento = pantalla2.input.value;
+            let vencimientoMes = pantalla2.element1.value;
+            let vencimientoAño = pantalla2.input.value;
+            let vencimientoConcatenado = vencimientoMes + "/" + vencimientoAño;
             let pantalla3 = pagoConTarjetaCampoTres();
             pantalla3.boton.addEventListener("click", function() {
                 let codigoDeSeguridad = pantalla3.input.value;
-                let pantalla4 = "b";
+                let pantalla4;
             });
         });
     });
@@ -495,12 +497,12 @@ function pagoConTarjetaCampoUno(usuario) {
 
         // El Input en realidad tienen que ser dos, separados por una coma
         let inputMes = document.createElement('input');
-        inputMes.classList.add('cool-input');
         inputMes.classList.add('date-input');
+        inputMes.setAttribute("placeholder", "MM");
         
         let inputAño = document.createElement('input');
-        inputAño.classList.add('cool-input');
         inputAño.classList.add('date-input');
+        inputAño.setAttribute("placeholder", "YY");
 
         // Los Inputs tienen que estar ambos centrados, en un div 
         let divInputs = document.createElement('div');

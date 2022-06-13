@@ -78,7 +78,21 @@ main {
 
 .date-input {
     width: 50px;
+    margin: 3px;
+    color: white;
+    text-align: center;
+    padding: 12px 5px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #3CBC8D;
+    border-radius: 25px;
+    height: 20px;
 }
+
+.date-input ::placeholder{
+    color: white;
+}
+
 .flex-row {
     display: flex;
     flex-flow: row nowrap;
