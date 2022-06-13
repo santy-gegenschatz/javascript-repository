@@ -394,15 +394,17 @@ function pagoConTarjeta(usuario) {
         let nroTarjeta = pantalla.input.value;
         let pantalla2 = pagoConTarjetaCampoDos(usuario, nroTarjeta);
         pantalla2.boton.addEventListener("click", function() {
-            let vencimientoMes = pantalla2.element1.value;
-            let vencimientoAño = pantalla2.input.value;
+            let vencimientoMes = pantalla2.vencimientoTarjeta.inputMes;
+            let vencimientoAño = pantalla2.vencimientoTarjeta.inputAño;
+            let bancoEmisor = pantalla2.element1;
             let vencimientoConcatenado = vencimientoMes + "/" + vencimientoAño;
             let pantalla3 = pagoConTarjetaCampoTres();
             pantalla3.boton.addEventListener("click", function() {
                 let codigoDeSeguridad = pantalla3.input.value;
-                let bancoEmisor = pantalla3.element1.value;
-                let nuevaTarjeta = new TarjetaDeCredito(nroTarjeta, vencimientoMes, vencimientoAño, codigoDeSeguridad, usuario, )
-                // let pantalla4 = pagoConTarjetaCampoCuatrio()
+                // Crear una nueva Tarjeta de Crédito y guardarla en el array correspondiente.
+                let nuevaTarjeta = new TarjetaDeCredito(nroTarjeta, vencimientoMes, vencimientoAño, codigoDeSeguridad, usuario, bancoEmisor);
+                tarjetasDeCredito.push(nuevaTarjeta);
+                let pantalla4 = pagoConTarjetaCampoCuatro()
                 // Mostrar algo con Toastify
             });
         });
@@ -551,7 +553,7 @@ function pagoConTarjetaCampoDos(usuario, nroTarjeta) {
     let imagenProcesador = document.createElement('img');
     imagenProcesador.classList.add('imagen-procesador');
     let fuenteImagen = obtenerFuente(nroTarjeta);
-    imagenProcesador.setAttribute("src", fuenteImagen);
+    imagenProcesador.setAttribute("src", fuenteImagen.imgPath);
     divImagenProcesador.appendChild(imagenProcesador);
 
 
@@ -592,8 +594,12 @@ function pagoConTarjetaCampoDos(usuario, nroTarjeta) {
     bloque.appendChild(simuladorTarjeta);
     bloque.appendChild(divBotones);
 
-    //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
-    return new Pantalla(inputMes, inputAño, botonContinuar);
+    //Retornamos un objeto pantalla con el un objeto input, pq hay dos datos, un elemento bancoemisor y el botón continuar
+    let vencimientoTarjeta = {};
+    vencimientoTarjeta.mesDeVencimiento = inputMes;
+    vencimientoTarjeta.anoDeVencimiento = inputAño;
+
+    return new Pantalla(fuenteImagen.bancoEmisor, vencimientoTarjeta, botonContinuar);
 }
 
 function pagoConTarjetaCampoTres() {
@@ -670,7 +676,103 @@ function pagoConTarjetaCampoTres() {
 }
 
 function pagoConTarjetaCampoCuatro(tarjetaDeCredito) {
+    vaciarBloque();
+    // Crear un div para la representación de la tarjeta de crédito
+    let simuladorTarjeta = document.createElement('div');
+    simuladorTarjeta.classList.add('simulador-tarjeta');
 
+    // También querríamos poner un h1 con el nombre del banco
+    let divTitulo = document.createElement('div');
+    let titulo = document.createElement('h1');
+    titulo.innerText = "Coderhouse Bank Ltd."
+    divTitulo.appendChild(titulo);
+    divTitulo.classList.add('titulo-tarjeta');
+    
+    // Creamos un Label con los datos del usuario
+    let datosDuenoTarjeta = document.createElement('p');
+    let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
+    let datosCompletos = nombreUpper + "\n" + nroTarjeta
+    datosDuenoTarjeta.innerText = datosCompletos;
+
+    // El Input en realidad tienen que ser dos, separados por una coma
+    let inputMes = document.createElement('input');
+    inputMes.classList.add('date-input');
+    inputMes.setAttribute("placeholder", "MM");
+    
+    let inputAño = document.createElement('input');
+    inputAño.classList.add('date-input');
+    inputAño.setAttribute("placeholder", "YY");
+
+    // Los Inputs tienen que estar ambos centrados, en un div 
+    let divInputs = document.createElement('div');
+    divInputs.classList.add('flex-row');
+    divInputs.appendChild(inputMes);
+    divInputs.appendChild(inputAño);
+    
+    // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
+    let divCreditCardData = document.createElement('div');
+    divCreditCardData.classList.add('credit-card-data');
+    divCreditCardData.appendChild(datosDuenoTarjeta);
+    divCreditCardData.appendChild(divInputs);
+
+    // Por último, querríamos poner adentro de un div una imagen con el emisor de la tarjeta.
+        // Si empieza con : 
+            // 4, 5: Mastercard
+            // 3: Visa
+            // 6, 7: American Express
+        // Deberíamos tener una función justamente, que lea el input de la tarjeta y retorne que archivo de texto buscar
+    let divImagenProcesador = document.createElement('div');
+    divImagenProcesador.classList.add('contenedor-imagen-procesador');
+    let imagenProcesador = document.createElement('img');
+    imagenProcesador.classList.add('imagen-procesador');
+    let fuenteImagen = obtenerFuente(nroTarjeta);
+    imagenProcesador.setAttribute("src", fuenteImagen.imgPath);
+    divImagenProcesador.appendChild(imagenProcesador);
+
+
+
+    // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+    simuladorTarjeta.appendChild(divTitulo);
+    simuladorTarjeta.appendChild(divCreditCardData);
+    simuladorTarjeta.appendChild(divImagenProcesador);
+
+
+    // Crear otro div para los botones de avance y retroceso
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Crear un boton de Cancelar y uno de avanzar
+    let botonCancelar = document.createElement('button');
+    let botonContinuar = document.createElement('button');
+    botonCancelar.innerText = "Cancelar";
+    botonContinuar.innerText = "Continuar";
+    botonCancelar.classList.add('btn');
+    botonCancelar.classList.add('btn-warning');
+    botonCancelar.classList.add('margin-button');
+    botonContinuar.classList.add('btn');
+    botonContinuar.classList.add('btn-success');
+    botonCancelar.classList.add('margin-button');
+    // Añadir una acción de Cancelar al botón de Cancelar
+    botonCancelar.addEventListener("click", function() {
+        vaciarBloque();
+    });
+    // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
+    // pq cada acción continuar necesita hacer algo diferente
+
+    // Añadir los elementos al divBotones
+    divBotones.appendChild(botonCancelar);
+    divBotones.appendChild(botonContinuar);
+
+    // Añadimos los dos divs al div de pagos con tarjeta
+    let bloque = document.getElementById('bloque');
+    bloque.appendChild(simuladorTarjeta);
+    bloque.appendChild(divBotones);
+
+    //Retornamos un objeto pantalla con el un objeto input, pq hay dos datos, un elemento bancoemisor y el botón continuar
+    let vencimientoTarjeta = {};
+    vencimientoTarjeta.mesDeVencimiento = inputMes;
+    vencimientoTarjeta.anoDeVencimiento = inputAño;
+
+    return new Pantalla(fuenteImagen.bancoEmisor, vencimientoTarjeta, botonContinuar);
 }
 
 function obtenerFuente(nroTarjeta) {
@@ -678,23 +780,30 @@ function obtenerFuente(nroTarjeta) {
     let returnArray = {};
     switch (primerosDosDigitos) {
         case('3'):
-            returnArray.bancoEmisor("Visa");
-            returnArray.imgPath("../files/images/visa.png");
-            return returnArray;
+            returnArray.bancoEmisor = "Visa";
+            returnArray.imgPath = "../files/images/visa.png";
 
         case('4'):
-            return "../files/images/mastercard.png";
+            returnArray.bancoEmisor = "Mastercard";
+            returnArray.imgPath = "../files/images/mastercard.png";
 
         case('5'):
-            return "../files/images/mastercard.png";
+            returnArray.bancoEmisor = "Mastercard";
+            returnArray.imgPath = "../files/images/mastercard.png";
         
         case('6'):
-            return "../files/images/american-express.png";
+            returnArray.bancoEmisor = "American Express";
+            returnArray.imgPath = "../files/images/american-express.png";
             
         case('7'):
-            return "../files/images/american-express.png";
+            returnArray.bancoEmisor = "American Express";
+            returnArray.imgPath = "../files/images/american-express.png";
         
         default:
-            return "../files/images/mastercard.png";
+            returnArray.bancoEmisor = "Mastercard";
+            returnArray.imgPath = "../files/images/mastercard.png";
+
     }
+
+    return returnArray
 }

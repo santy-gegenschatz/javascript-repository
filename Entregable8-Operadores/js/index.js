@@ -3,6 +3,7 @@ let usuarios = []
 let pagos = []
 let vendedores = []
 let productos = []
+let tarjetasDeCredito = [];
 let id_usuarios_count = 0;
 let id_pagos_count = 0;
 
