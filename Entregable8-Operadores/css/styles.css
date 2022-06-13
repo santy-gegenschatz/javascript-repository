@@ -61,7 +61,7 @@ main {
     height: 20px;
   }
 
-  .credit-card-data {
+.credit-card-data {
     grid-area: credit-card-data;
     display: flex;
     flex-flow: column nowrap;
@@ -69,13 +69,16 @@ main {
     align-items: flex-start;
   }
 
-  .div-interno {
+.div-interno {
     display: flex;
     flex-flow: column nowrap;
     justify-content: end;
     align-items: flex-start;
 }
 
+.date-input {
+    width: 50px;
+}
 .flex-row {
     display: flex;
     flex-flow: row nowrap;

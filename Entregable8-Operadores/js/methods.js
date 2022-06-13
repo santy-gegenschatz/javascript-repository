@@ -496,9 +496,11 @@ function pagoConTarjetaCampoUno(usuario) {
         // El Input en realidad tienen que ser dos, separados por una coma
         let inputMes = document.createElement('input');
         inputMes.classList.add('cool-input');
+        inputMes.classList.add('date-input');
         
         let inputAño = document.createElement('input');
         inputAño.classList.add('cool-input');
+        inputAño.classList.add('date-input');
 
         // Los Inputs tienen que estar ambos centrados, en un div 
         let divInputs = document.createElement('div');
