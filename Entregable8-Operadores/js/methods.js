@@ -400,7 +400,9 @@ function pagoConTarjeta(usuario) {
             let pantalla3 = pagoConTarjetaCampoTres();
             pantalla3.boton.addEventListener("click", function() {
                 let codigoDeSeguridad = pantalla3.input.value;
-                // let pantalla4 = confirmar y mostrar();
+                let bancoEmisor = pantalla3.element1.value;
+                let nuevaTarjeta = new TarjetaDeCredito(nroTarjeta, vencimientoMes, vencimientoAño, codigoDeSeguridad, usuario, )
+                // let pantalla4 = pagoConTarjetaCampoCuatrio()
                 // Mostrar algo con Toastify
             });
         });
@@ -434,19 +436,33 @@ function pagoConTarjetaCampoUno(usuario) {
     // Crear un div para la representación de la tarjeta de crédito
     let simuladorTarjeta = document.createElement('div');
     simuladorTarjeta.classList.add('simulador-tarjeta');
+
     // Creamos un Label con los datos del usuario
     let datosDuenoTarjeta = document.createElement('p');
     let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
     datosDuenoTarjeta.innerText = nombreUpper;
+
     // Creamos un Input para ingresar los datos del usuario
     let input = document.createElement('input');
     input.classList.add('cool-input');
+    input.setAttribute("placeholder", "XXXX YYYY QQQQ ZZZZ");
+
     // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
     let divCreditCardData = document.createElement('div');
     divCreditCardData.classList.add('credit-card-data');
     divCreditCardData.appendChild(datosDuenoTarjeta);
     divCreditCardData.appendChild(input);
+
+    // También querríamos poner un h1 con el nombre del banco
+    let divTitulo = document.createElement('div');
+    let titulo = document.createElement('h1');
+    titulo.innerText = "Coderhouse Bank Ltd."
+    divTitulo.appendChild(titulo);
+    divTitulo.classList.add('titulo-tarjeta');
+
+
     // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+    simuladorTarjeta.appendChild(divTitulo);
     simuladorTarjeta.appendChild(divCreditCardData);
 
 
@@ -490,6 +506,13 @@ function pagoConTarjetaCampoDos(usuario, nroTarjeta) {
     let simuladorTarjeta = document.createElement('div');
     simuladorTarjeta.classList.add('simulador-tarjeta');
 
+    // También querríamos poner un h1 con el nombre del banco
+    let divTitulo = document.createElement('div');
+    let titulo = document.createElement('h1');
+    titulo.innerText = "Coderhouse Bank Ltd."
+    divTitulo.appendChild(titulo);
+    divTitulo.classList.add('titulo-tarjeta');
+    
     // Creamos un Label con los datos del usuario
     let datosDuenoTarjeta = document.createElement('p');
     let nombreUpper = usuario.nombre.toUpperCase() + " " + usuario.apellido.toUpperCase();
@@ -516,8 +539,27 @@ function pagoConTarjetaCampoDos(usuario, nroTarjeta) {
     divCreditCardData.classList.add('credit-card-data');
     divCreditCardData.appendChild(datosDuenoTarjeta);
     divCreditCardData.appendChild(divInputs);
+
+    // Por último, querríamos poner adentro de un div una imagen con el emisor de la tarjeta.
+        // Si empieza con : 
+            // 4, 5: Mastercard
+            // 3: Visa
+            // 6, 7: American Express
+        // Deberíamos tener una función justamente, que lea el input de la tarjeta y retorne que archivo de texto buscar
+    let divImagenProcesador = document.createElement('div');
+    divImagenProcesador.classList.add('contenedor-imagen-procesador');
+    let imagenProcesador = document.createElement('img');
+    imagenProcesador.classList.add('imagen-procesador');
+    let fuenteImagen = obtenerFuente(nroTarjeta);
+    imagenProcesador.setAttribute("src", fuenteImagen);
+    divImagenProcesador.appendChild(imagenProcesador);
+
+
+
     // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+    simuladorTarjeta.appendChild(divTitulo);
     simuladorTarjeta.appendChild(divCreditCardData);
+    simuladorTarjeta.appendChild(divImagenProcesador);
 
 
     // Crear otro div para los botones de avance y retroceso
@@ -581,12 +623,17 @@ function pagoConTarjetaCampoTres() {
     // Tiene que haber un input para poner el texto
     let inputSeguridad = document.createElement('input');
     inputSeguridad.classList.add('cool-input');
-    inputSeguridad.classList.add('input');
+    inputSeguridad.setAttribute("id", "input-seguridad");
     inputSeguridad.setAttribute("placeholder", "123");
+
+    // Ese input tiene que estar en un div, que sea el área específica dentro del Grid.
+    let divInputSeguridad = document.createElement('div');
+    divInputSeguridad.classList.add('input-seguridad');
+    divInputSeguridad.appendChild(inputSeguridad);
 
     // Agregar el input y el texto en el divContenedor
     divContenedor.appendChild(textoSeguridad);
-    divContenedor.appendChild(inputSeguridad);
+    divContenedor.appendChild(divInputSeguridad);
     
     // Crear otro div para los botones de avance y retroceso
     let divBotones = document.createElement('div');
@@ -620,4 +667,34 @@ function pagoConTarjetaCampoTres() {
 
     //Retornamos un objeto pantalla con el input, y el botón de continuar, para que lo accedan 
     return new Pantalla(textoSeguridad, inputSeguridad, botonContinuar);
+}
+
+function pagoConTarjetaCampoCuatro(tarjetaDeCredito) {
+
+}
+
+function obtenerFuente(nroTarjeta) {
+    let primerosDosDigitos = nroTarjeta.charAt(0);
+    let returnArray = {};
+    switch (primerosDosDigitos) {
+        case('3'):
+            returnArray.bancoEmisor("Visa");
+            returnArray.imgPath("../files/images/visa.png");
+            return returnArray;
+
+        case('4'):
+            return "../files/images/mastercard.png";
+
+        case('5'):
+            return "../files/images/mastercard.png";
+        
+        case('6'):
+            return "../files/images/american-express.png";
+            
+        case('7'):
+            return "../files/images/american-express.png";
+        
+        default:
+            return "../files/images/mastercard.png";
+    }
 }

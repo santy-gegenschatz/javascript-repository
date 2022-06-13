@@ -35,7 +35,7 @@ main {
 
 /* Pseudo-Elementos */
 ::placeholder {
-    color: white;
+    color: #494545;
 }
 
 
@@ -52,6 +52,14 @@ main {
 
 .centered-text {
     text-align: center;
+}
+
+.contenedor-imagen-procesador {
+    grid-area: imagen-procesador;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
 .cool-input {
@@ -107,9 +115,14 @@ main {
 
 .grid-seguridad {
     display: grid;
-    grid-template-columns: 80% 20%;
+    grid-template-columns: 70% 30%;
     grid-template-rows: 30px;
-    grid-template-areas: "info input";
+    grid-template-areas: "info input-seguridad";
+}
+
+.imagen-procesador {
+    width: 100%;
+    height: 65%;
 }
 
 .info {
@@ -118,10 +131,9 @@ main {
     text-align: center;
 }
 
-.input {
-    grid-area: input;
+.input-seguridad {
+    grid-area: input-seguridad;
     padding: 10px;
-    width: 50px;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -150,11 +162,11 @@ main {
     grid-template-columns: 70% 30%;
     grid-template-rows: 50% 50%;
     grid-template-areas: 
-    ". ."
-    "credit-card-data processor-image";
+    "titulo-tarjeta titulo-tarjeta"
+    "credit-card-data imagen-procesador";
     width: 350px;
     height: 225px;
-    padding: 20px 20px 40px 20px;
+    padding: 20px 10px 10px 20px;
 }
 
 .simulador-reverso-tarjeta {
@@ -188,6 +200,16 @@ main {
     text-align: center;
 }
 
+.titulo-tarjeta {
+    grid-area: titulo-tarjeta;
+}
+
+.titulo-tarjeta h1 {
+    color: white;
+    font-size: 20px;
+    text-align: left;
+}
+
 .white {
     color: white;
 }
@@ -208,14 +230,20 @@ main {
     overflow-y: scroll;
 }
 
-#pago-tarjeta {
-    background-color: red;
+#input-seguridad {
+    text-align: center;
+    color: white;
+    margin: 0px 5px 0px;
 }
 
 #navbar {
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+#pago-tarjeta {
+    background-color: red;
 }
 
 #title {

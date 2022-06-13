@@ -53,6 +53,19 @@ class Producto {
     }
 }
 
+class TarjetaDeCredito {
+    constructor(codigoIdentificador, mesVencimiento, anoVencimiento, codSeguridad, usuarioDueno, bancoEmisor) {
+        this.codigoIdentificador = codigoIdentificador;
+        this.mesVencimiento = mesVencimiento;
+        this.anoVencimiento = anoVencimiento;
+        this.codSeguridad = codSeguridad;
+        this.usuarioDueno = usuarioDueno;
+        this.bancoEmisor = bancoEmisor;
+    }
+}
+
+// Clases Visuales Auxiliares
+
 class Pantalla {
     // ¿ Cómo construyo algo distinto? Un constructor con otras 4 variables por ejemplo
     constructor(element1, input, boton) {
