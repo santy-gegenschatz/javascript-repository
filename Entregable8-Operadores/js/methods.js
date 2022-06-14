@@ -416,9 +416,8 @@ function pagoConTarjeta(usuario) {
                         swal({
                             title : "Éxito en la transacción!",
                             text : "El pago se ingreso con éxito y la copia de los detalles ya te llego a tu mail 🚀",
-                            icon : 'success',
-                            confirmButtonText : 'Ok',
-                            imageUrl : 'https://giphy.com/gifs/producthunt-shut-up-and-take-my-money-3oKIPa2TdahY8LAAxy'
+                            button : 'Ok',
+                            icon : 'https://giphy.com/gifs/producthunt-shut-up-and-take-my-money-3oKIPa2TdahY8LAAxy'
                         });
                     });
                 });
