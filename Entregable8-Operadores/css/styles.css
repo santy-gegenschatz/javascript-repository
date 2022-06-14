@@ -131,12 +131,38 @@ main {
     text-align: center;
 }
 
+.input-monto-tarjeta {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 28px;
+    margin: 13px;
+    background-color: black;
+    border: none;
+    color: white;
+}
+
+.input-monto-tarjeta ::placeholder {
+    color: #B6B0B0;
+}
+
 .input-seguridad {
     grid-area: input-seguridad;
     padding: 10px;
     display: flex;
     flex-direction: row;
     justify-content: center;
+}
+
+.label-monto-tarjeta {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 28px;
+    margin: 13px;
+    background-color: black;
+    border: none;
+    color: green;
 }
 
 .margin-button {
@@ -186,8 +212,6 @@ main {
     margin: 0px 0px 10px 0px;
 }
 
-
-
 .tarjeta-blanca {
     border-radius: 25px;
     border: 0px;
@@ -197,6 +221,10 @@ main {
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
+    text-align: center;
+}
+
+.text-align-center {
     text-align: center;
 }
 

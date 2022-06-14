@@ -54,8 +54,8 @@ class Producto {
 }
 
 class TarjetaDeCredito {
-    constructor(codigoIdentificador, mesVencimiento, anoVencimiento, codSeguridad, usuarioDueno, bancoEmisor) {
-        this.codigoIdentificador = codigoIdentificador;
+    constructor(nroTarjeta, mesVencimiento, anoVencimiento, codSeguridad, usuarioDueno, bancoEmisor) {
+        this.nroTarjeta = nroTarjeta;
         this.mesVencimiento = mesVencimiento;
         this.anoVencimiento = anoVencimiento;
         this.codSeguridad = codSeguridad;
