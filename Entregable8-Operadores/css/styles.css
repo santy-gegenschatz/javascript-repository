@@ -217,11 +217,13 @@ main {
     border: 0px;
     background-color: aquamarine;
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
     text-align: center;
+    height: 222px;
+    width: 305px;
 }
 
 .text-align-center {

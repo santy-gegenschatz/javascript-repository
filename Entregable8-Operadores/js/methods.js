@@ -172,53 +172,35 @@ function vaciarElemento(element) {
 }
 
 function mostrarDatosUsuario(usuario, tarjeta) {
-    info_usuario = "Usuario" + "\n";
-    info_usuario += "\n" + usuario.nombre;
-    info_usuario += "\n" + usuario.apellido;
-    info_usuario += "\n" + usuario.dni;
-    info_usuario += "\n" + saldoMayor(usuario.saldo);
-    info_usuario += "\n" + formatoDniOk(usuario.dni);
+    // Poner el texto
+    tarjeta.innerText = mostrarDatosBasicosDelUsuario(usuario);
 
-    tarjeta.innerText = info_usuario;
     // Crear Botones
-    let botonSaldo = document.createElement('button');
-    let botonTarjeta = document.createElement('button');
-    // Añadir atributos a los botones
-    botonSaldo.innerText = "Consultar Saldo";
-    botonTarjeta.innerText = "Pagar con Tarjeta";
-    botonSaldo.classList.add("btn");
-    botonSaldo.classList.add("btn-info");
-    botonSaldo.classList.add("margin-button");
-    botonTarjeta.classList.add("btn");
-    botonTarjeta.classList.add("btn-info");
-    botonTarjeta.classList.add("margin-button");
-    
-    // Crear un div que contenga los botones
-    let divBotones = document.createElement('div');
-    divBotones.classList.add('flex-row');
-    // Añadir los botones al div
-    divBotones.appendChild(botonSaldo);
-    divBotones.appendChild(botonTarjeta);
-    // Añadir los eventListeners a cada botón
-    botonSaldo.addEventListener("click", function() {
-        mostrarSaldoUsuario(usuario, tarjeta);
-    });
-    botonTarjeta.addEventListener("click", function() {
-        pagoConTarjeta(usuario);
-    });
-    // Añadir el div a la tarjeta
-    tarjeta.appendChild(divBotones);
+    tarjeta.appendChild(crearDivConBotones(usuario, tarjeta));
 }
 
 function mostrarSaldoUsuario(usuario, tarjeta) {
     tarjeta.innerText = "Saldo" + "\n" + usuario.saldo;
+    // Crear un botón para ver detalles técnicos
+    let botonDetallesTecnicos = document.createElement('button');
+    botonDetallesTecnicos.innerText = "Ver detalles técnicos";
+    botonDetallesTecnicos.classList.add('btn');
+    botonDetallesTecnicos.classList.add('btn-dark');
+    botonDetallesTecnicos.setAttribute("style", "margin : 10px;");
+    botonDetallesTecnicos.addEventListener("click", () => {
+        verDetallesTecnicos(usuario, tarjeta);
+    });
     // Crear un botón para volver atrás
     let botonVuelta = document.createElement('button');
     botonVuelta.innerText = "Volver";
+    botonVuelta.classList.add('btn');
     botonVuelta.classList.add('btn-info');
+    botonVuelta.setAttribute("style", "margin : 10px;");
     botonVuelta.addEventListener("click", () => {
         imprimirUsuarios();
     });
+    tarjeta.appendChild(botonDetallesTecnicos);
+    tarjeta.appendChild(botonVuelta);
 }
 
 function tomarDatosDni(dni) {
@@ -417,7 +399,7 @@ function pagoConTarjeta(usuario) {
                             title : "Éxito en la transacción!",
                             text : "El pago se ingreso con éxito y la copia de los detalles ya te llego a tu mail 🚀",
                             button : 'Ok',
-                            icon : 'https://giphy.com/gifs/producthunt-shut-up-and-take-my-money-3oKIPa2TdahY8LAAxy'
+                            icon : 'https://media3.giphy.com/media/3oKIPa2TdahY8LAAxy/giphy.gif?cid=ecf05e473r41s6qr4g57zwkg262vdls62o7euirnilo80i2b&rid=giphy.gif&ct=g'
                         });
                     });
                 });
@@ -932,4 +914,65 @@ function obtenerFuente(nroTarjeta) {
     }
 
     return returnArray
+}
+
+function mostrarDatosBasicosDelUsuario(usuario){
+    info_usuario = "Usuario" + "\n";
+    info_usuario += "\n" + "Nombre : " + usuario.nombre;
+    info_usuario += "\n" + "Apellido : " + usuario.apellido;
+    info_usuario += "\n" + "Dni : " +  usuario.dni;
+
+    return info_usuario
+}
+
+function crearDivConBotones(usuario, tarjeta) {
+    let botonSaldo = document.createElement('button');
+    let botonTarjeta = document.createElement('button');
+    // Añadir atributos a los botones
+    botonSaldo.innerText = "Consultar Detalles";
+    botonTarjeta.innerText = "Pagar con Tarjeta";
+    botonSaldo.classList.add("btn");
+    botonSaldo.classList.add("btn-dark");
+    botonSaldo.classList.add("margin-button");
+    botonTarjeta.classList.add("btn");
+    botonTarjeta.classList.add("btn-dark");
+    botonTarjeta.classList.add("margin-button");
+    
+    // Crear un div que contenga los botones
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Añadir los botones al div
+    divBotones.appendChild(botonSaldo);
+    divBotones.appendChild(botonTarjeta);
+    // Añadir los eventListeners a cada botón
+    botonSaldo.addEventListener("click", function() {
+        mostrarSaldoUsuario(usuario, tarjeta);
+    });
+    botonTarjeta.addEventListener("click", function() {
+        pagoConTarjeta(usuario);
+    });
+
+    return divBotones
+}
+
+function verDetallesTecnicos(usuario, tarjeta) {
+    vaciarTarjeta(tarjeta);
+    // Mostrar los detalles técnicos con las funciones con operadores ternarios
+    let mensajeConsolidado = document.createElement('p');
+    mensajeConsolidado.innerText = (saldoMayor(usuario.saldo) + "\n" + formatoDniOk(usuario.dni));
+    tarjeta.appendChild(mensajeConsolidado);
+    // Crear un botón para volver atrás
+    let botonVuelta = document.createElement('button');
+    botonVuelta.innerText = "Volver";
+    botonVuelta.classList.add('btn');
+    botonVuelta.classList.add('btn-info');
+    botonVuelta.setAttribute("style", "margin : 10px;");
+    botonVuelta.addEventListener("click", () => {
+        mostrarSaldoUsuario(usuario, tarjeta);
+    });
+    tarjeta.appendChild(botonVuelta);
+}
+
+function vaciarTarjeta(tarjeta) {
+    tarjeta.innerHTML = "";
 }
