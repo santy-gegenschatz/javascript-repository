@@ -9,31 +9,48 @@ let id_pagos_count = 0;
 
 //Verificar si ya hay información en el localStorage para decidir que crear
 let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
-
 arrayCheckeos.forEach ((elemento) => {
-    if (JSON.parse(localStorage.getItem(elemento).length === 0)) {
+    try {
+        let length = JSON.parse(localStorage.getItem(elemento).length);
         switch(elemento) {
-            
-        }   
-    } else {
+            case('usuarios'):
+            usuarios = JSON.parse(localStorage.getItem(elemento));
+            break;
+            case('tarjetasDeCredito'):
+            tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
+            break;
+        }
+    } catch {
+        switch(elemento) {
+            case('usuarios'):
+                // Agregar dos usuarios para poder hacer testings
+                const usuario1 = new Usuario (id_usuarios_count, "Santy", "Gegenschatz", "1", 100);
+                const usuario2 = new Usuario (id_usuarios_count, "John", "Doe", "2", 100);
+                usuarios.push(usuario1);
+                usuarios.push(usuario2);
 
+                // Agregar el array de usuarios al localStorage
+                usuariosJSON = JSON.stringify(usuarios);
+                localStorage.setItem(elemento, usuariosJSON);
+                break;
+            
+            case('tarjetasDeCredito'):
+                const tarjeta1 = new TarjetaDeCredito("4867843544864", "02", "2028", "684", usuarios[0], "Coderbank");
+                const tarjeta2 = new TarjetaDeCredito("6984384684654", "04", "2025", "114", usuarios[0], "Coderbank");
+                const tarjeta3 = new TarjetaDeCredito("3612846964687", "11", "2023", "342", usuarios[1], "Coderbank");
+                tarjetasDeCredito.push(tarjeta1);
+                tarjetasDeCredito.push(tarjeta2);
+                tarjetasDeCredito.push(tarjeta3);
+                tarjetasJSON = JSON.stringify(tarjetasDeCredito);
+                localStorage.setItem(elemento, tarjetasJSON);
+            break;
+
+            case('transferencias'):
+            
+            break;
+        }
     }
 });
-if (JSON.parse(localStorage.getItem('usuarios').length === 0)) {
-    // Agregar dos usuarios para poder hacer testings
-    const usuario1 = new Usuario (id_usuarios_count, "Santy", "Gegenschatz", "1", 100);
-    const usuario2 = new Usuario (id_usuarios_count, "John", "Doe", "2", 100);
-    usuarios.push(usuario1);
-    usuarios.push(usuario2);
-
-    // Agregar el array de usuarios al localStorage
-    usuariosJSON = JSON.stringify(usuarios);
-    localStorage.setItem('usuarios', usuariosJSON);
-} else {
-    // Cargar los datos desde el localStorage al array de usuarios
-    usuarios = JSON.parse(localStorage.getItem('usuarios'));
-    console.log(usuarios);
-}
 
 let usuario1 = usuarios[0];
 let usuario2 = usuarios[1];
