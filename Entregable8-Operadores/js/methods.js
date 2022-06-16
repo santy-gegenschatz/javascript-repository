@@ -156,6 +156,13 @@ function enviarFormulario() {
     usuariosJSON = JSON.stringify(usuarios);
     localStorage.setItem('usuarios', usuariosJSON);
     vaciarBloque();
+    
+    swal({
+        title : "¡Éxito en la transacción!",
+        text : "El usuario " + nombre + " " + apellido + " se cargó con éxito al Local Storage",
+        button : 'Cool, gracias',
+        icon : 'https://media4.giphy.com/media/zaqclXyLz3Uoo/giphy.gif?cid=ecf05e47eaoxfc1g4txpsb8pmkftdptecpfg8081ftog46qd&rid=giphy.gif&ct=g'
+    });
 }
 
 function vaciarBloque() {

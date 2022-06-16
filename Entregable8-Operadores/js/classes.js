@@ -36,24 +36,6 @@ class Pago {
     }
 }
 
-class Vendedor {
-    constructor(unique_id, nombre, apellido, saldo) {
-        this.unique_id = unique_id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.saldo = saldo;
-    }
-}
-
-class Producto {
-    constructor(unique_id, nombre, precio, stock) {
-        this.unique_id = unique_id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
-    }
-}
-
 class TarjetaDeCredito {
     constructor(nroTarjeta, mesVencimiento, anoVencimiento, codSeguridad, usuarioDueno, bancoEmisor) {
         this.nroTarjeta = nroTarjeta;
