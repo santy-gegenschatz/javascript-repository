@@ -1,6 +1,6 @@
 // Constantes globales
 let usuarios = []
-let pagos = []
+let transferencias = []
 let vendedores = []
 let productos = []
 let tarjetasDeCredito = [];
@@ -8,6 +8,17 @@ let id_usuarios_count = 0;
 let id_pagos_count = 0;
 
 //Verificar si ya hay información en el localStorage para decidir que crear
+let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
+
+arrayCheckeos.forEach ((elemento) => {
+    if (JSON.parse(localStorage.getItem(elemento).length === 0)) {
+        switch(elemento) {
+            
+        }   
+    } else {
+
+    }
+});
 if (JSON.parse(localStorage.getItem('usuarios').length === 0)) {
     // Agregar dos usuarios para poder hacer testings
     const usuario1 = new Usuario (id_usuarios_count, "Santy", "Gegenschatz", "1", 100);
@@ -24,5 +35,7 @@ if (JSON.parse(localStorage.getItem('usuarios').length === 0)) {
     console.log(usuarios);
 }
 
-saldoMayor(105);
+let usuario1 = usuarios[0];
+let usuario2 = usuarios[1];
+usuario1.transferir(usuario2, 10);
 

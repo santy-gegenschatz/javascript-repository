@@ -174,7 +174,6 @@ function vaciarElemento(element) {
 function mostrarDatosUsuario(usuario, tarjeta) {
     // Poner el texto
     tarjeta.innerText = mostrarDatosBasicosDelUsuario(usuario);
-
     // Crear Botones
     tarjeta.appendChild(crearDivConBotones(usuario, tarjeta));
 }
@@ -408,19 +407,6 @@ function pagoConTarjeta(usuario) {
         });
     });
     
-}
-
-function cambiarVisibilidad() {
-    if (visibilidadPagoTarjeta) {
-        console.log("Escondiendo");
-        document.getElementById('bloque').style.visibility = "none";
-        document.getElementById('pago-tarjeta').style.visibility = "visible";
-        visibilidadPagoTarjeta = false;
-    } else {
-        document.getElementById('bloque').style.visibility = "visible";
-        document.getElementById('pago-tarjeta').style.visibility = "none";
-        visibilidadPagoTarjeta = true;
-    }
 }
 
 function saldoMayor(saldo) {
@@ -675,59 +661,10 @@ function pagoConTarjetaCampoTres() {
 
 function pagoConTarjetaCampoCuatro(tarjetaDeCredito) {
     vaciarBloque();
-    // Antes de la tarjeta de crédito querríamos un text que indique que hay que proceder a rellenar el monto
+    // Queremos un label con la indicación
     let labelIndicacion = document.createElement('p');
-    labelIndicacion.innerText = "Ingrese el monto que desea pagar con su tarjeta";
-    labelIndicacion.classList.add('white');
-    labelIndicacion.classList.add('text-align-center');
-
-    // Crear un div para la representación de la tarjeta de crédito
-    let simuladorTarjeta = document.createElement('div');
-    simuladorTarjeta.classList.add('simulador-tarjeta');
-
-    // También querríamos poner un h1 con el nombre del banco
-    let divTitulo = document.createElement('div');
-    let titulo = document.createElement('h1');
-    titulo.innerText = "Coderhouse Bank Ltd."
-    divTitulo.appendChild(titulo);
-    divTitulo.classList.add('titulo-tarjeta');
-    
-    // Creamos un Label con los datos del usuario
-    let datosDuenoTarjeta = document.createElement('p');
-    let nombreUpper = tarjetaDeCredito.usuarioDueno.nombre.toUpperCase() + " " + tarjetaDeCredito.usuarioDueno.apellido.toUpperCase();
-    let datosCompletos = nombreUpper + "\n" + tarjetaDeCredito.nroTarjeta;
-    datosDuenoTarjeta.innerText = datosCompletos;
-
-    // También querríamos un label con los datos del vencimiento de la tarjeta
-    console.log(tarjetaDeCredito);
-    let labelVencimiento = document.createElement('p');
-    labelVencimiento.innerText = tarjetaDeCredito.mesVencimiento + " / " + tarjetaDeCredito.anoVencimiento;
-    labelVencimiento.classList.add('white');
-
-    // Tiene que estar adentro de un div, con display flex center
-    let divVencimiento = document.createElement('div');
-    divVencimiento.classList.add('flex-row');
-    divVencimiento.appendChild(labelVencimiento);
-    
-    // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
-    let divCreditCardData = document.createElement('div');
-    divCreditCardData.classList.add('credit-card-data');
-    divCreditCardData.appendChild(datosDuenoTarjeta);
-    divCreditCardData.appendChild(divVencimiento);
-
-    // Por último, querríamos poner adentro de un div una imagen con el emisor de la tarjeta.
-    let divImagenProcesador = document.createElement('div');
-    divImagenProcesador.classList.add('contenedor-imagen-procesador');
-    let imagenProcesador = document.createElement('img');
-    imagenProcesador.classList.add('imagen-procesador');
-    let fuenteImagen = obtenerFuente(tarjetaDeCredito.nroTarjeta);
-    imagenProcesador.setAttribute("src", fuenteImagen.imgPath);
-    divImagenProcesador.appendChild(imagenProcesador);
-
-    // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
-    simuladorTarjeta.appendChild(divTitulo);
-    simuladorTarjeta.appendChild(divCreditCardData);
-    simuladorTarjeta.appendChild(divImagenProcesador);
+    labelIndicacion.innerText = "Ingrese el monto a pagar";
+    let tarjeta = crearTarjeta(tarjetaDeCredito);
 
     // Queremos también que haya un input copado para ingresar el monto
     let inputMontoAPagar = document.createElement('input');
@@ -735,38 +672,16 @@ function pagoConTarjetaCampoCuatro(tarjetaDeCredito) {
     inputMontoAPagar.setAttribute("placeholder", "0.00 $");
 
     // Crear otro div para los botones de avance y retroceso
-    let divBotones = document.createElement('div');
-    divBotones.classList.add('flex-row');
-    // Crear un boton de Cancelar y uno de avanzar
-    let botonCancelar = document.createElement('button');
-    let botonContinuar = document.createElement('button');
-    botonCancelar.innerText = "Cancelar";
-    botonContinuar.innerText = "Continuar";
-    botonCancelar.classList.add('btn');
-    botonCancelar.classList.add('btn-warning');
-    botonCancelar.classList.add('margin-button');
-    botonContinuar.classList.add('btn');
-    botonContinuar.classList.add('btn-success');
-    botonCancelar.classList.add('margin-button');
-    // Añadir una acción de Cancelar al botón de Cancelar
-    botonCancelar.addEventListener("click", function() {
-        vaciarBloque();
-    });
-    // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
-    // pq cada acción continuar necesita hacer algo diferente
+    let divBotones = crearBotonesDeAvanceYRetroceso();
 
-    // Añadir los elementos al divBotones
-    divBotones.appendChild(botonCancelar);
-    divBotones.appendChild(botonContinuar);
-
-    // Añadimos los dos divs al div de pagos con tarjeta
+    // Añadimos los elementos al bloque
     let bloque = document.getElementById('bloque');
     bloque.appendChild(labelIndicacion);
-    bloque.appendChild(simuladorTarjeta);
+    bloque.appendChild(tarjeta);
     bloque.appendChild(inputMontoAPagar);
     bloque.appendChild(divBotones);
 
-    return new Pantalla("0", inputMontoAPagar, botonContinuar);
+    return new Pantalla("0", inputMontoAPagar, divBotones.elem2);
 }
 
 function pagoConTarjetaCampoCinco(tarjetaDeCredito, monto) {
@@ -949,7 +864,7 @@ function crearDivConBotones(usuario, tarjeta) {
         mostrarSaldoUsuario(usuario, tarjeta);
     });
     botonTarjeta.addEventListener("click", function() {
-        pagoConTarjeta(usuario);
+        seleccionarTipoDePagoConTarjeta(usuario, tarjeta);
     });
 
     return divBotones
@@ -975,4 +890,141 @@ function verDetallesTecnicos(usuario, tarjeta) {
 
 function vaciarTarjeta(tarjeta) {
     tarjeta.innerHTML = "";
+}
+
+function seleccionarTipoDePagoConTarjeta(usuario, tarjeta) {
+    vaciarTarjeta(tarjeta);
+    let botonUno = document.createElement('button');
+    let botonDos = document.createElement('button');
+    let botonTres = document.createElement('button');
+    // Añadir atributos a los botones
+    botonUno.innerText = "Ver Tarjetas Propias";
+    botonDos.innerText = "Cargar una nueva tarjeta";
+    botonTres.innerText = "Volver";
+    botonUno.classList.add("btn");
+    botonUno.classList.add("btn-dark");
+    botonUno.classList.add("margin-button");
+    botonDos.classList.add("btn");
+    botonDos.classList.add("btn-dark");
+    botonDos.classList.add("margin-button");
+    botonTres.classList.add("btn");
+    botonTres.classList.add("btn-info");
+    botonTres.classList.add("margin-button");
+
+    // Crear un div que contenga los botones
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Añadir los botones al div
+    divBotones.appendChild(botonUno);
+    divBotones.appendChild(botonDos);
+
+
+    // Añadir los eventListeners a cada botón
+    botonUno.addEventListener("click", function() {
+        cargarTarjetas(usuario);
+    });
+    botonDos.addEventListener("click", function() {
+        pagoConTarjeta(usuario);
+    });
+    botonTres.addEventListener("click", function() {
+        mostrarDatosUsuario(usuario, tarjeta);
+    });
+
+    tarjeta.appendChild(divBotones);
+    tarjeta.append(botonTres);
+}
+
+function cargarTarjetas(usuario) {
+    vaciarBloque();
+    let bloque = document.getElementById('bloque');
+    tarjetasDeCredito.forEach((tarjeta) => {
+        if(usuario === tarjetasDeCredito.usuarioDueno) {
+            bloque.appendChild(crearTarjeta(tarjeta));
+        }    
+    });
+}
+
+function crearTarjeta(tarjetaDeCredito) {
+    // Crear un div para la representación de la tarjeta de crédito
+    let simuladorTarjeta = document.createElement('div');
+    simuladorTarjeta.classList.add('simulador-tarjeta');
+
+    // También querríamos poner un h1 con el nombre del banco
+    let divTitulo = document.createElement('div');
+    let titulo = document.createElement('h1');
+    titulo.innerText = "Coderhouse Bank Ltd."
+    divTitulo.appendChild(titulo);
+    divTitulo.classList.add('titulo-tarjeta');
+    
+    // Creamos un Label con los datos del usuario
+    let datosDuenoTarjeta = document.createElement('p');
+    let nombreUpper = tarjetaDeCredito.usuarioDueno.nombre.toUpperCase() + " " + tarjetaDeCredito.usuarioDueno.apellido.toUpperCase();
+    let datosCompletos = nombreUpper + "\n" + tarjetaDeCredito.nroTarjeta;
+    datosDuenoTarjeta.innerText = datosCompletos;
+
+    // También querríamos un label con los datos del vencimiento de la tarjeta
+    console.log(tarjetaDeCredito);
+    let labelVencimiento = document.createElement('p');
+    labelVencimiento.innerText = tarjetaDeCredito.mesVencimiento + " / " + tarjetaDeCredito.anoVencimiento;
+    labelVencimiento.classList.add('white');
+
+    // Tiene que estar adentro de un div, con display flex center
+    let divVencimiento = document.createElement('div');
+    divVencimiento.classList.add('flex-row');
+    divVencimiento.appendChild(labelVencimiento);
+    
+    // Poner los elementos en un div, que va a tener la clase de una de las areas grid que tiene el simulador de tarjeta
+    let divCreditCardData = document.createElement('div');
+    divCreditCardData.classList.add('credit-card-data');
+    divCreditCardData.appendChild(datosDuenoTarjeta);
+    divCreditCardData.appendChild(divVencimiento);
+
+    // Por último, querríamos poner adentro de un div una imagen con el emisor de la tarjeta.
+    let divImagenProcesador = document.createElement('div');
+    divImagenProcesador.classList.add('contenedor-imagen-procesador');
+    let imagenProcesador = document.createElement('img');
+    imagenProcesador.classList.add('imagen-procesador');
+    let fuenteImagen = obtenerFuente(tarjetaDeCredito.nroTarjeta);
+    imagenProcesador.setAttribute("src", fuenteImagen.imgPath);
+    divImagenProcesador.appendChild(imagenProcesador);
+
+    // Poner el div dentro del div simulador Tarjeta, que tiene el display grid que necesito
+    simuladorTarjeta.appendChild(divTitulo);
+    simuladorTarjeta.appendChild(divCreditCardData);
+    simuladorTarjeta.appendChild(divImagenProcesador);
+
+    return simuladorTarjeta;
+}
+
+function crearBotonesDeAvanceYRetroceso() {
+    // Crear otro div para los botones de avance y retroceso
+    let divBotones = document.createElement('div');
+    divBotones.classList.add('flex-row');
+    // Crear un boton de Cancelar y uno de avanzar
+    let botonCancelar = document.createElement('button');
+    let botonContinuar = document.createElement('button');
+    botonCancelar.innerText = "Cancelar";
+    botonContinuar.innerText = "Continuar";
+    botonCancelar.classList.add('btn');
+    botonCancelar.classList.add('btn-warning');
+    botonCancelar.classList.add('margin-button');
+    botonContinuar.classList.add('btn');
+    botonContinuar.classList.add('btn-success');
+    botonCancelar.classList.add('margin-button');
+    // Añadir una acción de Cancelar al botón de Cancelar
+    botonCancelar.addEventListener("click", function() {
+        vaciarBloque();
+    });
+    // El botón de continuar tiene un Event Listener añadido desde la función pagoConTarjeta,
+    // pq cada acción continuar necesita hacer algo diferente
+
+    // Añadir los elementos al divBotones
+    divBotones.appendChild(botonCancelar);
+    divBotones.appendChild(botonContinuar);
+
+    let objetoRetorno = {
+        elem1 : divBotones,
+        elem2 : botonContinuar
+    }
+    return objetoRetorno;
 }

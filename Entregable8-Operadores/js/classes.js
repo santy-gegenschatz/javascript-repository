@@ -1,6 +1,15 @@
 // Clases del sistema a simular
 class Usuario {
 
+    constructor(unique_id, nombre, apellido, dni, saldo) {
+        this.unique_id = unique_id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.saldo = saldo;
+        incrementarIdCount();
+    }
+
     transferir(usuario, monto) {
         if (this.saldo >= monto) { // Cuando pongo validar saldo por acá me dice que no lo puede encontrar
             this.saldo -= monto;
@@ -12,14 +21,6 @@ class Usuario {
         }
     }
     
-    constructor(unique_id, nombre, apellido, dni, saldo) {
-        this.unique_id = unique_id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.saldo = saldo;
-        incrementarIdCount();
-    }
 
     validarSaldo(monto) {
         return this.saldo >= monto;

@@ -15,6 +15,9 @@ footer {
     flex-flow: column;
     justify-items: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 footer p {
@@ -22,8 +25,14 @@ footer p {
     margin: 20px;
 }
 
+header {
+    background-color: black;
+}
+
 h1 {
     text-align: center;
+    color: white;
+    font-size: 64px;
 }
 
 main {
