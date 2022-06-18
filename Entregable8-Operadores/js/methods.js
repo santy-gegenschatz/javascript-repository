@@ -41,6 +41,13 @@ function eliminarUsuario() {
                 console.log("Estuve aquí");
                 usuarios.splice(indice, 1);
                 guardarUsuariosALocalStorage();
+                swal({
+                    title : "¡Usuario Eliminado!",
+                    text : "El usuario fue eliminado",
+                    button : 'Entendido',
+                    icon : 'success'
+                });
+                imprimirUsuarios();
             });
         }
     });
@@ -127,6 +134,9 @@ function transferencia() {
                                 let usuarioEmisor = encontrarUsuario(dniEmisor);
                                 let usuarioReceptor = encontrarUsuario(dniReceptor);
                                 console.log(usuarioEmisor);
+                                console.log(usuarioReceptor);
+                                // Si los dos usuarios existen, y la clase usuario tiene un método transferir
+                                // Wtf está pasando
                                 usuarioEmisor.transferir(usuarioReceptor, monto);
                                 guardarUsuariosALocalStorage();
                             } else {
@@ -239,11 +249,15 @@ function tomarDatosMonto(usuario) {
         let monto = Number(input2.value);
         if (monto >=0) {
             vaciarBloque();
-            console.log(usuario);
             usuario.saldo += monto;
-            console.log(usuario);
             guardarUsuariosALocalStorage();
             imprimirUsuarios();
+            swal({
+                title : "Éxito en la transacción!",
+                text : "Ahora sos " + monto + " $ más rico",
+                button : 'Genial!',
+                icon : 'https://media4.giphy.com/media/94EQmVHkveNck/giphy.gif?cid=ecf05e47bv4s16cl15ao70dwxnxpovsqb51ozz1ceracwn25&rid=giphy.gif&ct=g'
+            })
         } else {
             alert("Ingrese un monto positivo");
             vaciarBloque();
@@ -358,6 +372,10 @@ function cargarPantallaDeConfirmacion(labelText, callback) {
     let label = document.createElement('label');
     let botonCancelar = document.createElement('button');
     let botonAceptar = document.createElement('button');
+    botonCancelar.classList.add('btn');
+    botonCancelar.classList.add('btn-info');
+    botonAceptar.classList.add('btn');
+    botonAceptar.classList.add('btn-warning');
     let title = document.createElement('h1');
     title.classList.add("white");
     let bloque = document.getElementById('bloque');
@@ -534,6 +552,7 @@ function seleccionarTipoDePagoConTarjeta(usuario, tarjeta) {
 
     // Añadir los eventListeners a cada botón
     botonUno.addEventListener("click", function() {
+        // Acá hay que verificar que efectivamente tenga tarjetas
         cargarTarjetas(usuario);
     });
     botonDos.addEventListener("click", function() {
@@ -550,15 +569,26 @@ function seleccionarTipoDePagoConTarjeta(usuario, tarjeta) {
 function cargarTarjetas(usuario) {
     vaciarBloque();
     let bloque = document.getElementById('bloque');
+    let alMenosUnaTarjeta = false;
     console.log(tarjetasDeCredito);
     tarjetasDeCredito.forEach((tarjeta) => {
         console.log("Estuve aquí");
         console.log(tarjeta);
         if(usuario.dni === tarjeta.usuarioDueno.dni) {
+            alMenosUnaTarjeta = true;
             console.log("Estuve aquí");
             bloque.appendChild(crearTarjeta(tarjeta, true));
         }    
     });
+
+    if (!alMenosUnaTarjeta) {
+        swal({
+            title : "Ooops",
+            text : "Todavía no tenés tarjeta, pero nunca es tarde para unirse al lado oscuro",
+            button : 'Ok',
+            icon : 'error'
+        });
+    }
 }
 
 function crearTarjeta(tarjetaDeCredito, clickeable) {

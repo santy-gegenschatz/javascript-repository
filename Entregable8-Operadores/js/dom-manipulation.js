@@ -43,6 +43,5 @@ for (let index = 0; index < textosBotones.length; index++) {
             break;
 
         default:
-            console.log("Otro caso");
     }
 }

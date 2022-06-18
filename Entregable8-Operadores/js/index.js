@@ -2,6 +2,7 @@
 let usuarios = []
 let transferencias = []
 let vendedores = []
+let pagos = []
 let productos = []
 let tarjetasDeCredito = [];
 let id_usuarios_count = 0;
@@ -14,7 +15,11 @@ arrayCheckeos.forEach ((elemento) => {
         let length = JSON.parse(localStorage.getItem(elemento).length);
         switch(elemento) {
             case('usuarios'):
-            usuarios = JSON.parse(localStorage.getItem(elemento));
+            usuariosFake = JSON.parse(localStorage.getItem(elemento));
+            usuariosFake.forEach((user) => {
+                let usuario = new Usuario//(// Completar);
+                usuario.push(usuario);
+            });
             break;
             case('tarjetasDeCredito'):
             tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
@@ -55,4 +60,7 @@ arrayCheckeos.forEach ((elemento) => {
 let usuario1 = usuarios[0];
 let usuario2 = usuarios[1];
 usuario1.transferir(usuario2, 10);
+usuario1.validarSaldo(100);
+
+let usuarioNuevo = new Usuario("10", "askdjf", "")
 

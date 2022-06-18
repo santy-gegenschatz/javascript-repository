@@ -26,6 +26,10 @@ class Usuario {
         return this.saldo >= monto;
     }
 
+    imprimir(algo) {
+        console.log(algo);
+    }
+
 
 }
 
