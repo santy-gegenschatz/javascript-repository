@@ -191,11 +191,16 @@ function DatosUsuario(usuario, tarjeta) {
     // Poner el texto usuario
     tarjeta.appendChild(crearLabelUsuario());
     // Poner la imagen
-    //crearImagenDePerfil(usuario);
-    // Poner los detalles del usuario
-    tarjeta.appendChild(crearDatosBasicosDelUsuario(usuario));
-    // Crear Botones
-    tarjeta.appendChild(crearDivConBotones(usuario, tarjeta));
+    crearImagenDePerfil(usuario, tarjeta)
+    .then((response) => {
+        console.log("B");
+        tarjeta.appendChild(response);
+        // Poner los detalles del usuario
+        tarjeta.appendChild(crearDatosBasicosDelUsuario(usuario));
+        // Crear Botones
+        tarjeta.appendChild(crearDivConBotones(usuario, tarjeta));
+    });
+
 }
 
 function SaldoUsuario(usuario, tarjeta) {
@@ -996,10 +1001,16 @@ function pagoConTarjetaCampoTres(tarjetaProvisoria) {
     bloque.appendChild(divBotones.elem1);
 }
 
-function crearImagenDePerfil(usuario, tarjeta) {
-    let seed = Math.random() * 932 - usuario.dni;
-    const resp = fetch('https://avatars.dicebear.com/api/human/' + seed + '.svg');
-    console.log(resp);
+async function crearImagenDePerfil(usuario, tarjeta) {
+    let seed = 932 - usuario.dni;
+    let img;
+    await fetch('https://avatars.dicebear.com/api/human/' + seed + '.svg')
+    .then((response) => {
+        console.log(response.url);
+        // Crear imagen con url
+        img = crearImagenConUrl(response.url);
+    });
+    return img;
 }
 
 function crearLabelUsuario() {
@@ -1011,4 +1022,12 @@ function crearLabelUsuario() {
     label.innerText = text;
 
     return label
+}
+
+function crearImagenConUrl(url) {
+    let img = document.createElement('img');
+    img.setAttribute('src', url);
+    img.classList.add('user-image');
+    
+    return img;
 }

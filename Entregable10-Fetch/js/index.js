@@ -64,3 +64,34 @@ usuario1.validarSaldo(100);
 
 let usuarioNuevo = new Usuario("10", "askdjf", "")
 
+// for (let letra of "hola") {
+//     setTimeout(() => {
+//         console.log(letra);
+//     }, 1000);
+// }
+
+// for (let letra of "mundo") {
+//     setTimeout(() => {
+//         console.log(letra);
+//     }, 2000);
+// }
+
+async function prueba(param1) {
+    console.log(1);
+    const img = fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
+    console.log(img);
+    console.log(2);
+    img.then((response) => {
+        console.log(response);
+    });
+    console.log(3);
+    const img2 = await fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
+    console.log(4);
+    console.log(img2);
+    console.log("Error incoming");
+    img2.then((response) => {
+        console.log(response);
+    });
+}
+
+prueba(2);

@@ -266,6 +266,12 @@ main {
     text-align: left;
 }
 
+.user-image {
+    height: 50px;
+    width: 50px;
+    align-self: center;
+}
+
 .white {
     color: white;
 }
