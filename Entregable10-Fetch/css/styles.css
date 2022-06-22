@@ -270,6 +270,7 @@ main {
     height: 50px;
     width: 50px;
     align-self: center;
+    margin: 0px 0px 8px 0px;
 }
 
 .white {

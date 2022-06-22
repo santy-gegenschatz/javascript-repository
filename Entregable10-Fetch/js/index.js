@@ -12,22 +12,27 @@ let id_pagos_count = 0;
 let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
 arrayCheckeos.forEach ((elemento) => {
     try {
+        // Con esta linea se desncadena el catch si no está creada la info en el LocalStorage
         let length = JSON.parse(localStorage.getItem(elemento).length);
         switch(elemento) {
             case('usuarios'):
-            usuariosFake = JSON.parse(localStorage.getItem(elemento));
-            usuariosFake.forEach((user) => {
-                let usuario = new Usuario//(// Completar);
-                usuario.push(usuario);
+            usuariosFormatoTexto = JSON.parse(localStorage.getItem(elemento));
+            usuariosFormatoTexto.forEach((user) => {
+                console.log(user);
+                let usuario = new Usuario(user.unique_id, user.nombre, user.apellido, user.dni, user.saldo);
+                console.log(usuario);
+                usuarios.push(usuario);
             });
             break;
             case('tarjetasDeCredito'):
             tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
             break;
         }
-    } catch {
+    } catch (error) {
+        console.log(error);
         switch(elemento) {
             case('usuarios'):
+                console.log("Estuve aquí");
                 // Agregar dos usuarios para poder hacer testings
                 const usuario1 = new Usuario (id_usuarios_count, "Santy", "Gegenschatz", "1", 100);
                 const usuario2 = new Usuario (id_usuarios_count, "John", "Doe", "2", 100);
@@ -51,18 +56,11 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('transferencias'):
-            
+            console.log("C");
             break;
         }
     }
 });
-
-let usuario1 = usuarios[0];
-let usuario2 = usuarios[1];
-usuario1.transferir(usuario2, 10);
-usuario1.validarSaldo(100);
-
-let usuarioNuevo = new Usuario("10", "askdjf", "")
 
 // for (let letra of "hola") {
 //     setTimeout(() => {
@@ -76,22 +74,22 @@ let usuarioNuevo = new Usuario("10", "askdjf", "")
 //     }, 2000);
 // }
 
-async function prueba(param1) {
-    console.log(1);
-    const img = fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
-    console.log(img);
-    console.log(2);
-    img.then((response) => {
-        console.log(response);
-    });
-    console.log(3);
-    const img2 = await fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
-    console.log(4);
-    console.log(img2);
-    console.log("Error incoming");
-    img2.then((response) => {
-        console.log(response);
-    });
-}
+// async function prueba(param1) {
+//     console.log(1);
+//     const img = fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
+//     console.log(img);
+//     console.log(2);
+//     img.then((response) => {
+//         console.log(response);
+//     });
+//     console.log(3);
+//     const img2 = await fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
+//     console.log(4);
+//     console.log(img2);
+//     console.log("Error incoming");
+//     img2.then((response) => {
+//         console.log(response);
+//     });
+// }
 
-prueba(2);
+// prueba(2);

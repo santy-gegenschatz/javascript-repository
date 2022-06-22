@@ -188,12 +188,15 @@ function vaciarElemento(element) {
 }
 
 function DatosUsuario(usuario, tarjeta) {
+    //Vaciar Todo
+    tarjeta.innerHTML = "";
     // Poner el texto usuario
     tarjeta.appendChild(crearLabelUsuario());
     // Poner la imagen
     crearImagenDePerfil(usuario, tarjeta)
     .then((response) => {
-        console.log("B");
+        console.log(usuarios);
+        console.log(usuario.saldo);
         tarjeta.appendChild(response);
         // Poner los detalles del usuario
         tarjeta.appendChild(crearDatosBasicosDelUsuario(usuario));
@@ -203,7 +206,8 @@ function DatosUsuario(usuario, tarjeta) {
 
 }
 
-function SaldoUsuario(usuario, tarjeta) {
+function verSaldoUsuario(usuario, tarjeta) {
+    console.log(usuario.saldo);
     tarjeta.innerText = "Saldo" + "\n" + usuario.saldo;
     // Crear un botón para ver detalles técnicos
     let botonDetallesTecnicos = document.createElement('button');
@@ -505,8 +509,7 @@ function crearDivConBotones(usuario, tarjeta) {
     divBotones.appendChild(botonTarjeta);
     // Añadir los eventListeners a cada botón
     botonSaldo.addEventListener("click", function() {
-        
-        SaldoUsuario(usuario, tarjeta);
+        verSaldoUsuario(usuario, tarjeta);
     });
     botonTarjeta.addEventListener("click", function() {
         seleccionarTipoDePagoConTarjeta(usuario, tarjeta);
@@ -528,8 +531,7 @@ function verDetallesTecnicos(usuario, tarjeta) {
     botonVuelta.classList.add('btn-info');
     botonVuelta.setAttribute("style", "margin : 10px;");
     botonVuelta.addEventListener("click", () => {
-        
-        SaldoUsuario(usuario, tarjeta);
+        verSaldoUsuario(usuario, tarjeta);
     });
     tarjeta.appendChild(botonVuelta);
 }
@@ -574,7 +576,6 @@ function seleccionarTipoDePagoConTarjeta(usuario, tarjeta) {
         pagoConTarjeta(usuario);
     });
     botonTres.addEventListener("click", function() {
-        
         DatosUsuario(usuario, tarjeta);
     });
 
@@ -805,7 +806,7 @@ function confirmarPagoConTarjeta(tarjetaDeCredito, monto) {
         if (validarMonto(monto)) {
             swal({
                 title : "Éxito en la transacción!",
-                text : "El pago se ingreso con éxito y la copia de los detalles ya te llego a tu mail 🚀",
+                text : "El pago se ingreso con éxito :)",
                 button : 'Ok',
                 icon : 'https://media3.giphy.com/media/3oKIPa2TdahY8LAAxy/giphy.gif?cid=ecf05e473r41s6qr4g57zwkg262vdls62o7euirnilo80i2b&rid=giphy.gif&ct=g'
             });
@@ -1000,6 +1001,30 @@ function pagoConTarjetaCampoTres(tarjetaProvisoria) {
     bloque.appendChild(simuladorTarjeta);
     bloque.appendChild(divBotones.elem1);
 }
+
+let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
+arrayCheckeos.forEach ((elemento) => {
+    try {
+        // Con esta linea se desncadena el catch si no está creada la info en el LocalStorage
+        let length = JSON.parse(localStorage.getItem(elemento).length);
+        switch(elemento) {
+            case('usuarios'):
+            usuariosFormatoTexto = JSON.parse(localStorage.getItem(elemento));
+            usuariosFormatoTexto.forEach((user) => {
+                console.log(user);
+                let usuario = new Usuario(user.unique_id, user.nombre, user.apellido, user.dni, user.saldo);
+                console.log(usuario);
+                usuarios.push(usuario);
+            });
+            break;
+            case('tarjetasDeCredito'):
+            tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
+            break;
+        }
+    } catch (error) {
+        console.log(error);
+        switch(elemento) {
+            case('usuarios'):
 
 async function crearImagenDePerfil(usuario, tarjeta) {
     let seed = 932 - usuario.dni;
