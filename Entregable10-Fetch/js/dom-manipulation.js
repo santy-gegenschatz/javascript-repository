@@ -1,6 +1,6 @@
-//Manipulación del Dom
+//Manipulación del DOM
 // Agregamos botones con las opciones 
-let textosBotones = ['Agregar Usuario', 'Imprimir Usuarios', 'Cargar Saldo', 'Transferir entre Usuarios', 'Eliminar Usuario'];
+let textosBotones = ['Agregar Usuario', 'Imprimir Usuarios', 'Cargar Saldo', 'Transferir entre Usuarios', 'Transferencias', 'Pagos con Tarjeta', 'Eliminar Usuario'];
 for (let index = 0; index < textosBotones.length; index++) {
     const boton = document.createElement("button");
     let textoBoton = textosBotones[index];
@@ -43,6 +43,5 @@ for (let index = 0; index < textosBotones.length; index++) {
             break;
 
         default:
-            console.log("Otro caso");
     }
 }

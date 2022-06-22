@@ -1,3 +1,4 @@
+console.log("a");
 // Constantes globales
 let usuarios = []
 let pagos = []
@@ -23,6 +24,4 @@ if (JSON.parse(localStorage.getItem('usuarios').length === 0)) {
     usuarios = JSON.parse(localStorage.getItem('usuarios'));
     console.log(usuarios);
 }
-
-saldoMayor(105);
 

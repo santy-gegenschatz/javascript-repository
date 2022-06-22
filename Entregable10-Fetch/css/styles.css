@@ -15,6 +15,9 @@ footer {
     flex-flow: column;
     justify-items: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
 footer p {
@@ -22,8 +25,14 @@ footer p {
     margin: 20px;
 }
 
+header {
+    background-color: black;
+}
+
 h1 {
     text-align: center;
+    color: white;
+    font-size: 64px;
 }
 
 main {
@@ -158,7 +167,8 @@ main {
     width: 100px;
     height: 100px;
     text-align: center;
-    font-size: 28px;
+    font-size: 42px;
+    font-weight: bold;
     margin: 0px;
     background-color: black;
     border: none;
@@ -181,8 +191,6 @@ main {
 
 .simulador-tarjeta {
     border-radius: 20px;
-    background: rgb(28,28,29);
-    background: linear-gradient(162deg, rgba(28,28,29,1) 0%, rgba(97,97,101,1) 35%, rgba(193,193,193,1) 88%);
     /* Aca tengo que mandar un display grid */
     display: grid;
     grid-template-columns: 70% 30%;
@@ -193,7 +201,10 @@ main {
     width: 350px;
     height: 225px;
     padding: 20px 10px 10px 20px;
+    margin: 5px;
 }
+
+
 
 .simulador-reverso-tarjeta {
     border-radius: 20px;
@@ -217,11 +228,28 @@ main {
     border: 0px;
     background-color: aquamarine;
     margin: 20px;
-    padding: 20px;
+    padding: 10px;
     display: flex;
     flex-flow: column wrap;
     justify-content: center;
     text-align: center;
+    height: 300px;
+    width: 305px;
+}
+
+.tarjeta-normal {
+    background: rgb(28,28,29);
+    background: linear-gradient(162deg, rgba(28,28,29,1) 0%, rgba(97,97,101,1) 35%, rgba(193,193,193,1) 88%);
+}
+
+.tarjeta-gold {
+    background: rgb(255,239,0);
+    background: linear-gradient(164deg, rgba(255,239,0,1) 0%, rgba(221,211,139,1) 49%, rgba(111,135,18,1) 88%);
+}
+
+.tarjeta-platinum {
+    background: rgb(42,85,255);
+    background: linear-gradient(307deg, rgba(42,85,255,1) 0%, rgba(65,61,61,1) 38%, rgba(199,179,179,1) 84%);
 }
 
 .text-align-center {

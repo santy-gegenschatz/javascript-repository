@@ -1,6 +1,15 @@
 // Clases del sistema a simular
 class Usuario {
 
+    constructor(unique_id, nombre, apellido, dni, saldo) {
+        this.unique_id = unique_id;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.saldo = saldo;
+        incrementarIdCount();
+    }
+
     transferir(usuario, monto) {
         if (this.saldo >= monto) { // Cuando pongo validar saldo por acá me dice que no lo puede encontrar
             this.saldo -= monto;
@@ -12,17 +21,13 @@ class Usuario {
         }
     }
     
-    constructor(unique_id, nombre, apellido, dni, saldo) {
-        this.unique_id = unique_id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.saldo = saldo;
-        incrementarIdCount();
-    }
 
     validarSaldo(monto) {
         return this.saldo >= monto;
+    }
+
+    imprimir(algo) {
+        console.log(algo);
     }
 
 
@@ -32,24 +37,6 @@ class Pago {
     constructor(unique_id, monto) {
         this.unique_id = unique_id;
         this.monto = monto;
-    }
-}
-
-class Vendedor {
-    constructor(unique_id, nombre, apellido, saldo) {
-        this.unique_id = unique_id;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.saldo = saldo;
-    }
-}
-
-class Producto {
-    constructor(unique_id, nombre, precio, stock) {
-        this.unique_id = unique_id;
-        this.nombre = nombre;
-        this.precio = precio;
-        this.stock = stock;
     }
 }
 
@@ -82,4 +69,8 @@ class PantallaDeConfirmacion {
         this.botonCancelar = botonCancelar;
         this.botonAceptar = botonAceptar;
     }
+}
+
+function incrementarIdCount() {
+    id_usuarios_count +=1;
 }
