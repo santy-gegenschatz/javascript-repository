@@ -20,7 +20,7 @@
     <script src="../js/dom-manipulation.js" defer> </script>
     <script src="../js/index.js" defer> </script>
 
-    <title>Entregable 8 - Operadores Ternarios</title>
+    <title>Entregable 10 - Fetch</title>
 </head>
 <body>
     <header>
@@ -32,9 +32,8 @@
 
     <main>
         <div id = "bloque"></div>
+        <div id = "bloque2"></div>
     </main>
-
-    <img src="../files/images/american-express.png" alt="" height = "50px" width = "65px">
 
     <footer>
         <p> Hecho con ⚡️ en Buenos Aires, 🇦🇷 </p>
@@ -42,6 +41,18 @@
     
 </body>
 <script>
-swal("Hello World");
+let seed = Math.random() * 1032;
+fetch('https://avatars.dicebear.com/api/human/' + seed + '.svg')
+.then((response) => {
+  let body1 = document.getElementById('bloque2');
+  let img = document.createElement('img');
+  body1.innerText = "Image";
+  img.setAttribute("src", response.url);
+  body1.appendChild(img);
+})
+.catch((error) => console.log(error))
+.finally(() => {
+    console.log("Termino la peteición de datos");
+});
 </script>
 </html>

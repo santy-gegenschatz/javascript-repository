@@ -46,6 +46,3 @@ for (let index = 0; index < textosBotones.length; index++) {
             console.log("Otro caso");
     }
 }
-
-// Esconder el div de pago con tarjeta
-cambiarVisibilidad();

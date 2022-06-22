@@ -429,19 +429,6 @@ function pagoConTarjeta(usuario) {
     
 }
 
-function cambiarVisibilidad() {
-    if (visibilidadPagoTarjeta) {
-        console.log("Escondiendo");
-        document.getElementById('bloque').style.visibility = "none";
-        document.getElementById('pago-tarjeta').style.visibility = "visible";
-        visibilidadPagoTarjeta = false;
-    } else {
-        document.getElementById('bloque').style.visibility = "visible";
-        document.getElementById('pago-tarjeta').style.visibility = "none";
-        visibilidadPagoTarjeta = true;
-    }
-}
-
 function saldoMayor(saldo) {
    return saldo > 0 ? "Felicidades, su saldo es mayor a 0" : "Debe ingresar más dinero en su cuenta";
 }

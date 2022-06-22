@@ -24,5 +24,4 @@ if (JSON.parse(localStorage.getItem('usuarios').length === 0)) {
     console.log(usuarios);
 }
 
-saldoMayor(105);
-
+console.log("a");
