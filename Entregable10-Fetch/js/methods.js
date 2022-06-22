@@ -172,14 +172,16 @@ function vaciarElemento(element) {
 }
 
 function mostrarDatosUsuario(usuario, tarjeta) {
-    info_usuario = "Usuario" + "\n";
+    tarjeta.innerText = "Usuario" ;
+    let info_usuario;
     info_usuario += "\n" + usuario.nombre;
     info_usuario += "\n" + usuario.apellido;
     info_usuario += "\n" + usuario.dni;
     info_usuario += "\n" + saldoMayor(usuario.saldo);
     info_usuario += "\n" + formatoDniOk(usuario.dni);
-
-    tarjeta.innerText = info_usuario;
+    let label = document.createElement('p');
+    label.innerText = info_usuario;
+    tarjeta.appendChild(label);
     // Crear Botones
     let botonSaldo = document.createElement('button');
     let botonTarjeta = document.createElement('button');
@@ -207,7 +209,10 @@ function mostrarDatosUsuario(usuario, tarjeta) {
         pagoConTarjeta(usuario);
     });
     // Añadir el div a la tarjeta
-    tarjeta.appendChild(divBotones);
+    crearImagenAleatoria(usuario, tarjeta)
+    .then((response) => {
+        tarjeta.appendChild(divBotones);
+    })
 }
 
 function mostrarSaldoUsuario(usuario, tarjeta) {
@@ -920,4 +925,19 @@ function obtenerFuente(nroTarjeta) {
     }
 
     return returnArray
+}
+
+ async function crearImagenAleatoria(usuario, tarjeta) {
+    let seed = Math.random() * 1032 - usuario.dni;
+    let img;
+    await fetch('https://avatars.dicebear.com/api/human/' + seed + '.svg')
+    .then((response) => {
+    img = document.createElement('img');
+    img.setAttribute("src", response.url);
+    tarjeta.appendChild(img);
+    })
+    .catch((error) => console.log(error))
+    .finally(() => {
+        console.log("Termino la peteición de datos");
+    });
 }

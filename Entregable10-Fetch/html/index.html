@@ -40,19 +40,4 @@
     </footer>
     
 </body>
-<script>
-let seed = Math.random() * 1032;
-fetch('https://avatars.dicebear.com/api/human/' + seed + '.svg')
-.then((response) => {
-  let body1 = document.getElementById('bloque2');
-  let img = document.createElement('img');
-  body1.innerText = "Image";
-  img.setAttribute("src", response.url);
-  body1.appendChild(img);
-})
-.catch((error) => console.log(error))
-.finally(() => {
-    console.log("Termino la peteición de datos");
-});
-</script>
 </html>
