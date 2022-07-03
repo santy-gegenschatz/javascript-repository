@@ -1,0 +1,314 @@
+body {
+    background: rgb(238,174,202);
+    background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+div label {
+    color: white;
+    text-align: center;
+    margin: 10px;
+}
+
+footer {
+    background-color: black;
+    display: flex;
+    flex-flow: column;
+    justify-items: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+footer p {
+    color: white;
+    margin: 20px;
+}
+
+header {
+    background-color: black;
+}
+
+h1 {
+    text-align: center;
+    color: white;
+    font-size: 64px;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Pseudo-Elementos */
+::placeholder {
+    color: #494545;
+}
+
+
+/* Clases */
+.boton-lindo {
+    background-color: green;
+    border-radius: 25px;
+    text-align: center;
+    padding: 1%;
+    margin: 10px;
+    border-color: green;
+    border-width: 0px;
+}
+
+.centered-text {
+    text-align: center;
+}
+
+.contenedor-imagen-procesador {
+    grid-area: imagen-procesador;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.cool-input {
+    width: 100%;
+    padding: 12px 5px;
+    margin: 0px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #3CBC8D;
+    color: white;
+    border-radius: 25px;
+    height: 20px;
+  }
+
+.credit-card-data {
+    grid-area: credit-card-data;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+.div-interno {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: end;
+    align-items: flex-start;
+}
+
+.date-input {
+    width: 50px;
+    margin: 3px;
+    color: white;
+    text-align: center;
+    padding: 12px 5px;
+    box-sizing: border-box;
+    border: none;
+    background-color: #3CBC8D;
+    border-radius: 25px;
+    height: 20px;
+}
+
+.date-input ::placeholder{
+    color: white;
+}
+
+.flex-row {
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.grid-seguridad {
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 30px;
+    grid-template-areas: "info input-seguridad";
+}
+
+.imagen-procesador {
+    width: 100%;
+    height: 65%;
+}
+
+.info {
+    grid-area: info;
+    color: white;
+    text-align: center;
+}
+
+.input-monto-tarjeta {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 28px;
+    margin: 13px;
+    background-color: black;
+    border: none;
+    color: white;
+}
+
+.input-monto-tarjeta ::placeholder {
+    color: #B6B0B0;
+}
+
+.input-seguridad {
+    grid-area: input-seguridad;
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.label-monto-tarjeta {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    font-size: 42px;
+    font-weight: bold;
+    margin: 0px;
+    background-color: black;
+    border: none;
+    color: green;
+}
+
+.margin-button {
+    margin: 10px;
+}
+
+.processor-image {
+    grid-area: processor-image;
+  }
+
+.simulador-banda-magnetica {
+    height: 50px;
+    background-color: black;
+    margin: 10px 0px 15px;
+}
+
+.simulador-tarjeta {
+    border-radius: 20px;
+    /* Aca tengo que mandar un display grid */
+    display: grid;
+    grid-template-columns: 70% 30%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: 
+    "titulo-tarjeta titulo-tarjeta"
+    "credit-card-data imagen-procesador";
+    width: 350px;
+    height: 225px;
+    padding: 20px 10px 10px 20px;
+    margin: 5px;
+}
+
+
+
+.simulador-reverso-tarjeta {
+    border-radius: 20px;
+    border-color: white;
+    border-width: 2px;
+    background: rgb(28,28,29);
+    background: linear-gradient(162deg, rgba(28,28,29,1) 0%, rgba(97,97,101,1) 35%, rgba(193,193,193,1) 88%);
+    width: 350px;
+    height: 225px;
+    padding: 20px 0px 40px;
+}
+
+.simulador-tarjeta p {
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    margin: 0px 0px 10px 0px;
+}
+
+.tarjeta-blanca {
+    border-radius: 25px;
+    border: 0px;
+    background-color: aquamarine;
+    margin: 20px;
+    padding: 10px;
+    display: flex;
+    flex-flow: column wrap;
+    justify-content: center;
+    text-align: center;
+    height: 300px;
+    width: 305px;
+}
+
+.tarjeta-normal {
+    background: rgb(28,28,29);
+    background: linear-gradient(162deg, rgba(28,28,29,1) 0%, rgba(97,97,101,1) 35%, rgba(193,193,193,1) 88%);
+}
+
+.tarjeta-gold {
+    background: rgb(255,239,0);
+    background: linear-gradient(164deg, rgba(255,239,0,1) 0%, rgba(221,211,139,1) 49%, rgba(111,135,18,1) 88%);
+}
+
+.tarjeta-platinum {
+    background: rgb(42,85,255);
+    background: linear-gradient(307deg, rgba(42,85,255,1) 0%, rgba(65,61,61,1) 38%, rgba(199,179,179,1) 84%);
+}
+
+.text-align-center {
+    text-align: center;
+}
+
+.titulo-tarjeta {
+    grid-area: titulo-tarjeta;
+}
+
+.titulo-tarjeta h1 {
+    color: white;
+    font-size: 20px;
+    text-align: left;
+}
+
+.user-image {
+    height: 50px;
+    width: 50px;
+    align-self: center;
+    margin: 0px 0px 8px 0px;
+}
+
+.white {
+    color: white;
+}
+
+/* ID mods */
+#bloque {
+    background-color: #000000;
+    border-color: black;
+    border-radius: 25px;
+    width: 400px;
+    height: 400px;
+    margin: 20px;
+    padding: 20px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: start;
+    align-items: center;
+    overflow-y: scroll;
+}
+
+#input-seguridad {
+    text-align: center;
+    color: white;
+    margin: 0px 5px 0px;
+}
+
+#navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#pago-tarjeta {
+    background-color: red;
+}
+
+#title {
+    display: grid;
+}
