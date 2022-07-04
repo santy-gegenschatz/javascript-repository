@@ -196,6 +196,9 @@ function mostrarTransferencia(transferencia, bloque) {
     // Area Extra-info
     cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia);
 
+    // let div = document.createElement(div);
+    // div.classList.add('area-roja');
+    // tarjetaTransferencia.appendChild(div);
 
 
 }

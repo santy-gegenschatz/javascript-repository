@@ -33,6 +33,7 @@ arrayCheckeos.forEach ((elemento) => {
             case('transferencias'):
             transferencias = JSON.parse(localStorage.getItem(elemento));
             break;
+            
         }
     } catch (error) {
         console.log(error);
