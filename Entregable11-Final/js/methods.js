@@ -156,6 +156,153 @@ function transferencia() {
     });
 }
 
+// Ver histoórico de transferencias 
+
+function mostrarTransferencias() { 
+    vaciarBloque();
+    // Loopear por el array de transferencias
+    let bloque = document.getElementById('bloque');
+    transferencias.forEach((transferencia) => {
+        mostrarTransferencia(transferencia, bloque);
+    });
+    // En cada iteración cargar una tarjeta con los datos de transferencia
+}
+
+// Mostrar transferencia
+
+function mostrarTransferencia(transferencia, bloque) {
+    
+    // Crear una tarjeta alargada e insertarla en el bloque
+    let tarjetaTransferencia = document.createElement('div');
+    tarjetaTransferencia.classList.add('tarjeta-transferencia');
+    bloque.appendChild(tarjetaTransferencia);
+
+    // Cargar y appendear un div para cada una de las template areas
+    // Area Transferencia
+    cargarTituloTransferencia(transferencia, tarjetaTransferencia);
+
+    // Area Id
+    cargarIdTransferencia(transferencia, tarjetaTransferencia);
+
+    // Area Origen
+    cargarOrigenTransferencia(transferencia, tarjetaTransferencia);
+
+    // Area Monto
+    cargarMontoTransferencia(transferencia, tarjetaTransferencia);
+
+    // Area Destino
+    cargarDestinoTransferencia(transferencia, tarjetaTransferencia);
+
+    // Area Extra-info
+    cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia);
+
+
+
+}
+
+function cargarTituloTransferencia(transferencia, tarjetaTransferencia) {
+
+    // Crear un div y agregarle la clase que lo identifica en el grid area del elemento padre
+    let div = document.createElement('div');
+    div.classList.add('tarjeta-transferencia-titulo');
+
+    // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
+    let titulo = document.createElement('h5');
+    titulo.innerText = "Transferencia";
+
+    // Appendear el elemento al div
+    div.appendChild(titulo);
+
+    // Appendear el div a la tarjetaTransferencia
+    tarjetaTransferencia.appendChild(div);
+
+}
+
+function cargarIdTransferencia(transferencia, tarjetaTransferencia) {
+
+    // Crear un div y agregarle la clase que lo identifica en el grid area del elemento padre
+    let div = document.createElement('div');
+    div.classList.add('tarjeta-transferencia-id');
+
+    // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
+    let id = document.createElement('p');
+    id.innerText = "Id: " + transferencia.id;
+
+    // Appendear el elemento al div
+    div.appendChild(id);
+
+    // Appendear el div a la tarjetaTransferencia
+    tarjetaTransferencia.appendChild(div);
+}
+
+function cargarOrigenTransferencia(transferencia, tarjetaTransferencia) {
+
+    // Crear un div y agregarle la clase que lo identifica en el grid area del elemento padre
+    let div = document.createElement('div');
+    div.classList.add('tarjeta-transferencia-origen');
+
+    // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
+    let origen = document.createElement('p');
+    origen.innerText = "Origen:" + "\n" + transferencia.usuario_origen.nombre + " " + transferencia.usuario_origen.apellido;
+
+    // Appendear el elemento al div
+    div.appendChild(origen);
+
+    // Appendear el div a la tarjetaTransferencia
+    tarjetaTransferencia.appendChild(div);
+}
+
+function cargarMontoTransferencia(transferencia, tarjetaTransferencia) {
+
+    // Crear un div y agregarle la clase que lo identifica en el grid area del elemento padre
+    let div = document.createElement('div');
+    div.classList.add('tarjeta-transferencia-monto');
+
+    // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
+    let monto = document.createElement('p');
+    monto.innerText = "Monto:" + "\n" + transferencia.monto;
+
+    // Appendear el elemento al div
+    div.appendChild(monto);
+
+    // Appendear el div a la tarjetaTransferencia
+    tarjetaTransferencia.appendChild(div);
+}
+
+function cargarDestinoTransferencia(transferencia, tarjetaTransferencia) {
+
+    // Crear un div y agregarle la clase que lo identifica en el grid area del elemento padre
+    let div = document.createElement('div');
+    div.classList.add('tarjeta-transferencia-destino');
+
+    // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
+    let destino = document.createElement('p');
+    destino.innerText = "Destino:" + "\n" + transferencia.usuario_destino;
+
+    // Appendear el elemento al div
+    div.appendChild(destino);
+
+    // Appendear el div a la tarjetaTransferencia
+    tarjetaTransferencia.appendChild(div);
+}
+
+function cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia) {
+
+    // Crear un div y agregarle la clase que lo identifica en el grid area del elemento padre
+    let div = document.createElement('div');
+    div.classList.add('tarjeta-transferencia-extra-info');
+
+    // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
+    let fechaHora = document.createElement('p');
+    fechaHora.innerText = "Bloque de Transacción:" + "\n" + transferencia.fecha_hora;
+
+    // Appendear el elemento al div
+    div.appendChild(fechaHora);
+
+    // Appendear el div a la tarjetaTransferencia
+    tarjetaTransferencia.appendChild(div);
+}
+
 // Funciones secundarias
 function enviarFormulario() {
     let nombre = document.getElementById('Nombre').value;

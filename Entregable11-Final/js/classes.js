@@ -40,6 +40,16 @@ class Pago {
     }
 }
 
+class Transferencia {
+    constructor(id, usuario_origen, monto, usuario_destino, fecha_hora) {
+        this.id = id;
+        this.usuario_origen = usuario_origen;
+        this.monto = monto;
+        this.usuario_destino = usuario_destino;
+        this.fecha_hora = fecha_hora;
+    }
+}
+
 class TarjetaDeCredito {
     constructor(nroTarjeta, mesVencimiento, anoVencimiento, codSeguridad, usuarioDueno, bancoEmisor) {
         this.nroTarjeta = nroTarjeta;

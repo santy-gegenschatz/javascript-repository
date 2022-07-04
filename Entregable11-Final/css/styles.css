@@ -53,10 +53,11 @@ main {
     background-color: green;
     border-radius: 25px;
     text-align: center;
-    padding: 1%;
-    margin: 10px;
+    padding: 3%;
+    margin: 15px;
     border-color: green;
     border-width: 0px;
+    color: white;
 }
 
 .centered-text {
@@ -250,6 +251,65 @@ main {
 .tarjeta-platinum {
     background: rgb(42,85,255);
     background: linear-gradient(307deg, rgba(42,85,255,1) 0%, rgba(65,61,61,1) 38%, rgba(199,179,179,1) 84%);
+}
+
+.tarjeta-transferencia {
+    background: rgb(97,90,218);
+    background: linear-gradient(90deg, rgba(97,90,218,1) 0%, rgba(78,163,180,1) 85%);
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    grid-template-rows: 20% 60% 20%;
+    grid-template-areas: 
+    "tarjeta-transferencia-titulo . tarjeta-transferencia-id"
+    "tarjeta-transferencia-origen tarjeta-transferencia-monto tarjeta-transferencia-destino"
+    ". tarjeta-transferencia-extra-info .";
+    margin: 15px;
+    padding: 2%;
+    border-radius: 25px;
+
+}
+
+.tarjeta-transferencia-id {
+    grid-area: "tarjeta-transferencia-id";
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-end;
+}
+
+.tarjeta-transferencia-destino {
+    grid-area: "tarjeta-transferencia-destino";
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.tarjeta-transferencia-extra-info {
+    grid-area: "tarjeta-transferencia-extra-info";
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+
+.tarjeta-transferencia-monto {
+    grid-area: "tarjeta-transferencia-monto";
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.tarjeta-transferencia-origen {
+    grid-area: "tarjeta-transferencia-origen";
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+}
+
+.tarjeta-transferencia-titulo {
+    grid-area: "tarjeta-transferencia-titulo";
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
 }
 
 .text-align-center {

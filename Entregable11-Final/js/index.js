@@ -6,6 +6,7 @@ let pagos = []
 let productos = []
 let tarjetasDeCredito = [];
 let id_usuarios_count = 0;
+let id_transferencias_count = 0;
 let id_pagos_count = 0;
 
 //Verificar si ya hay información en el localStorage para decidir que crear
@@ -24,8 +25,13 @@ arrayCheckeos.forEach ((elemento) => {
                 usuarios.push(usuario);
             });
             break;
+
             case('tarjetasDeCredito'):
             tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
+            break;
+
+            case('transferencias'):
+            transferencias = JSON.parse(localStorage.getItem(elemento));
             break;
         }
     } catch (error) {
@@ -56,7 +62,13 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('transferencias'):
-            console.log("C");
+            const transferencia1 = new Transferencia(id_transferencias_count, usuarios[0], 100, usuarios[1], "01/07/2022 : 10:12");
+            const transferencia2 = new Transferencia(id_transferencias_count, usuarios[1], 100, usuarios[0], "01/07/2022 : 11:03");
+            transferencias.push(transferencia1);
+            transferencias.push(transferencia2);
+            transferenciasJSON = JSON.stringify(transferencias);
+            localStorage.setItem(elemento, transferenciasJSON);
+            console.log(transferenciasJSON);
             break;
         }
     }

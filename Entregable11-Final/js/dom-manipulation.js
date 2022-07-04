@@ -35,6 +35,18 @@ for (let index = 0; index < textosBotones.length; index++) {
                 transferencia();
             });
             break;
+                
+        case('Transferencias'):
+            boton.addEventListener("click", function() {
+                mostrarTransferencias();
+            });
+            break;
+
+        case('Pagos Con Tarjeta'):
+            boton.addEventListener("click", function() {
+                pagosConTarjeta();
+            });
+            break;
 
         case('Eliminar Usuario'):
             boton.addEventListener("click", function() {
