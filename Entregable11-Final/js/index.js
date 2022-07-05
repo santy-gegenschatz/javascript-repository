@@ -1,9 +1,7 @@
 // Constantes globales
 let usuarios = []
 let transferencias = []
-let vendedores = []
 let pagos = []
-let productos = []
 let tarjetasDeCredito = [];
 let id_usuarios_count = 0;
 let id_transferencias_count = 0;
@@ -39,7 +37,6 @@ arrayCheckeos.forEach ((elemento) => {
         console.log(error);
         switch(elemento) {
             case('usuarios'):
-                console.log("Estuve aquí");
                 // Agregar dos usuarios para poder hacer testings
                 const usuario1 = new Usuario (id_usuarios_count, "Santy", "Gegenschatz", "1", 100);
                 const usuario2 = new Usuario (id_usuarios_count, "John", "Doe", "2", 100);
@@ -63,8 +60,8 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('transferencias'):
-            const transferencia1 = new Transferencia(id_transferencias_count, usuarios[0], 100, usuarios[1], "01/07/2022 : 10:12");
-            const transferencia2 = new Transferencia(id_transferencias_count, usuarios[1], 100, usuarios[0], "01/07/2022 : 11:03");
+            const transferencia1 = new Transferencia(id_transferencias_count, usuarios[0], 100, usuarios[1], "01/07/2022 - 10:12");
+            const transferencia2 = new Transferencia(id_transferencias_count, usuarios[1], 100, usuarios[0], "01/07/2022 - 11:03");
             transferencias.push(transferencia1);
             transferencias.push(transferencia2);
             transferenciasJSON = JSON.stringify(transferencias);
@@ -74,62 +71,3 @@ arrayCheckeos.forEach ((elemento) => {
         }
     }
 });
-
-// for (let letra of "hola") {
-//     setTimeout(() => {
-//         console.log(letra);
-//     }, 1000);
-// }
-
-// for (let letra of "mundo") {
-//     setTimeout(() => {
-//         console.log(letra);
-//     }, 2000);
-// }
-
-// async function prueba(param1) {
-//     console.log(1);
-//     const img = fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
-//     console.log(img);
-//     console.log(2);
-//     img.then((response) => {
-//         console.log(response);
-//     });
-//     console.log(3);
-//     const img2 = await fetch('https://avatars.dicebear.com/api/human/' + '45' + '.svg');
-//     console.log(4);
-//     console.log(img2);
-//     console.log("Error incoming");
-//     img2.then((response) => {
-//         console.log(response);
-//     });
-// }
-
-// prueba(2);
-
-// let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
-// arrayCheckeos.forEach ((elemento) => {
-//     try {
-//         // Con esta linea se desncadena el catch si no está creada la info en el LocalStorage
-//         let length = JSON.parse(localStorage.getItem(elemento).length);
-//         switch(elemento) {
-//             case('usuarios'):
-//             usuariosFormatoTexto = JSON.parse(localStorage.getItem(elemento));
-//             usuariosFormatoTexto.forEach((user) => {
-//                 console.log(user);
-//                 let usuario = new Usuario(user.unique_id, user.nombre, user.apellido, user.dni, user.saldo);
-//                 console.log(usuario);
-//                 usuarios.push(usuario);
-//             });
-//             break;
-//             case('tarjetasDeCredito'):
-//             tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
-//             break;
-//         }
-//     } catch (error) {
-//         console.log(error);
-//         switch(elemento) {
-//             case('usuarios'):
-//         } 
-//     } 
-// });

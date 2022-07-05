@@ -133,10 +133,6 @@ function transferencia() {
                             if (validarMonto(monto)) {
                                 let usuarioEmisor = encontrarUsuario(dniEmisor);
                                 let usuarioReceptor = encontrarUsuario(dniReceptor);
-                                console.log(usuarioEmisor);
-                                console.log(usuarioReceptor);
-                                // Si los dos usuarios existen, y la clase usuario tiene un método transferir
-                                // Wtf está pasando
                                 usuarioEmisor.transferir(usuarioReceptor, monto);
                                 guardarUsuariosALocalStorage();
                             } else {
@@ -246,7 +242,8 @@ function cargarOrigenTransferencia(transferencia, tarjetaTransferencia) {
 
     // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
     let origen = document.createElement('p');
-    origen.innerText = "Origen:" + "\n" + transferencia.usuario_origen.nombre + " " + transferencia.usuario_origen.apellido;
+    origen.innerText = "Origen" + "\n" + transferencia.usuario_origen.nombre + " " + transferencia.usuario_origen.apellido;
+    origen.setAttribute("align", "center");
 
     // Appendear el elemento al div
     div.appendChild(origen);
@@ -263,7 +260,8 @@ function cargarMontoTransferencia(transferencia, tarjetaTransferencia) {
 
     // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
     let monto = document.createElement('p');
-    monto.innerText = "Monto:" + "\n" + transferencia.monto;
+    monto.innerText = "Monto" + "\n" + transferencia.monto;
+    monto.setAttribute("align", "center");
 
     // Appendear el elemento al div
     div.appendChild(monto);
@@ -280,7 +278,8 @@ function cargarDestinoTransferencia(transferencia, tarjetaTransferencia) {
 
     // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
     let destino = document.createElement('p');
-    destino.innerText = "Destino:" + "\n" + transferencia.usuario_destino;
+    destino.innerText = "Destino" + "\n" + transferencia.usuario_destino.nombre + " " + transferencia.usuario_destino.apellido;
+    destino.setAttribute("align", "center");
 
     // Appendear el elemento al div
     div.appendChild(destino);
@@ -297,7 +296,9 @@ function cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia) {
 
     // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
     let fechaHora = document.createElement('p');
-    fechaHora.innerText = "Bloque de Transacción:" + "\n" + transferencia.fecha_hora;
+    fechaHora.innerText = "Fecha de Transacción" + "\n" + transferencia.fecha_hora;
+    fechaHora.setAttribute("align", "center");
+    fechaHora.setAttribute("background-color", "red");
 
     // Appendear el elemento al div
     div.appendChild(fechaHora);
@@ -329,8 +330,12 @@ function vaciarBloque() {
     document.getElementById('bloque').innerHTML = "";
 }
 
-function incrementarIdCount() {
+function incrementarIdCountUsuarios() {
     id_usuarios_count +=1;
+}
+
+function incrementarIdCountTransferencias() {
+    id_transferencias_count +=1;
 }
 
 function vaciarElemento(element) {
@@ -525,6 +530,11 @@ function validarMonto(monto) {
 }
 
 function guardarUsuariosALocalStorage() {
+    usuariosJSON = JSON.stringify(usuarios);
+    localStorage.setItem('usuarios', usuariosJSON);
+}
+
+function guardarUsuariosALocalStorage2() {
     usuariosJSON = JSON.stringify(usuarios);
     localStorage.setItem('usuarios', usuariosJSON);
 }

@@ -254,8 +254,8 @@ main {
 }
 
 .tarjeta-transferencia {
-    background: rgb(97,90,218);
-    background: linear-gradient(90deg, rgba(97,90,218,1) 0%, rgba(78,163,180,1) 85%);
+    background: rgb(34,193,195);
+    background: linear-gradient(90deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
     display: grid;
     grid-template-columns: 33% 33% 33%;
     grid-template-rows: 20% 50% 30%;
@@ -266,14 +266,10 @@ main {
     "tarjeta-transferencia-origen tarjeta-transferencia-monto tarjeta-transferencia-destino"
     "tarjeta-transferencia-extra-info tarjeta-transferencia-extra-info tarjeta-transferencia-extra-info";
     margin: 15px;
-    padding: 2%;
+    padding: 4%;
     border-radius: 25px;
-
-}
-
-.area-roja {
-    background-color: red;
-    grid-area: area-roja;
+    width: 320px;
+    height: 220px;
 }
 
 .tarjeta-transferencia-id {
@@ -281,6 +277,7 @@ main {
     display: flex;
     flex-flow: row;
     justify-content: flex-end;
+    padding: 1% 5%;
 }
 
 .tarjeta-transferencia-destino {

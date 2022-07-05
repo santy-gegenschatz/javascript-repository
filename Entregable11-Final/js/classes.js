@@ -7,7 +7,7 @@ class Usuario {
         this.apellido = apellido;
         this.dni = dni;
         this.saldo = saldo;
-        incrementarIdCount();
+        incrementarIdCountUsuarios();
     }
 
     transferir(usuario, monto) {
@@ -47,6 +47,7 @@ class Transferencia {
         this.monto = monto;
         this.usuario_destino = usuario_destino;
         this.fecha_hora = fecha_hora;
+        incrementarIdCountTransferencias();
     }
 }
 
