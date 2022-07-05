@@ -29,12 +29,16 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('transferencias'):
-            transferencias = JSON.parse(localStorage.getItem(elemento));
+            transferenciasFormatoTexto = JSON.parse(localStorage.getItem(elemento));
+            transferenciasFormatoTexto.forEach((transferenciaTexto) => {
+                let nuevaFechaHora = new Date(transferenciaTexto.fechaHora);
+                let transferencia = new Transferencia(transferenciaTexto.id, transferenciaTexto.usuario_origen, transferenciaTexto.monto, transferenciaTexto.usuario_destino, nuevaFechaHora);
+                transferencias.push(transferencia);
+            });
             break;
             
         }
     } catch (error) {
-        console.log(error);
         switch(elemento) {
             case('usuarios'):
                 // Agregar dos usuarios para poder hacer testings
@@ -60,13 +64,13 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('transferencias'):
-            const transferencia1 = new Transferencia(id_transferencias_count, usuarios[0], 100, usuarios[1], "01/07/2022 - 10:12");
-            const transferencia2 = new Transferencia(id_transferencias_count, usuarios[1], 100, usuarios[0], "01/07/2022 - 11:03");
+            const transferencia1 = new Transferencia(id_transferencias_count, usuarios[0], 100, usuarios[1], new Date(2022, 6, 2, 13, 34));
+            const transferencia2 = new Transferencia(id_transferencias_count, usuarios[1], 100, usuarios[0], new Date(2022, 6, 3, 10, 17));
+            console.log(typeof transferencia1.fechaHora);
             transferencias.push(transferencia1);
             transferencias.push(transferencia2);
             transferenciasJSON = JSON.stringify(transferencias);
             localStorage.setItem(elemento, transferenciasJSON);
-            console.log(transferenciasJSON);
             break;
         }
     }

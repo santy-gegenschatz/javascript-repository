@@ -5,7 +5,7 @@ function altaUsuario() {
     vaciarBloque();
     // Hacer que aparezcan tres campos de texto
     let bloque = document.getElementById('bloque');
-    let campos = ['Nombre', 'Apellido', 'Dni'];
+    let campos = ['Nombre', 'Apellido', 'DNI'];
     campos.forEach((campo) => {
         let campoDeTexto = document.createElement('input');
         campoDeTexto.setAttribute('id', campo);
@@ -118,7 +118,7 @@ function usuarioExiste(dni) {
 
 // Hacer un pago
 function transferencia() {
-    let pantalla = cargarEntradaDeDatos("Ingrese el dni de quien transfiere","Continuar");
+    let pantalla = cargarEntradaDeDatos("Ingrese el DNI de quien transfiere","Continuar");
     pantalla.boton.addEventListener("click", () => {
         let dniEmisor = pantalla.input.value;
         if (usuarioExiste(dniEmisor)) {
@@ -133,8 +133,7 @@ function transferencia() {
                             if (validarMonto(monto)) {
                                 let usuarioEmisor = encontrarUsuario(dniEmisor);
                                 let usuarioReceptor = encontrarUsuario(dniReceptor);
-                                usuarioEmisor.transferir(usuarioReceptor, monto);
-                                guardarUsuariosALocalStorage();
+                                transferir(usuarioEmisor, monto, usuarioReceptor);
                             } else {
                                 alertar("El monto tiene que ser mayor que 0", transferencia);
                             }
@@ -150,6 +149,11 @@ function transferencia() {
             alertar("El dni ingresado no concuerda con un usuario existente", transferencia);
         }
     });
+}
+
+function transferir(emisor, monto, destinatario) {
+    emisor.transferir(destinatario, monto);
+    guardarUsuariosALocalStorage();
 }
 
 // Ver histoórico de transferencias 
@@ -191,11 +195,6 @@ function mostrarTransferencia(transferencia, bloque) {
 
     // Area Extra-info
     cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia);
-
-    // let div = document.createElement(div);
-    // div.classList.add('area-roja');
-    // tarjetaTransferencia.appendChild(div);
-
 
 }
 
@@ -296,7 +295,8 @@ function cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia) {
 
     // Crear un elemento p o h4 ? y mostrar el contendio de la palabra transferencia.
     let fechaHora = document.createElement('p');
-    fechaHora.innerText = "Fecha de Transacción" + "\n" + transferencia.fecha_hora;
+    console.log(typeof transferencia.fechaHora);
+    fechaHora.innerText = "Fecha de Transacción" + "\n" + devolverFecha(transferencia.fechaHora);
     fechaHora.setAttribute("align", "center");
     fechaHora.setAttribute("background-color", "red");
 
@@ -570,27 +570,6 @@ function pagoConTarjeta(usuario) {
     // Vaciar el body
     vaciarBloque();
     pagoConTarjetaCampoUno(usuario);
-    // let pantalla = pagoConTarjetaCampoUno(usuario);
-    // pantalla.boton.addEventListener("click", function() {
-    //     let nroTarjeta = pantalla.input.value;
-    //     let pantalla2 = pagoConTarjetaCampoDos(usuario, nroTarjeta);
-    //     pantalla2.boton.addEventListener("click", function() {
-    //         let vencimientoMes = pantalla2.input.mesDeVencimiento.value;
-    //         let vencimientoAño = pantalla2.input.anoDeVencimiento.value;
-    //         console.log(vencimientoMes);
-    //         console.log(vencimientoAño);
-    //         let bancoEmisor = pantalla2.element1;
-    //         let pantalla3 = pagoConTarjetaCampoTres();
-    //         pantalla3.boton.addEventListener("click", function() {
-    //             let codigoDeSeguridad = pantalla3.input.value;
-    //             // Crear una nueva Tarjeta de Crédito y guardarla en el array correspondiente.
-    //             let nuevaTarjeta = new TarjetaDeCredito(nroTarjeta, vencimientoMes, vencimientoAño, codigoDeSeguridad, usuario, bancoEmisor);
-    //             tarjetasDeCredito.push(nuevaTarjeta);
-    //             // Iniciamos el pago con la tarjeta
-    //             iniciarPagoConTarjeta(tarjetaDeCredito);
-    //         });
-    //     });
-    // });
 }
 
 function saldoMayor(saldo) {
@@ -628,9 +607,7 @@ function obtenerFuente(nroTarjeta) {
         default:
             returnArray.bancoEmisor = "Mastercard";
             returnArray.imgPath = "../files/images/mastercard.png";
-
     }
-
     return returnArray
 }
 
@@ -825,7 +802,6 @@ function crearTarjeta(tarjetaDeCredito, clickeable) {
             iniciarPagoConTarjeta(tarjetaDeCredito);
         });
     }
-
     return simuladorTarjeta;
 }
 
@@ -982,7 +958,6 @@ function confirmarPagoConTarjeta(tarjetaDeCredito, monto) {
     bloque.appendChild(tarjeta);
     bloque.appendChild(labelIndicacionTres);
     bloque.appendChild(divBotones.elem1);
-
 }
 
 function pagoConTarjetaCampoUno(usuario) {     
@@ -1029,7 +1004,6 @@ function pagoConTarjetaCampoUno(usuario) {
     let bloque = document.getElementById('bloque');
     bloque.appendChild(simuladorTarjeta);
     bloque.appendChild(divBotones.elem1);
-
 }
 
 function pagoConTarjetaCampoDos(usuario, nroTarjeta) {     
@@ -1073,7 +1047,6 @@ function pagoConTarjetaCampoDos(usuario, nroTarjeta) {
     divCreditCardData.classList.add('credit-card-data');
     divCreditCardData.appendChild(datosDuenoTarjeta);
     divCreditCardData.appendChild(divInputs);
-
 
     // Deberíamos tener una función justamente, que lea el input de la tarjeta y retorne que archivo de texto buscar
     let divImagenProcesador = document.createElement('div');
@@ -1191,4 +1164,12 @@ function crearImagenConUrl(url) {
     img.classList.add('user-image');
     
     return img;
+}
+
+function devolverFecha(fecha) {
+    console.log(fecha);
+    console.log(typeof fecha);
+    return fecha.toLocaleDateString([], {hour : '2-digit', minute : '2-digit'});
+    // Cómo formatear una fecha
+    // console.log(objeto.fecha.toLocaleDateString([], {hour : "numeric", minute : "numeric"}));
 }

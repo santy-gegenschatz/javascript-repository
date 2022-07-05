@@ -14,22 +14,15 @@ class Usuario {
         if (this.saldo >= monto) { // Cuando pongo validar saldo por acá me dice que no lo puede encontrar
             this.saldo -= monto;
             usuario.saldo += monto;
-            const pago = new Pago(id_pagos_count + 1, monto);
-            pagos.push(pago);
+            // const transferencia = new Transferencia(id_transferencias_count, this, monto, usuario, );
         } else {
             throw "No hay suficiente saldo para realizar la acción"
         }
     }
-    
 
     validarSaldo(monto) {
         return this.saldo >= monto;
     }
-
-    imprimir(algo) {
-        console.log(algo);
-    }
-
 
 }
 
@@ -41,12 +34,12 @@ class Pago {
 }
 
 class Transferencia {
-    constructor(id, usuario_origen, monto, usuario_destino, fecha_hora) {
+    constructor(id, usuario_origen, monto, usuario_destino, fechaHora) {
         this.id = id;
         this.usuario_origen = usuario_origen;
         this.monto = monto;
         this.usuario_destino = usuario_destino;
-        this.fecha_hora = fecha_hora;
+        this.fechaHora = fechaHora;
         incrementarIdCountTransferencias();
     }
 }
