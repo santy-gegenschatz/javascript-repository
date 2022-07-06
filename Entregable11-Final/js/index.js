@@ -45,10 +45,12 @@ arrayCheckeos.forEach ((elemento) => {
         switch(elemento) {
             case('usuarios'):
                 // Agregar dos usuarios para poder hacer testings
-                const usuario1 = new Usuario (idUsuariosCount, "Santy", "Gegenschatz", "1", 100);
-                const usuario2 = new Usuario (idUsuariosCount, "John", "Doe", "2", 100);
+                const usuario1 = new Usuario (idUsuariosCount, "John", "Doe", "32000010", 100);
+                const usuario2 = new Usuario (idUsuariosCount, "Jane", "Smith", "30000000", 100);
+                const usuario3 = new Usuario (idUsuariosCount, "Juan", "Perez", "22000000", 100);
                 usuarios.push(usuario1);
                 usuarios.push(usuario2);
+                usuarios.push(usuario3);
 
                 // Agregar el array de usuarios al localStorage
                 usuariosJSON = JSON.stringify(usuarios);

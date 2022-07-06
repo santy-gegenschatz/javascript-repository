@@ -49,6 +49,9 @@ function eliminarUsuario() {
                 });
                 imprimirUsuarios();
             });
+        } else {
+            alert("El dni ingresado no correspònde con un usuario. Intente de nuevo");
+            eliminarUsuario();
         }
     });
 }
@@ -106,13 +109,12 @@ function cargarSaldo() {
 }
 
 // Buscar un usuario
-function usuarioExiste(dni) {
-    let potencialUsuario = usuarios.find((user) => user.dni === dni);
+function usuarioExiste(dniString) {
+    let potencialUsuario = usuarios.find((user) => user.dni === dniString);
     if (typeof(potencialUsuario) === 'undefined') {
         return false
     } else {
         return potencialUsuario
-        
     }
 }
 
@@ -133,7 +135,10 @@ function transferencia() {
                             if (validarMonto(monto)) {
                                 let usuarioEmisor = encontrarUsuario(dniEmisor);
                                 let usuarioReceptor = encontrarUsuario(dniReceptor);
+                                console.log(usuarioEmisor);
+                                console.log(usuarioReceptor);
                                 transferir(usuarioEmisor, monto, usuarioReceptor);
+                                alertarTransferenciaExitosa();
                             } else {
                                 alertar("El monto tiene que ser mayor que 0", transferencia);
                             }
@@ -435,7 +440,7 @@ function cargarDatosTarjeta(pago, contenedor) {
 function enviarFormulario() {
     let nombre = document.getElementById('Nombre').value;
     let apellido = document.getElementById('Apellido').value;
-    let dni = document.getElementById('Dni').value;
+    let dni = document.getElementById('DNI').value;
     let nuevoUsuario = new Usuario(idUsuariosCount,nombre, apellido, dni, 100);
     usuarios.push(nuevoUsuario);
     usuariosJSON = JSON.stringify(usuarios);
@@ -623,8 +628,8 @@ function cargarEntradaDeDatos(labelText,buttonText) {
     return new Pantalla(label, input, boton);
 }
 
-function encontrarUsuario(dni) {
-    return usuarios.find((user) => user.dni === dni);
+function encontrarUsuario(dniString) {
+    return usuarios.find((user) => user.dni === dniString);
 }
 
 function alertar(error, callback) {
@@ -658,11 +663,6 @@ function validarMonto(monto) {
 }
 
 function guardarUsuariosALocalStorage() {
-    usuariosJSON = JSON.stringify(usuarios);
-    localStorage.setItem('usuarios', usuariosJSON);
-}
-
-function guardarUsuariosALocalStorage2() {
     usuariosJSON = JSON.stringify(usuarios);
     localStorage.setItem('usuarios', usuariosJSON);
 }
@@ -1068,6 +1068,10 @@ function confirmarPagoConTarjeta(tarjetaDeCredito, monto) {
     //Añadimos un Eventlistener que confirme la operación
     divBotones.elem2.addEventListener("click", function() {
         if (validarMonto(monto)) {
+            let pago = new PagoConTarjeta(idPagosConTarjetaCount, tarjetaDeCredito, monto, new Date());
+            pagosConTarjeta.push(pago);
+            pagosConTarjetaJSON = JSON.stringify(pagosConTarjeta);
+            localStorage.setItem("pagosConTarjeta", pagosConTarjeta);
             swal({
                 title : "Éxito en la transacción!",
                 text : "El pago se ingreso con éxito :)",
@@ -1255,6 +1259,8 @@ function pagoConTarjetaCampoTres(tarjetaProvisoria) {
                            tarjetaProvisoria.mesVencimiento, tarjetaProvisoria.anoVencimiento,
                            codigoDeSeguridad, tarjetaProvisoria.usuario, obtenerFuente(tarjetaProvisoria.nroTarjeta).bancoEmisor);
         tarjetasDeCredito.push(nuevaTarjeta);
+        tarjetasJSON = JSON.stringify(tarjetasDeCredito);
+        localStorage.setItem("tarjetasDeCredito", tarjetasJSON);
         iniciarPagoConTarjeta(nuevaTarjeta);
     });
     // Añadimos los dos divs al div de pagos con tarjeta
@@ -1264,7 +1270,7 @@ function pagoConTarjetaCampoTres(tarjetaProvisoria) {
 }
 
 async function crearImagenDePerfil(usuario, tarjeta) {
-    let seed = 932 - usuario.dni;
+    let seed = usuario.dni;
     let img;
     await fetch('https://avatars.dicebear.com/api/human/' + seed + '.svg')
     .then((response) => {
@@ -1300,4 +1306,14 @@ function devolverFecha(fecha) {
     return fecha.toLocaleDateString([], {hour : '2-digit', minute : '2-digit'});
     // Cómo formatear una fecha
     // console.log(objeto.fecha.toLocaleDateString([], {hour : "numeric", minute : "numeric"}));
+}
+
+function alertarTransferenciaExitosa() {
+    swal({
+        title : "¡La Transferencia fue exitosa!",
+        text : "Éxito",
+        button : 'Entendido',
+        icon : 'success'
+    });
+    vaciarBloque();
 }

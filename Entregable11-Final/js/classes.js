@@ -14,7 +14,10 @@ class Usuario {
         if (this.saldo >= monto) { // Cuando pongo validar saldo por acá me dice que no lo puede encontrar
             this.saldo -= monto;
             usuario.saldo += monto;
-            const transferencia = new Transferencia(id_transferencias_count, this, monto, usuario, );
+            const transferencia = new Transferencia(idTransferenciasCount, this, monto, usuario, new Date());
+            transferencias.push(transferencia);
+            let transferenciasJSON = JSON.stringify(transferencias);
+            localStorage.setItem("transferencias", transferenciasJSON);      
         } else {
             throw "No hay suficiente saldo para realizar la acción"
         }
