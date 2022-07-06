@@ -5,10 +5,10 @@ let transferencias = [];
 let pagosConTarjeta = [];
 let idUsuariosCount = 0;
 let idTransferenciasCount = 0;
-let idPagosCount = 0;
+let idPagosConTarjetaCount = 0;
 
 //Verificar si ya hay información en el localStorage para decidir que crear
-let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
+let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'pagosConTarjeta', 'transferencias'];
 arrayCheckeos.forEach ((elemento) => {
     try {
         // Con esta linea se desncadena el catch si no está creada la info en el LocalStorage
@@ -25,18 +25,21 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('tarjetasDeCredito'):
-            tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
+                tarjetasDeCredito = JSON.parse(localStorage.getItem(elemento));
+            break;
+
+            case('pagosConTarjeta'):
+                pagosConTarjeta = JSON.parse(localStorage.getItem(elemento));
             break;
 
             case('transferencias'):
-            transferenciasFormatoTexto = JSON.parse(localStorage.getItem(elemento));
-            transferenciasFormatoTexto.forEach((transferenciaTexto) => {
+                transferenciasFormatoTexto = JSON.parse(localStorage.getItem(elemento));
+                transferenciasFormatoTexto.forEach((transferenciaTexto) => {
                 let nuevaFechaHora = new Date(transferenciaTexto.fechaHora);
                 let transferencia = new Transferencia(transferenciaTexto.id, transferenciaTexto.usuario_origen, transferenciaTexto.monto, transferenciaTexto.usuario_destino, nuevaFechaHora);
                 transferencias.push(transferencia);
             });
-            break;
-            
+            break; 
         }
     } catch (error) {
         switch(elemento) {
@@ -61,6 +64,17 @@ arrayCheckeos.forEach ((elemento) => {
                 tarjetasDeCredito.push(tarjeta3);
                 tarjetasJSON = JSON.stringify(tarjetasDeCredito);
                 localStorage.setItem(elemento, tarjetasJSON);
+            break;
+
+            case('pagosConTarjeta'):
+                const pagoConTarjeta1 = new PagoConTarjeta(idPagosConTarjetaCount, tarjetasDeCredito[0], 1999, new Date(2022, 06, 01, 09, 11));
+                const pagoConTarjeta2 = new PagoConTarjeta(idPagosConTarjetaCount, tarjetasDeCredito[1], 500, new Date(2022, 06, 01, 17, 38));
+                const pagoConTarjeta3 = new PagoConTarjeta(idPagosConTarjetaCount, tarjetasDeCredito[2], 9999, new Date(2022, 06, 02, 10, 20));
+                pagosConTarjeta.push(pagoConTarjeta1);
+                pagosConTarjeta.push(pagoConTarjeta2);
+                pagosConTarjeta.push(pagoConTarjeta3);
+                pagosConTarjetaJSON = JSON.stringify(pagosConTarjeta);
+                localStorage.setItem(elemento, pagosConTarjeta);
             break;
 
             case('transferencias'):

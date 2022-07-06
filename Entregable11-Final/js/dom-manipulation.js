@@ -42,9 +42,9 @@ for (let index = 0; index < textosBotones.length; index++) {
             });
             break;
 
-        case('Pagos Con Tarjeta'):
+        case('Pagos con Tarjeta'):
             boton.addEventListener("click", function() {
-                pagosConTarjeta();
+                mostrarPagosConTarjeta();
             });
             break;
 

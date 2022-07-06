@@ -320,13 +320,13 @@ function mostrarPagoConTarjeta(pago, bloque) {
     // Header y Id
     cargarHeaderIdTarjeta(pago, divTarjeta);
     // Datos Tarjeta
-    cargarDatosTarjeta(pago, divTarjeta);
-    // Datos Dueño
-    cargarDatosDueno(pago, divTarjeta);
-    // Monto
-    cargarMontoTransferencia(pago, divTarjeta);
-    // Botón ir a verTarjeta
-    cargarBotonVistaTarjeta(pago, divTarjeta);
+    // cargarDatosTarjeta(pago, divTarjeta);
+    // // Datos Dueño
+    // cargarDatosDueno(pago, divTarjeta);
+    // // Monto
+    // cargarMontoTransferencia(pago, divTarjeta);
+    // // Botón ir a verTarjeta
+    // cargarBotonVistaTarjeta(pago, divTarjeta);
 
 }
 
@@ -339,7 +339,21 @@ function crearDivTarjeta() {
 function cargarHeaderIdTarjeta(pago, contenedor) {
     let div = document.createElement('div');
     div.classList.add('div-pago-con-tarjeta-header-id');
-    
+    // Cargar el titulo
+    let titulo = document.createElement('h4');
+    titulo.innerText = "Pago Con Tarjeta"
+
+    // Cargar el <p> con el id
+    let id = document.createElement('p');
+    id.innerText = "Id: " + pago.id;
+
+    // Agregar el titulo y el id al header
+    div.appendChild(titulo);
+    div.appendChild(id);
+
+    // Agregar el header al contenedor padre
+    contenedor.appendChild(div);
+
 } 
 
 // Funciones secundarias

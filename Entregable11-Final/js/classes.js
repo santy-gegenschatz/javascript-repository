@@ -26,10 +26,12 @@ class Usuario {
 
 }
 
-class Pago {
-    constructor(unique_id, monto) {
-        this.unique_id = unique_id;
+class PagoConTarjeta {
+    constructor(id, tarjeta, monto, fecha) {
+        this.id = id;
+        this.tarjeta = tarjeta;
         this.monto = monto;
+        this.fecha = fecha;
     }
 }
 
