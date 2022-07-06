@@ -76,5 +76,5 @@ class PantallaDeConfirmacion {
 }
 
 function incrementarIdCount() {
-    id_usuarios_count +=1;
+    idUsuariosCount +=1;
 }

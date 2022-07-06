@@ -27,7 +27,7 @@ function altaUsuario() {
 
 // Dar de baja
 function eliminarUsuario() {
-    let pantalla = cargarEntradaDeDatos("Ingrese el dni del usuario a eliminar", "Eliminar");
+    let pantalla = cargarEntradaDeDatos("Ingrese el DNI del usuario a eliminar", "Eliminar");
     pantalla.boton.addEventListener("click", () => {
         let dni = pantalla.input.value;
         if (usuarioExiste(dni)) {
@@ -156,8 +156,7 @@ function transferir(emisor, monto, destinatario) {
     guardarUsuariosALocalStorage();
 }
 
-// Ver histoórico de transferencias 
-
+// Ver histórico de transferencias 
 function mostrarTransferencias() { 
     vaciarBloque();
     // Loopear por el array de transferencias
@@ -169,9 +168,7 @@ function mostrarTransferencias() {
 }
 
 // Mostrar transferencia
-
 function mostrarTransferencia(transferencia, bloque) {
-    
     // Crear una tarjeta alargada e insertarla en el bloque
     let tarjetaTransferencia = document.createElement('div');
     tarjetaTransferencia.classList.add('tarjeta-transferencia');
@@ -195,7 +192,6 @@ function mostrarTransferencia(transferencia, bloque) {
 
     // Area Extra-info
     cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia);
-
 }
 
 function cargarTituloTransferencia(transferencia, tarjetaTransferencia) {
@@ -307,12 +303,51 @@ function cargarExtraInfoTransferencia(transferencia, tarjetaTransferencia) {
     tarjetaTransferencia.appendChild(div);
 }
 
+function mostrarPagosConTarjeta() {
+    vaciarBloque();
+    let bloque = document.getElementById('bloque');
+    // Loopear a través de los pagos con tarjeta y cargar cada una
+    pagosConTarjeta.forEach((pago) => {
+        mostrarPagoConTarjeta(pago, bloque);
+    });
+}
+
+function mostrarPagoConTarjeta(pago, bloque) {
+    // Cargar un div general que sirva para todo
+    let divTarjeta = crearDivTarjeta();
+    bloque.appendChild(divTarjeta);
+    // Carg un sub div con cada pieza de información
+    // Header y Id
+    cargarHeaderIdTarjeta(pago, divTarjeta);
+    // Datos Tarjeta
+    cargarDatosTarjeta(pago, divTarjeta);
+    // Datos Dueño
+    cargarDatosDueno(pago, divTarjeta);
+    // Monto
+    cargarMontoTransferencia(pago, divTarjeta);
+    // Botón ir a verTarjeta
+    cargarBotonVistaTarjeta(pago, divTarjeta);
+
+}
+
+function crearDivTarjeta() {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta');
+    return div
+}
+
+function cargarHeaderIdTarjeta(pago, contenedor) {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-header-id');
+    
+} 
+
 // Funciones secundarias
 function enviarFormulario() {
     let nombre = document.getElementById('Nombre').value;
     let apellido = document.getElementById('Apellido').value;
     let dni = document.getElementById('Dni').value;
-    let nuevoUsuario = new Usuario(id_usuarios_count,nombre, apellido, dni, 100);
+    let nuevoUsuario = new Usuario(idUsuariosCount,nombre, apellido, dni, 100);
     usuarios.push(nuevoUsuario);
     usuariosJSON = JSON.stringify(usuarios);
     localStorage.setItem('usuarios', usuariosJSON);
@@ -331,11 +366,11 @@ function vaciarBloque() {
 }
 
 function incrementarIdCountUsuarios() {
-    id_usuarios_count +=1;
+    idUsuariosCount +=1;
 }
 
 function incrementarIdCountTransferencias() {
-    id_transferencias_count +=1;
+    idTransferenciasCount +=1;
 }
 
 function vaciarElemento(element) {

@@ -1,11 +1,11 @@
 // Constantes globales
-let usuarios = []
-let transferencias = []
-let pagos = []
+let usuarios = [];
 let tarjetasDeCredito = [];
-let id_usuarios_count = 0;
-let id_transferencias_count = 0;
-let id_pagos_count = 0;
+let transferencias = [];
+let pagosConTarjeta = [];
+let idUsuariosCount = 0;
+let idTransferenciasCount = 0;
+let idPagosCount = 0;
 
 //Verificar si ya hay información en el localStorage para decidir que crear
 let arrayCheckeos = ['usuarios', 'tarjetasDeCredito', 'transferencias'];
@@ -42,8 +42,8 @@ arrayCheckeos.forEach ((elemento) => {
         switch(elemento) {
             case('usuarios'):
                 // Agregar dos usuarios para poder hacer testings
-                const usuario1 = new Usuario (id_usuarios_count, "Santy", "Gegenschatz", "1", 100);
-                const usuario2 = new Usuario (id_usuarios_count, "John", "Doe", "2", 100);
+                const usuario1 = new Usuario (idUsuariosCount, "Santy", "Gegenschatz", "1", 100);
+                const usuario2 = new Usuario (idUsuariosCount, "John", "Doe", "2", 100);
                 usuarios.push(usuario1);
                 usuarios.push(usuario2);
 
@@ -64,8 +64,8 @@ arrayCheckeos.forEach ((elemento) => {
             break;
 
             case('transferencias'):
-            const transferencia1 = new Transferencia(id_transferencias_count, usuarios[0], 100, usuarios[1], new Date(2022, 6, 2, 13, 34));
-            const transferencia2 = new Transferencia(id_transferencias_count, usuarios[1], 100, usuarios[0], new Date(2022, 6, 3, 10, 17));
+            const transferencia1 = new Transferencia(idTransferenciasCount, usuarios[0], 100, usuarios[1], new Date(2022, 6, 2, 13, 34));
+            const transferencia2 = new Transferencia(idTransferenciasCount, usuarios[1], 100, usuarios[0], new Date(2022, 6, 3, 10, 17));
             console.log(typeof transferencia1.fechaHora);
             transferencias.push(transferencia1);
             transferencias.push(transferencia2);
