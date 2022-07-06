@@ -714,27 +714,27 @@ function obtenerFuente(nroTarjeta) {
     switch (primerosDosDigitos) {
         case('3'):
             returnArray.bancoEmisor = "Visa";
-            returnArray.imgPath = "../files/images/visa.png";
+            returnArray.imgPath = "./files/images/visa.png";
 
         case('4'):
             returnArray.bancoEmisor = "Mastercard";
-            returnArray.imgPath = "../files/images/mastercard.png";
+            returnArray.imgPath = "./files/images/mastercard.png";
 
         case('5'):
             returnArray.bancoEmisor = "Mastercard";
-            returnArray.imgPath = "../files/images/mastercard.png";
+            returnArray.imgPath = "./files/images/mastercard.png";
         
         case('6'):
             returnArray.bancoEmisor = "American Express";
-            returnArray.imgPath = "../files/images/american-express.png";
+            returnArray.imgPath = "./files/images/american-express.png";
             
         case('7'):
             returnArray.bancoEmisor = "American Express";
-            returnArray.imgPath = "../files/images/american-express.png";
+            returnArray.imgPath = "./files/images/american-express.png";
         
         default:
             returnArray.bancoEmisor = "Mastercard";
-            returnArray.imgPath = "../files/images/mastercard.png";
+            returnArray.imgPath = "./files/images/mastercard.png";
     }
     return returnArray
 }
