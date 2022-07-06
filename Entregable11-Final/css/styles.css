@@ -22,7 +22,7 @@ footer {
 
 footer p {
     color: white;
-    margin: 20px;
+    margin: 15px 0px 10px 0px;
 }
 
 header {
@@ -117,22 +117,81 @@ main {
 }
 
 .div-pago-con-tarjeta {
-    background: rgb(120,234,236);
-    background: linear-gradient(90deg, rgba(120,234,236,1) 0%, rgba(255,208,34,1) 100%);
+    background: rgb(120,132,236);
+    background: linear-gradient(90deg, rgba(120,132,236,1) 0%, rgba(34,255,171,1) 100%);
     margin: 10px;
     padding: 4%;
     border-radius: 25px;
-    width: 320px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+    width: 340px;
+    height: 240px;
+    display: grid;
+    grid-template-rows: 15% 30% 15% 20% 20% ;
+    grid-template-columns: 25% 50% 25%;
+    grid-template-areas: 
+    "titulo titulo id"
+    "datos datos vencimiento"
+    "datos-dueno datos-dueno datos-dueno"
+    "monto monto monto"
+    "boton boton boton";
 }
 
-.div-pago-con-tarjeta-header-id {
+.div-pago-con-tarjeta-boton {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    grid-area: boton;
+    margin: 10px
+}
+
+.div-pago-con-tarjeta-datos {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    grid-area: datos;
+    margin: 10px 0px;
+}
+
+.div-pago-con-tarjeta-datos-dueno {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    grid-area: datos-dueno;
+}
+
+.div-pago-con-tarjeta-id {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+    grid-area: id;
+}
+
+.div-pago-con-tarjeta-monto {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    grid-area: monto;
+}
+
+.div-pago-con-tarjeta-titulo {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: top;
+    grid-area: titulo;
+}
+
+.div-pago-con-tarjeta-vencimiento {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    grid-area: vencimiento;
+    margin: 17px 0px 0px 0px;
 }
 
 .flex-row {
@@ -361,6 +420,10 @@ main {
 }
 
 /* ID mods */
+#author-id {
+    margin: 5px; 
+}
+
 #bloque {
     background-color: #000000;
     border-color: black;

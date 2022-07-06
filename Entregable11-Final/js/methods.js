@@ -318,9 +318,13 @@ function mostrarPagoConTarjeta(pago, bloque) {
     bloque.appendChild(divTarjeta);
     // Carg un sub div con cada pieza de información
     // Header y Id
-    cargarHeaderIdTarjeta(pago, divTarjeta);
-    // Datos Tarjeta
-    // cargarDatosTarjeta(pago, divTarjeta);
+    cargarTitulo(pago, divTarjeta);
+    cargarId(pago, divTarjeta);
+    cargarDatosTarjeta(pago, divTarjeta);
+    cargarDatosTarjetaVencimiento(pago, divTarjeta);
+    cargarDatosDuenoTarjeta(pago, divTarjeta);
+    cargarDatosMonto(pago, divTarjeta);
+    cargarBotonVerTarjeta(pago, divTarjeta);
     // // Datos Dueño
     // cargarDatosDueno(pago, divTarjeta);
     // // Monto
@@ -336,25 +340,96 @@ function crearDivTarjeta() {
     return div
 }
 
-function cargarHeaderIdTarjeta(pago, contenedor) {
+function cargarTitulo(pago, contenedor) {
     let div = document.createElement('div');
-    div.classList.add('div-pago-con-tarjeta-header-id');
+    div.classList.add('div-pago-con-tarjeta-titulo');
     // Cargar el titulo
-    let titulo = document.createElement('h4');
+    let titulo = document.createElement('h5');
     titulo.innerText = "Pago Con Tarjeta"
+    // Agregar el titulo y el id al header
+    div.appendChild(titulo);
+    // Agregar el header al contenedor padre
+    contenedor.appendChild(div);
+} 
 
+function cargarId(pago, contenedor) {
+    //Hacer un div
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-id');
     // Cargar el <p> con el id
     let id = document.createElement('p');
     id.innerText = "Id: " + pago.id;
-
-    // Agregar el titulo y el id al header
-    div.appendChild(titulo);
+    // Appendear al div y al contenedor
     div.appendChild(id);
-
-    // Agregar el header al contenedor padre
     contenedor.appendChild(div);
+}
 
-} 
+function cargarDatosTarjeta(pago, contenedor) {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-datos');
+    // Cargar el <p> con el nro de tarjeta
+    let labelNroTarjeta = document.createElement('p');
+    let nroTarjeta = pago.tarjeta.nroTarjeta.slice(-4);
+    let nroTarjetaEscondido = "*******" + nroTarjeta;
+    labelNroTarjeta.innerText = "Nro de Tarjeta: " + nroTarjetaEscondido;
+    // Appendear al div y al contenedor
+    div.appendChild(labelNroTarjeta);
+    contenedor.appendChild(div);
+ }
+
+ function cargarDatosTarjetaVencimiento(pago, contenedor) {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-vencimiento');
+    // Cargar el <p> con el nro de tarjeta
+    let labelVencimiento = document.createElement('p');
+    let vencimiento = pago.tarjeta.mesVencimiento + "/" + pago.tarjeta.anoVencimiento;
+    labelVencimiento.innerText = " Vencimiento" + "\n" + vencimiento;
+    labelVencimiento.setAttribute("style", "text-align: center;");
+    // Appendear al div y al contenedor
+    div.appendChild(labelVencimiento);
+    contenedor.appendChild(div);
+ }
+
+ function cargarDatosDuenoTarjeta(pago, contenedor) {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-datos-dueno');
+    // Cargar el <p> con el nro de tarjeta
+    let labelDatosDueno = document.createElement('p');
+    let datosDueno = pago.tarjeta.usuarioDueno.nombre + " " + pago.tarjeta.usuarioDueno.apellido;
+    labelDatosDueno.innerText = "Titular: " + datosDueno;
+    // Appendear al div y al contenedor
+    div.appendChild(labelDatosDueno);
+    contenedor.appendChild(div);
+ }
+
+ function cargarDatosMonto(pago, contenedor) {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-monto');
+    // Cargar el <p> con el nro de tarjeta
+    let labelMonto = document.createElement('p');
+    labelMonto.innerText = "Monto de la transacción: " + pago.monto;
+    // Appendear al div y al contenedor
+    div.appendChild(labelMonto);
+    contenedor.appendChild(div);
+ }
+
+ function cargarBotonVerTarjeta(pago, contenedor) {
+    let div = document.createElement('div');
+    div.classList.add('div-pago-con-tarjeta-boton');
+    // Cargar el <p> con el nro de tarjeta
+    let boton = document.createElement('button');
+    boton.innerText = "Hacer otro pago con esta tarjeta";
+    // Darle estilos al boton
+    boton.classList.add('btn');
+    boton.classList.add('btn-success');
+    boton.addEventListener("click", () => {
+        iniciarPagoConTarjeta(pago.tarjeta);
+    });
+    // Appendear al div y al contenedor
+    div.appendChild(boton);
+    contenedor.appendChild(div);
+ }
+
 
 // Funciones secundarias
 function enviarFormulario() {
@@ -385,6 +460,10 @@ function incrementarIdCountUsuarios() {
 
 function incrementarIdCountTransferencias() {
     idTransferenciasCount +=1;
+}
+
+function incrementarIdCountPagosConTarjeta() {
+    idPagosConTarjetaCount +=1;
 }
 
 function vaciarElemento(element) {

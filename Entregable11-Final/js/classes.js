@@ -14,7 +14,7 @@ class Usuario {
         if (this.saldo >= monto) { // Cuando pongo validar saldo por acá me dice que no lo puede encontrar
             this.saldo -= monto;
             usuario.saldo += monto;
-            // const transferencia = new Transferencia(id_transferencias_count, this, monto, usuario, );
+            const transferencia = new Transferencia(id_transferencias_count, this, monto, usuario, );
         } else {
             throw "No hay suficiente saldo para realizar la acción"
         }
@@ -32,6 +32,7 @@ class PagoConTarjeta {
         this.tarjeta = tarjeta;
         this.monto = monto;
         this.fecha = fecha;
+        incrementarIdCountPagosConTarjeta();
     }
 }
 
@@ -58,7 +59,6 @@ class TarjetaDeCredito {
 }
 
 // Clases Visuales Auxiliares
-
 class Pantalla {
     // ¿ Cómo construyo algo distinto? Un constructor con otras 4 variables por ejemplo
     constructor(element1, input, boton) {
@@ -75,8 +75,4 @@ class PantallaDeConfirmacion {
         this.botonCancelar = botonCancelar;
         this.botonAceptar = botonAceptar;
     }
-}
-
-function incrementarIdCount() {
-    idUsuariosCount +=1;
 }
