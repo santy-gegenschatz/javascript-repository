@@ -91,3 +91,6 @@ arrayCheckeos.forEach ((elemento) => {
         }
     }
 });
+
+// Inicializar el programa visualizando los usuarios
+imprimirUsuarios();
