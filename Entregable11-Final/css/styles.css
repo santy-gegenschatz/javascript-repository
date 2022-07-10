@@ -209,7 +209,7 @@ main {
 }
 
 .imagen-procesador {
-    width: 100%;
+    width: 85%;
     height: 65%;
 }
 
@@ -282,8 +282,6 @@ main {
     padding: 20px 10px 10px 20px;
     margin: 5px;
 }
-
-
 
 .simulador-reverso-tarjeta {
     border-radius: 20px;
